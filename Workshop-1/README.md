@@ -6,12 +6,12 @@ Este repositorio contiene la entrega del primer taller de la asignatura **Ingeni
 
 De acuerdo con los lineamientos del entregable, la documentación se organiza de la siguiente manera:
 
-### 1. [Documentación de Requerimientos](./analisis_requerimientos.md)
+### 1. Documentación de Requerimientos
 Detalla las necesidades funcionales y los atributos de calidad del sistema.
 *   **Requerimientos Funcionales:** 33 requerimientos que cubren desde la autenticación institucional (@unal.edu.co) hasta la gestión de inventarios y reservas.
 *   **Requerimientos No Funcionales:** 17 atributos que incluyen el uso de Firebase, Google Maps, Dockerización y estándares PEP8.
 
-### 2. [Historias de Usuario](./historias_usuario.md)
+### 2. Historias de Usuario
 Se presentan 17 historias de usuario (HU-01 a HU-17) que siguen el formato *Como [rol], quiero [acción], para [beneficio]* e incluyen sus respectivos criterios de aceptación bajo el esquema *Dado, Cuando, Entonces*. Los roles definidos son:
 *   Usuarios (Registrados y No Registrados).
 *   Miembros de la Comunidad UNAL.
@@ -19,7 +19,7 @@ Se presentan 17 historias de usuario (HU-01 a HU-17) que siguen el formato *Como
 *   Administradores de Implementos.
 *   Administrador del Sistema.
 
-### 3. [Mapa de Historias de Usuario (User Story Map)](./story_mapping.md)
+### 3. Mapa de Historias de Usuario (User Story Map)
 Organización visual y priorización de las historias de usuario utilizando el método **MoSCoW**:
 *   **Must Have:** Funcionalidades críticas como autenticación, consulta de eventos y gestión de inventario básico.
 *   **Should Have:** Importantes como la interfaz responsive y la arquitectura dockerizada.
