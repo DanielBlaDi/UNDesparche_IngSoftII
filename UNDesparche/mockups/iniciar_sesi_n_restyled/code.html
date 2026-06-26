@@ -1,0 +1,232 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNDesparche - Iniciar Sesión</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:wght@400;600;700&amp;family=Newsreader:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#e2beba",
+                "secondary-fixed-dim": "#c8c6c6",
+                "secondary-fixed": "#e4e2e1",
+                "on-tertiary-fixed": "#001356",
+                "institutional-red": "#941113",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-error": "#ffffff",
+                "inverse-primary": "#ffb4ab",
+                "tertiary-container": "#0037c5",
+                "surface-container-high": "#e7e8e9",
+                "surface-container": "#edeeef",
+                "success-green": "#28A745",
+                "secondary-container": "#e4e2e1",
+                "on-surface-variant": "#5a413e",
+                "inverse-surface": "#2e3132",
+                "surface-container-highest": "#e1e3e4",
+                "white": "#FFFFFF",
+                "primary-fixed": "#ffdad6",
+                "tertiary": "#00258f",
+                "on-background": "#191c1d",
+                "on-primary-container": "#ffa095",
+                "electric-blue": "#2E5BFF",
+                "surface-container-low": "#f3f4f5",
+                "surface": "#f8f9fa",
+                "primary-fixed-dim": "#ffb4ab",
+                "surface-variant": "#e1e3e4",
+                "on-tertiary-fixed-variant": "#0035be",
+                "on-tertiary-container": "#a7b5ff",
+                "surface-tint": "#b22a25",
+                "primary": "#6e0006",
+                "inverse-on-surface": "#f0f1f2",
+                "on-secondary-fixed-variant": "#474747",
+                "surface-bright": "#f8f9fa",
+                "warning-yellow": "#FFC107",
+                "primary-container": "#941113",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#dde1ff",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "secondary": "#5f5e5e",
+                "on-primary-fixed": "#410002",
+                "background": "#f8f9fa",
+                "deep-grey": "#333333",
+                "tertiary-fixed-dim": "#b8c3ff",
+                "surface-dim": "#d9dadb",
+                "on-primary-fixed-variant": "#900d10",
+                "error": "#ba1a1a",
+                "on-surface": "#191c1d",
+                "on-secondary-container": "#656464",
+                "on-tertiary": "#ffffff",
+                "outline": "#8e706d",
+                "caution-orange": "#FD7E14",
+                "on-error-container": "#93000a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "container-max-width": "1280px",
+                "base": "8px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Arimo", "sans-serif"
+                ],
+                "headline-lg": [
+                        "Arimo", "sans-serif"
+                ],
+                "label-sm": [
+                        "Arimo", "sans-serif"
+                ],
+                "label-md": [
+                        "Arimo", "sans-serif"
+                ],
+                "display-lg": [
+                        "Arimo", "sans-serif"
+                ],
+                "body-md": [
+                        "Arimo", "sans-serif"
+                ],
+                "headline-lg-mobile": [
+                        "Arimo", "sans-serif"
+                ],
+                "body-lg": [
+                        "Arimo", "sans-serif"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom extremely soft shadow mapping to Level 1 Elevation */
+        .elevation-1 {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+        .elevation-1:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+      </style>
+</head>
+<body class="bg-background min-h-screen font-body-md text-body-md text-on-surface antialiased overflow-hidden flex items-center justify-center relative">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0 bg-cover bg-center" data-alt="A soft, high-key architectural photograph of a modern university campus building facade bathed in gentle daylight. The image has a clean, light-mode aesthetic with bright whites and subtle cool grey tones, creating a professional and academic atmosphere. The composition is minimal, focusing on structural lines, keeping the overall mood calm, reliable, and unobtrusive to serve as a perfect background for a user interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEfwvwwWnpCUPIP3ZQSf1MeCU3Vg6u2XPOOW9hGM1VxWXKcS3F5N076cu_yh47W2-XhzVksCDy1V7-Uw-sFEgcBu0g53KJlfCxjq0q2pLVExFc_Z6xnCn3eS8BKyPjwklk01fQ0M6Vix_UYJpCeXQ8j2bUMMf0ex4mHj2IgMK-3yM6Lti0WvEN1Iu7FvKUw-nfHwZI4Ygy-c82MC4VbNeNrKRFxHVHr_qqifz4e7lyV7uZdpL9gyM7wmPCXrlgTo-vuXAk-8Kqj3M');">
+<div class="absolute inset-0 bg-surface/85 backdrop-blur-sm"></div>
+</div>
+<!-- Login Container -->
+<main class="relative z-10 w-full max-w-[440px] px-margin-mobile md:px-0">
+<div class="bg-surface-container-lowest rounded-xl elevation-1 border border-[#E0E0E0] p-8 md:p-12 flex flex-col items-center text-center transition-shadow duration-300">
+<!-- Brand Identity -->
+<div class="mb-8 flex flex-col items-center">
+<div class="w-16 h-16 bg-[#003865] rounded-lg mb-4 flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined text-[32px]" data-icon="account_balance">account_balance</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-[#003865] mb-2 tracking-tight">UNDesparche</h1>
+<p class="font-body-md text-body-md text-secondary max-w-[280px]">
+                    Accede con tu correo @unal.edu.co para gestionar préstamos y eventos.
+                </p>
+</div>
+<!-- Central Action -->
+<div class="w-full mb-6">
+<button class="w-full flex items-center justify-center gap-3 py-3 px-4 bg-[#003865] text-white border-2 border-[#003865] rounded-lg hover:bg-tertiary-container hover:border-tertiary-container transition-colors duration-200 group focus:outline-none focus:ring-2 focus:ring-electric-blue focus:border-transparent">
+<!-- Standard Google G Icon representation -->
+<svg class="w-6 h-6 bg-white rounded-full p-0.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="font-label-md text-label-md text-white transition-colors duration-200">
+                        Continuar con Google
+                    </span>
+</button>
+</div>
+<!-- Security / Trust Note -->
+<div class="flex items-center justify-center gap-2 text-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-success-green" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="font-label-sm text-label-sm text-secondary">Acceso exclusivo comunidad UNAL</span>
+</div>
+</div>
+<!-- Minimal Legal Links Below Card -->
+<div class="mt-8 flex justify-center gap-6">
+<a class="font-label-sm text-label-sm text-secondary hover:text-[#003865] transition-colors duration-200" href="#">Términos de Servicio</a>
+<a class="font-label-sm text-label-sm text-secondary hover:text-[#003865] transition-colors duration-200" href="#">Política de Privacidad</a>
+</div>
+</main>
+</body></html>

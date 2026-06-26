@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Event Listing - UNDesparche</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb4ab",
+                        "background": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "primary-container": "#e0eaf5",
+                        "tertiary-fixed": "#dde1ff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#e4e2e1",
+                        "primary": "#003865",
+                        "primary-fixed-dim": "#a3c4f3",
+                        "success-green": "#28A745",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "white": "#FFFFFF",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-fixed-variant": "#002342",
+                        "surface-container-high": "#e7e8e9",
+                        "institutional-red": "#003865",
+                        "warning-yellow": "#FFC107",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed": "#001356",
+                        "caution-orange": "#FD7E14",
+                        "secondary": "#5f5e5e",
+                        "deep-grey": "#333333",
+                        "on-primary-fixed": "#00132b",
+                        "primary-fixed": "#d1e4ff",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary": "#00258f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#0037c5",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#8e706d",
+                        "outline-variant": "#e2beba",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-container": "#a7b5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary-fixed-dim": "#b8c3ff",
+                        "on-tertiary-fixed-variant": "#0035be",
+                        "on-primary-container": "#001f3d",
+                        "error-container": "#ffdad6",
+                        "electric-blue": "#003865",
+                        "on-secondary-container": "#656464",
+                        "surface-tint": "#003865",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1d",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-background": "#191c1d",
+                        "inverse-surface": "#2e3132",
+                        "surface": "#f8f9fa",
+                        "on-surface-variant": "#5a413e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Arimo", "sans-serif"],
+                        "body-lg": ["Arimo", "sans-serif"],
+                        "label-sm": ["Arimo", "sans-serif"],
+                        "label-md": ["Arimo", "sans-serif"],
+                        "headline-md": ["Arimo", "sans-serif"],
+                        "body-md": ["Arimo", "sans-serif"],
+                        "display-lg": ["Arimo", "sans-serif"],
+                        "headline-lg": ["Arimo", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f9fa; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c8c6c6; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5f5e5e; 
+        }
+
+        .view-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .view-hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
+            transform: translateY(10px);
+        }
+        .view-visible {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full border-t-4 border-primary bg-surface dark:bg-background shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-16">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: &quot;FILL&quot; 1;">school</span>
+<a class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg font-bold text-primary dark:text-primary-fixed-dim" href="#">
+                    UNDesparche
+                </a>
+</div>
+<!-- Navigation Links (Hidden on small mobile if needed, but assumed visible per desktop primary) -->
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md hover:opacity-80 transition-colors duration-200" href="#">
+                    Eventos
+                </a>
+<a class="text-secondary dark:text-secondary-fixed-dim font-label-md text-label-md hover:text-primary transition-colors duration-200" href="#">Mapa del campus</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-[#F1F3F4] border border-surface-variant rounded-full text-label-md font-label-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all w-48" placeholder="Search..." type="text">
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Regístrate o inicia sesión</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col gap-8">
+<!-- Page Header & Controls -->
+<section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-surface-variant pb-6">
+<div class="flex flex-col gap-2">
+<h1 class="text-display-lg font-display-lg text-on-surface">Eventos</h1>
+<p class="text-body-lg font-body-lg text-secondary max-w-2xl">Descubre y suscríbete a actividades academicas, culturales, y recreativas en el campus de la Universidad Nacional de Colombia.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<!-- Filters -->
+<div class="flex gap-2 flex-wrap">
+<select class="bg-surface border border-[#E0E0E0] text-on-surface text-label-md font-label-md rounded-lg px-3 py-2 focus:border-primary focus:ring-1 focus:ring-primary">
+<option value="">All Categories</option>
+<option value="academic">Academic</option>
+<option value="culture">Culture &amp; Arts</option>
+<option value="sports">Sports</option>
+</select>
+<select class="bg-surface border border-[#E0E0E0] text-on-surface text-label-md font-label-md rounded-lg px-3 py-2 focus:border-primary focus:ring-1 focus:ring-primary">
+<option value="">Status: All</option>
+<option value="programado">Programado</option>
+<option value="en-curso">En Curso</option>
+<option value="finalizado">Finalizado</option>
+<option value="cancelado">Cancelado</option>
+</select>
+</div>
+<!-- View Toggle -->
+<div class="bg-surface-container border border-[#E0E0E0] rounded-lg p-1 flex">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md bg-white shadow-sm text-primary font-label-md text-label-md transition-colors" id="btn-list-view" onclick="switchView('list')">
+<span class="material-symbols-outlined text-sm">grid_view</span> Lista</button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md text-secondary hover:text-on-surface font-label-md text-label-md transition-colors" id="btn-map-view" onclick="switchView('map')">
+<span class="material-symbols-outlined text-sm">map</span> Mapa</button>
+</div>
+</div>
+</section>
+<!-- View Containers -->
+<div class="relative w-full min-h-[500px]">
+<!-- List View (Grid) -->
+<div class="view-transition w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter view-visible" id="list-view">
+<!-- Card 1: Programado -->
+<article class="bg-white rounded-xl border border-[#E0E0E0] shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10 z-0"></div>
+<img alt="Tech Conference" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay group-hover:scale-105 transition-transform duration-500" data-alt="A vibrant, modern university auditorium filled with students during a technology conference. Bright, natural light streams in from large windows, creating a high-contrast, clean aesthetic. The setting feels academic yet dynamic, aligning with a corporate-modern style. Accent colors of deep blue and stark white dominate the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABeC0VwOM4aoQ60DbXHbbxPOuX1H2t57-T5pQ4Uz0xUHdtFTyH77YjNnwtIBygnOy46eG78ub4CHUj0ZULMwRAVSf_CHzfBIapVxSAOt5-dFGkVRSMkG76mhGdFmLfawyvYiMNRDHWFVkXSnGI5HjUvUDda6CPdfWuzlHSTWoGlx0jg6jDL7lXu_27Flbem7562EYpI4m3Fpe00gO7hn2lmaM5u-9NKWJeDj3ZMgal9NLsDFQNMO1O79Su7Sp4rJG3w7n1VG6t5NA">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="bg-primary/10 text-primary border border-primary/20 text-label-sm font-label-sm px-2 py-1 rounded-md bg-white/90 backdrop-blur-sm">Programado</span>
+<span class="bg-white/90 backdrop-blur-sm text-deep-grey border border-[#E0E0E0] text-label-sm font-label-sm px-2 py-1 rounded-md shadow-sm">Academico</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2 line-clamp-2">Simposio de Inteligencia Artificial</h2>
+<div class="flex flex-col gap-2 mb-6 mt-auto">
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>24 Oct, 2024 • 09:00 AM - 04:00 PM
+                            </div>
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                Auditorio León de Greiff
+                            </div>
+</div>
+<button class="w-full bg-primary text-white rounded-lg py-2.5 font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-primary" onclick="openModal()">
+                            Suscribirme
+                        </button>
+</div>
+</article>
+<!-- Card 2: En Curso -->
+<article class="bg-white rounded-xl border border-[#E0E0E0] shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col overflow-hidden group">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container">
+<div class="absolute inset-0 bg-gradient-to-br from-success-green/20 to-surface-variant/40 z-0"></div>
+<img alt="Art Exhibition" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, brightly lit university art gallery showcasing contemporary student works. Minimalist white walls contrast sharply with colorful geometric art pieces. The atmosphere is quiet, cultural, and modern, illuminated by precision gallery track lighting. It perfectly captures a sophisticated, high-end institutional environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVXpMVVAJ4qCP2uHoi68KncWx0XyVUZ193DqNSs5UfYUuzMRdJ7bbXF7uWXdrh8Xjf4IOOybaFdhRrjiPmK_QvIRO9haUWM8cnhw7pdXqlydTvIeaUz_MMKYpWc1JBcjXLZUz6g-Yex-77_Siy7xOedV9NBk1vF79xwsW4DlJZ-8RjmTrUCncglqfoikIT1LkIk5jFrgxJ8PnUBH3rU1xrLFWPE7hKN3D4lAEhIG8RpQZly7NjuWmrPqX0Uyk81ejHgm8zcTfg1YU">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="bg-success-green/10 text-success-green border border-success-green/20 text-label-sm font-label-sm px-2 py-1 rounded-md flex items-center gap-1 bg-white/90 backdrop-blur-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-green opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-success-green"></span>
+</span>
+                                En Curso
+                            </span>
+<span class="bg-white/90 backdrop-blur-sm text-deep-grey border border-[#E0E0E0] text-label-sm font-label-sm px-2 py-1 rounded-md shadow-sm">Cultura</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2 line-clamp-2">Chunchulla comunal</h2>
+<div class="flex flex-col gap-2 mb-6 mt-auto">
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>20 Oct - 25 Oct, 2024
+                            </div>
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                Museo de Arte UNAL
+                            </div>
+</div>
+<button class="w-full bg-primary text-white rounded-lg py-2.5 font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-primary" onclick="openModal()">
+                            Suscribirme
+                        </button>
+</div>
+</article>
+<!-- Card 3: Finalizado -->
+<article class="bg-white rounded-xl border border-[#E0E0E0] shadow-[0_4px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.1)] transition-shadow duration-300 flex flex-col overflow-hidden group opacity-80 hover:opacity-100">
+<div class="relative h-48 w-full overflow-hidden bg-surface-container grayscale">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/20 to-deep-grey/20 z-0"></div>
+<img alt="Data Science Workshop" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay group-hover:scale-105 transition-transform duration-500" data-alt="A modern computer lab in a university setting, empty after a recent workshop. Rows of sleek monitors sit on clean white desks under bright, clinical fluorescent lighting. The color palette is predominantly cool greys and whites, emphasizing a stark, efficient, and highly technical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVE3ruQgWTNdifJ9MznTA2eG4CBZlmD0S-FGWrRXYB_r4jYjRwpmaVdoV8guU5_9mY5QgVuZFonFT1HGgSFp1pF5fJrIYQhSAhjgHFWojOl_1P0ll22kg4nhPBmhhpqLG02Pl34XP-263i7i0uqw7V1v8MA1PIk3nknAwy8MYSwZulvTvCa-h_tTBx5Wsk0O7CSnM3uCGspAQzkWh8YyLJg6dOdX3V636ap94XiIvX7il5aBzFnkYaTGiqe4unphKBPjLhWhePi_g">
+<div class="absolute top-4 left-4 flex gap-2 z-10">
+<span class="bg-surface-variant text-secondary border border-[#E0E0E0] text-label-sm font-label-sm px-2 py-1 rounded-md bg-white/90 backdrop-blur-sm">Finalizado</span>
+<span class="bg-white/90 backdrop-blur-sm text-deep-grey border border-[#E0E0E0] text-label-sm font-label-sm px-2 py-1 rounded-md shadow-sm">Workshop</span>
+</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2 line-clamp-2">Introducción a Python para análisis de datos</h2>
+<div class="flex flex-col gap-2 mb-6 mt-auto">
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>15 Oct, 2024
+                            </div>
+<div class="flex items-center gap-2 text-secondary text-label-md font-label-md">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                Lab 302, Edificio de Ingeniería
+                            </div>
+</div>
+<button class="w-full bg-surface-variant text-secondary border border-[#E0E0E0] rounded-lg py-2.5 font-label-md text-label-md cursor-not-allowed" disabled="">
+                            Evento Pasado
+                        </button>
+</div>
+</article>
+</div>
+<!-- Map View -->
+<div class="view-transition w-full h-[600px] rounded-xl border border-surface-variant overflow-hidden shadow-sm relative bg-surface-container-low view-hidden" id="map-view">
+<!-- Abstract Map Placeholder using CSS pattern & image mix -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#8e706d 1px, transparent 1px); background-size: 20px 20px;"></div>
+<img alt="Map View" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" data-alt="An aerial, top-down view of a structured university campus resembling an architectural blueprint or map. The scene highlights geometrically aligned buildings, green plazas, and precise walkways. Rendered in a clean, high-contrast, almost monochromatic style with subtle highlights, fitting a modern digital interface map background." data-location="Bogota, Colombia Campus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYUfPInD5j-tYYqlXb_v5qf6ZfXq9D5gqeleFZSYJucTgf6KlV86SX7KUdoCD83N07N5MdKczNaZ0o4xkZzj5qyA_Bz62ZbBIO-35lryyZo0XISNu5KVQeaSEXUYE70EI5EP_8rwKX9KFGcDQi9JppeZUWXMNKIXLCEgNT0UbBAyKVYcI_kTTIdCCVDjnoWWp-2wwF-_7I3gkcw1SjQzz6iUVGvehEhL-m2dy4faGrirxlLj73e3EQJNeQLUtwS3aKwNxWp-jKlVs">
+<!-- Map UI Overlay (Pins) -->
+<div class="absolute inset-0 p-8 z-10 pointer-events-none">
+<!-- Pin 1 -->
+<button class="absolute top-[30%] left-[40%] group pointer-events-auto transform transition-transform hover:scale-110 focus:outline-none">
+<div class="relative">
+<span class="material-symbols-outlined text-primary text-4xl drop-shadow-md" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
+<div class="absolute top-1/2 left-1/2 w-3 h-3 bg-white rounded-full transform -translate-x-1/2 -translate-y-[80%]"></div>
+</div>
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-surface border border-surface-variant rounded shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+<h4 class="text-label-md font-label-md text-on-surface mb-1">Auditorio León de Greiff</h4>
+<p class="text-label-sm font-label-sm text-secondary">AI Symposium</p>
+</div>
+</button>
+<!-- Pin 2 -->
+<button class="absolute top-[60%] left-[65%] group pointer-events-auto transform transition-transform hover:scale-110 focus:outline-none">
+<div class="relative">
+<span class="material-symbols-outlined text-success-green text-4xl drop-shadow-md" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
+<div class="absolute top-1/2 left-1/2 w-3 h-3 bg-white rounded-full transform -translate-x-1/2 -translate-y-[80%]"></div>
+</div>
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 bg-surface border border-surface-variant rounded shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+<h4 class="text-label-md font-label-md text-on-surface mb-1">Museo de Arte UNAL</h4>
+<p class="text-label-sm font-label-sm text-secondary">Visual Arts Showcase</p>
+</div>
+</button>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-6 right-6 flex flex-col gap-2 z-20">
+<button class="w-10 h-10 bg-surface rounded shadow border border-surface-variant flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 bg-surface rounded shadow border border-surface-variant flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-deep-grey dark:bg-on-surface mt-auto">
+<div class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max-width mx-auto gap-8 md:gap-0">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: &quot;FILL&quot; 1;">school</span>
+<span class="text-headline-md font-headline-md text-white font-bold">UNDesparche</span>
+</div>
+<p class="text-body-md font-body-md text-surface-variant text-center md:text-left">
+                    © 2026 Universidad Nacional de Colombia - Sede Bogotá
+                </p>
+</div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Terminos of Servicio</a>
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-primary transition-colors opacity-90 hover:opacity-100" href="#">Política de privacidad</a>
+
+
+</nav>
+</div>
+</footer>
+<!-- Subscription Modal Overlay -->
+<div class="fixed inset-0 z-[100] bg-on-surface/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300" id="subscription-modal">
+<div class="bg-surface rounded-xl shadow-2xl border border-surface-variant w-full max-w-md transform scale-95 transition-transform duration-300 overflow-hidden" id="modal-content">
+<!-- Modal Header -->
+<div class="p-6 border-b border-surface-variant flex justify-between items-start bg-surface-container-lowest">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Subscribe to Event</h3>
+<p class="text-body-md font-body-md text-secondary mt-1">Get updates and reminders directly to your inbox.</p>
+</div>
+<button class="text-secondary hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-variant focus:outline-none" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Modal Body (Form) -->
+<form class="p-6 flex flex-col gap-6" onsubmit="event.preventDefault(); closeModal();">
+<div class="flex flex-col gap-2">
+<label class="text-label-md font-label-md text-on-surface" for="email-input">Institutional Email</label>
+<input class="w-full border border-deep-grey rounded-lg px-4 py-2.5 bg-white text-body-md font-body-md focus:outline-none focus:border-primary focus:border-2 transition-all shadow-sm" id="email-input" placeholder="user@unal.edu.co" required="" type="email">
+<p class="text-label-sm font-label-sm text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">info</span>
+                        We recommend using your @unal.edu.co address.
+                    </p>
+</div>
+<div class="flex justify-end gap-3 mt-4">
+<button class="px-5 py-2.5 rounded-lg font-label-md text-label-md text-primary bg-transparent hover:bg-primary/10 transition-colors" onclick="closeModal()" type="button">
+                        Cancel
+                    </button>
+<button class="px-5 py-2.5 rounded-lg font-label-md text-label-md bg-primary text-white hover:bg-primary/90 shadow-sm hover:shadow transition-all" type="submit">
+                        Confirm Subscription
+                    </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Interactive Scripts -->
+<script>
+        // View Toggle Logic
+        function switchView(view) {
+            const listView = document.getElementById('list-view');
+            const mapView = document.getElementById('map-view');
+            const btnList = document.getElementById('btn-list-view');
+            const btnMap = document.getElementById('btn-map-view');
+
+            if (view === 'list') {
+                // Show List
+                listView.classList.remove('view-hidden');
+                listView.classList.add('view-visible');
+                mapView.classList.remove('view-visible');
+                mapView.classList.add('view-hidden');
+                
+                // Style buttons
+                btnList.className = 'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md bg-white shadow-sm text-primary font-label-md text-label-md transition-colors';
+                btnMap.className = 'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md text-secondary hover:text-on-surface font-label-md text-label-md transition-colors';
+            } else {
+                // Show Map
+                mapView.classList.remove('view-hidden');
+                mapView.classList.add('view-visible');
+                listView.classList.remove('view-visible');
+                listView.classList.add('view-hidden');
+                
+                // Style buttons
+                btnMap.className = 'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md bg-white shadow-sm text-primary font-label-md text-label-md transition-colors';
+                btnList.className = 'flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-1.5 rounded-md text-secondary hover:text-on-surface font-label-md text-label-md transition-colors';
+            }
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('subscription-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal on click outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

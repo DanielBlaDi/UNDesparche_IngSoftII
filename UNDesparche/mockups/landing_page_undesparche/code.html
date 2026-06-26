@@ -1,0 +1,258 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNDesparche - Universidad Nacional de Colombia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb4ab",
+                        "background": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container": "#edeeef",
+                        "primary-container": "#941113",
+                        "tertiary-fixed": "#dde1ff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#e4e2e1",
+                        "primary": "#6e0006",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "success-green": "#28A745",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "white": "#FFFFFF",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-fixed-variant": "#900d10",
+                        "surface-container-high": "#e7e8e9",
+                        "institutional-red": "#941113",
+                        "warning-yellow": "#FFC107",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed": "#001356",
+                        "caution-orange": "#FD7E14",
+                        "secondary": "#5f5e5e",
+                        "deep-grey": "#333333",
+                        "on-primary-fixed": "#410002",
+                        "primary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary": "#00258f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#0037c5",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#8e706d",
+                        "outline-variant": "#e2beba",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-container": "#a7b5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary-fixed-dim": "#b8c3ff",
+                        "on-tertiary-fixed-variant": "#0035be",
+                        "on-primary-container": "#ffa095",
+                        "error-container": "#ffdad6",
+                        "electric-blue": "#2E5BFF",
+                        "on-secondary-container": "#656464",
+                        "surface-tint": "#b22a25",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1d",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "on-background": "#191c1d",
+                        "inverse-surface": "#2e3132",
+                        "surface": "#f8f9fa",
+                        "on-surface-variant": "#5a413e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Newsreader"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-md": ["Newsreader"],
+                        "body-md": ["Hanken Grotesk"],
+                        "display-lg": ["Newsreader"],
+                        "headline-lg": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-50 bg-surface shadow-sm border-t-4 border-institutional-red w-full px-margin-mobile md:px-margin-desktop py-base">
+<div class="flex justify-between items-center w-full max-w-container-max-width mx-auto h-16">
+<a class="text-headline-lg font-headline-lg font-bold text-institutional-red flex items-center gap-2" href="#">
+<span class="material-symbols-outlined fill text-3xl">school</span>
+                UNDesparche
+            </a>
+<nav class="hidden md:flex items-center gap-gutter">
+<a class="text-label-md font-label-md text-secondary hover:text-electric-blue transition-colors duration-200" href="#">Events</a>
+<a class="text-label-md font-label-md text-secondary hover:text-electric-blue transition-colors duration-200" href="#">Equipment</a>
+<a class="text-label-md font-label-md text-secondary hover:text-electric-blue transition-colors duration-200" href="#">Campus Map</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-electric-blue text-white px-6 py-2 rounded font-label-md text-label-md hover:bg-tertiary transition-colors shadow-sm hover:shadow-md">Sign In</button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative w-full h-[600px] flex items-center justify-center overflow-hidden bg-deep-grey">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center opacity-40 mix-blend-overlay" data-alt="A wide, sweeping photographic shot of the National University of Colombia campus in Bogotá during late afternoon. The scene features iconic brutalist architecture set against lush green lawns and large trees. The lighting is golden hour, creating long dramatic shadows and a dynamic, energetic university atmosphere. The mood is academic, historical, yet vibrant and alive. The color palette emphasizes warm sunlight, deep greens, and structural greys, aligning with a professional, high-contrast modern UI style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDAWx8s4ZBRroVTQHSKlPxwzKZvx-EvBLDzX0HoguM-N3FmMkplwU8228tg0g92KurBJpkxndjLqcz3YTEYnKZ65Fbg3oqzuH8HQwl2JzBKFBRs3XaUCG3FdnIQioDaaZxJ8K6xqmEUoyXOwov7eEWwOr_JSzNLar7WdtUKTkLZ9jIdZyTjxaq-Hv-U6HUYzLxaUgaywaynURdw-y9Fpwe_DniFOBKGzBHnfz9oGDL0EWOVUM47aj1jGvYbW0bU8xGM0Eef5Onj-Ac')"></div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto flex flex-col items-center">
+<span class="bg-surface-container-low text-primary px-4 py-1 rounded-full text-label-sm font-label-sm mb-6 shadow-sm border border-surface-variant">Conectando la Universidad Nacional</span>
+<h1 class="text-display-lg font-display-lg text-white mb-6 max-w-4xl drop-shadow-lg leading-tight">Todo el campus, <br><span class="text-inverse-primary">en un solo lugar</span></h1>
+<p class="text-body-lg font-body-lg text-surface-variant mb-8 max-w-2xl drop-shadow-md">Descubre eventos, gestiona reservas de equipos y navega por el campus con la plataforma oficial para la comunidad UNAL. Diseñada para estudiantes, docentes y administrativos.</p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="bg-electric-blue text-white px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-tertiary transition-all shadow-md hover:shadow-lg hover:-translate-y-1">Explorar Eventos</button>
+<button class="bg-transparent border-2 border-surface-variant text-white px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-white/10 transition-all">Ver Catálogo de Equipos</button>
+</div>
+</div>
+<!-- Diagonal accent -->
+<div class="absolute bottom-0 left-0 w-full h-16 bg-background" style="clip-path: polygon(0 100%, 100% 100%, 100% 0);"></div>
+</section>
+<!-- Featured Events (Bento Grid Style) -->
+<section class="py-16 px-margin-mobile md:px-margin-desktop bg-background max-w-container-max-width mx-auto">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-2">Eventos Destacados</h2>
+<p class="text-body-md font-body-md text-secondary">No te pierdas lo que está sucediendo esta semana en la UNAL.</p>
+</div>
+<a class="hidden md:flex items-center text-electric-blue font-label-md text-label-md hover:text-tertiary" href="#">Ver todos <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Large Featured Event -->
+<article class="md:col-span-8 bg-surface rounded-xl shadow-sm hover:shadow-md transition-shadow border border-surface-variant overflow-hidden flex flex-col md:flex-row group">
+<div class="w-full md:w-1/2 h-48 md:h-auto bg-cover bg-center" data-alt="A dynamic photograph of an academic conference inside a modern university auditorium. The speaker is illuminated on stage while the audience is slightly in shadow, focusing attention forward. The lighting is dramatic, high-contrast, professional, and energetic. The overall style reflects a modern, corporate academic environment with sharp, clean aesthetics and subtle electric blue ambient stage lighting to match the UI accent colors." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnBGkQuLNkRsTq1l1waOKK0JH5dzgenIR2o9i0tz5sxY7pVJMQ9eXwDXO5Eb2y7-LF-HlP8r9GuJKzx8AWeMzPRp8ao8hWAJO4MiXy8eKdWpUN0mAOD8BAZVDkWBOvJbcJSEauUT6fXGtYfrIff2YZwtcCJRVVKi8U-6-eDvhPFZvbgc5p1ymQ5hmeXmRujJnskDiNyYzgxsPbfw4Wr7CSvzQnBAUEa42WRO45RNHzQBiHGADlz-0YfOH_r3Rx-gbrOATPs0NOnp0')"></div>
+<div class="p-6 md:p-8 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-[#E8F4FD] text-electric-blue px-2 py-1 rounded text-label-sm font-label-sm">Académico</span>
+<span class="bg-[#E6F4EA] text-success-green px-2 py-1 rounded text-label-sm font-label-sm border border-success-green/20">Ongoing</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2 group-hover:text-electric-blue transition-colors">Simposio Nacional de Inteligencia Artificial</h3>
+<p class="text-body-md font-body-md text-secondary mb-4 line-clamp-2">Reuniendo a los principales investigadores y estudiantes para debatir el futuro del aprendizaje automático en Colombia.</p>
+</div>
+<div class="flex justify-between items-end mt-4 pt-4 border-t border-surface-container">
+<div class="flex flex-col gap-1">
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> Octubre 15, 2024</span>
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Auditorio León de Greiff</span>
+</div>
+<button class="bg-electric-blue text-white w-10 h-10 rounded flex items-center justify-center hover:bg-tertiary transition-colors"><span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+</div>
+</article>
+<!-- Smaller Event Cards Column -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Event 2 -->
+<article class="bg-surface rounded-xl shadow-sm hover:shadow-md transition-shadow border border-surface-variant p-5 flex flex-col h-full group">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-[#FDE8E8] text-institutional-red px-2 py-1 rounded text-label-sm font-label-sm">Cultura</span>
+<span class="bg-[#E8F4FD] text-electric-blue px-2 py-1 rounded text-label-sm font-label-sm border border-electric-blue/20">Programmed</span>
+</div>
+<h3 class="text-body-lg font-headline-md font-bold text-on-surface mb-2 group-hover:text-institutional-red transition-colors">Concierto Orquesta Filarmónica</h3>
+<div class="mt-auto pt-4 flex flex-col gap-2">
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Vie, 18 Oct - 18:00</span>
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Plaza Che</span>
+</div>
+</article>
+<!-- Event 3 -->
+<article class="bg-surface rounded-xl shadow-sm hover:shadow-md transition-shadow border border-surface-variant p-5 flex flex-col h-full group">
+<div class="flex justify-between items-start mb-3">
+<span class="bg-[#FFF8E6] text-warning-yellow px-2 py-1 rounded text-label-sm font-label-sm text-on-surface">Deportes</span>
+<span class="bg-[#E8F4FD] text-electric-blue px-2 py-1 rounded text-label-sm font-label-sm border border-electric-blue/20">Programmed</span>
+</div>
+<h3 class="text-body-lg font-headline-md font-bold text-on-surface mb-2 group-hover:text-warning-yellow transition-colors">Torneo Interfacultades de Voleibol</h3>
+<div class="mt-auto pt-4 flex flex-col gap-2">
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> Sab, 19 Oct - 08:00</span>
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> Coliseo Central</span>
+</div>
+</article>
+</div>
+</div>
+<div class="mt-6 text-center md:hidden">
+<button class="border-2 border-surface-variant text-on-surface px-6 py-2 rounded font-label-md text-label-md w-full">Ver todos los eventos</button>
+</div>
+</section>
+<!-- Registration CTA Section (Glassmorphism inspired) -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop bg-surface-container-low relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-institutional-red opacity-5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+<div class="absolute bottom-0 left-0 w-80 h-80 bg-electric-blue opacity-5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4"></div>
+<div class="max-w-3xl mx-auto text-center relative z-10 bg-surface/80 backdrop-blur-md p-10 rounded-xl shadow-sm border border-white">
+<span class="material-symbols-outlined text-4xl text-institutional-red mb-4">how_to_reg</span>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-4">Regístrate con tu correo institucional</h2>
+<p class="text-body-lg font-body-lg text-secondary mb-8">Únete a UNDesparche para reservar equipos, guardar eventos favoritos y acceder a todas las funcionalidades exclusivas para la comunidad UNAL.</p>
+<button class="mx-auto flex items-center justify-center gap-3 bg-white border border-surface-variant shadow-sm hover:shadow-md px-8 py-4 rounded-lg transition-all hover:-translate-y-0.5">
+<svg class="w-6 h-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="font-label-md text-label-md text-on-surface">Continuar con Google (@unal.edu.co)</span>
+</button>
+<p class="text-label-sm font-label-sm text-secondary mt-4">Solo se permiten correos del dominio @unal.edu.co</p>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-deep-grey text-white w-full py-12 px-margin-mobile md:px-margin-desktop mt-auto border-t border-secondary">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+<div class="flex flex-col gap-2">
+<span class="text-headline-md font-headline-md text-white flex items-center gap-2">
+<span class="material-symbols-outlined fill text-2xl text-institutional-red">school</span>
+                    UNDesparche
+                </span>
+<p class="text-body-md font-body-md text-surface-variant">© 2024 Universidad Nacional de Colombia - Sede Bogotá</p>
+</div>
+<nav class="flex flex-col md:flex-row gap-4 md:gap-8">
+<a class="text-label-sm font-label-sm text-surface-variant hover:text-electric-blue transition-colors duration-200" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-surface-variant hover:text-electric-blue transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-surface-variant hover:text-electric-blue transition-colors duration-200" href="#">Campus Directory</a>
+<a class="text-label-sm font-label-sm text-surface-variant hover:text-electric-blue transition-colors duration-200" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+</body></html>

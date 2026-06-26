@@ -1,0 +1,571 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNDesparche - Event Administration</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#e2beba",
+                "secondary-fixed-dim": "#c8c6c6",
+                "secondary-fixed": "#e4e2e1",
+                "on-tertiary-fixed": "#001356",
+                "institutional-red": "#941113",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-error": "#ffffff",
+                "inverse-primary": "#ffb4ab",
+                "tertiary-container": "#0037c5",
+                "surface-container-high": "#e7e8e9",
+                "surface-container": "#edeeef",
+                "success-green": "#28A745",
+                "secondary-container": "#e4e2e1",
+                "on-surface-variant": "#5a413e",
+                "inverse-surface": "#2e3132",
+                "surface-container-highest": "#e1e3e4",
+                "white": "#FFFFFF",
+                "primary-fixed": "#ffdad6",
+                "tertiary": "#00258f",
+                "on-background": "#191c1d",
+                "on-primary-container": "#ffa095",
+                "electric-blue": "#2E5BFF",
+                "surface-container-low": "#f3f4f5",
+                "surface": "#f8f9fa",
+                "primary-fixed-dim": "#ffb4ab",
+                "surface-variant": "#e1e3e4",
+                "on-tertiary-fixed-variant": "#0035be",
+                "on-tertiary-container": "#a7b5ff",
+                "surface-tint": "#b22a25",
+                "primary": "#6e0006",
+                "inverse-on-surface": "#f0f1f2",
+                "on-secondary-fixed-variant": "#474747",
+                "surface-bright": "#f8f9fa",
+                "warning-yellow": "#FFC107",
+                "primary-container": "#941113",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#dde1ff",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "secondary": "#5f5e5e",
+                "on-primary-fixed": "#410002",
+                "background": "#f8f9fa",
+                "deep-grey": "#333333",
+                "tertiary-fixed-dim": "#b8c3ff",
+                "surface-dim": "#d9dadb",
+                "on-primary-fixed-variant": "#900d10",
+                "error": "#ba1a1a",
+                "on-surface": "#191c1d",
+                "on-secondary-container": "#656464",
+                "on-tertiary": "#ffffff",
+                "outline": "#8e706d",
+                "caution-orange": "#FD7E14",
+                "on-error-container": "#93000a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "container-max-width": "1280px",
+                "base": "8px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "headline-md": [
+                        "Arimo"
+                ],
+                "headline-lg": [
+                        "Arimo"
+                ],
+                "label-sm": [
+                        "Arimo"
+                ],
+                "label-md": [
+                        "Arimo"
+                ],
+                "display-lg": [
+                        "Arimo"
+                ],
+                "body-md": [
+                        "Arimo"
+                ],
+                "headline-lg-mobile": [
+                        "Arimo"
+                ],
+                "body-lg": [
+                        "Arimo"
+                ]
+        },
+        "fontSize": {
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        /* Base typography applied globally for components that might not have explicit classes */
+        body { font-family: 'Arimo', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Arimo', sans-serif; }
+        
+        /* Custom scrollbar for main content */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d9dadb; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c8c6c6; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden antialiased">
+<!-- JSON: SideNavBar Component -->
+<nav class="bg-surface-container-low dark:bg-inverse-surface h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-base z-50 border-r border-surface-container">
+<!-- Header -->
+<div class="px-6 py-8 flex flex-col items-center border-b border-surface-container">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-4 bg-surface-container-high border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-display-lg text-secondary">shield_person</span>
+</div>
+<h2 class="text-headline-md font-headline-md text-on-surface dark:text-inverse-on-surface text-center leading-tight">Admin Console</h2>
+<p class="text-label-sm font-label-sm text-secondary mt-1 text-center">National University of Colombia</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1">
+<!-- Dashboard -->
+<li>
+<a class="flex items-center px-6 py-3 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px] group-hover:scale-110 transition-transform">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+</li>
+<!-- Event Management (ACTIVE STATE) -->
+<li>
+<a class="flex items-center px-6 py-3 text-electric-blue font-bold border-l-4 border-electric-blue bg-surface-container-high dark:bg-secondary transition-all duration-200 ease-in-out group relative" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px]" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="text-label-md font-label-md">Event Management</span>
+<!-- Subtle active indicator background -->
+<div class="absolute inset-0 bg-electric-blue opacity-5 pointer-events-none"></div>
+</a>
+</li>
+<!-- Equipment Inventory -->
+<li>
+<a class="flex items-center px-6 py-3 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px] group-hover:scale-110 transition-transform">inventory_2</span>
+<span class="text-label-md font-label-md">Equipment Inventory</span>
+</a>
+</li>
+<!-- Reservation Logs -->
+<li>
+<a class="flex items-center px-6 py-3 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px] group-hover:scale-110 transition-transform">history_edu</span>
+<span class="text-label-md font-label-md">Reservation Logs</span>
+</a>
+</li>
+<!-- User Roles -->
+<li>
+<a class="flex items-center px-6 py-3 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px] group-hover:scale-110 transition-transform">group</span>
+<span class="text-label-md font-label-md">User Roles</span>
+</a>
+</li>
+<!-- System Settings -->
+<li>
+<a class="flex items-center px-6 py-3 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px] group-hover:scale-110 transition-transform">settings</span>
+<span class="text-label-md font-label-md">System Settings</span>
+</a>
+</li>
+</ul>
+<!-- Primary Action CTA -->
+<div class="px-6 mt-6">
+<button class="w-full bg-electric-blue text-white py-3 rounded-lg flex items-center justify-center hover:bg-tertiary-container transition-colors shadow-sm hover:shadow-md">
+<span class="material-symbols-outlined mr-2 text-[20px]">add</span>
+<span class="text-label-md font-label-md">New Report</span>
+</button>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="border-t border-surface-container py-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center px-6 py-2 text-deep-grey dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-secondary-container hover:text-on-surface transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px]">help</span>
+<span class="text-label-md font-label-md">Help Center</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-6 py-2 text-error hover:bg-error-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-4 text-[20px]">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-screen overflow-y-auto bg-background p-margin-desktop space-y-12 relative">
+<!-- Header Section -->
+<header class="flex justify-between items-end pb-4 border-b border-surface-dim relative z-10">
+<div>
+<h1 class="text-display-lg font-display-lg text-primary">Gestión de Eventos</h1>
+<p class="text-body-lg font-body-lg text-secondary mt-2 max-w-2xl">Administra, programa y supervisa todas las actividades extracurriculares y académicas del campus universitario.</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface border border-deep-grey text-deep-grey px-6 py-3 rounded-lg flex items-center hover:bg-surface-container transition-colors shadow-sm font-label-md text-label-md">
+<span class="material-symbols-outlined mr-2">filter_list</span>
+                    Filtrar Eventos
+                </button>
+<button class="bg-electric-blue text-white px-6 py-3 rounded-lg flex items-center hover:bg-tertiary-container transition-colors shadow-sm hover:shadow-md font-label-md text-label-md" onclick="document.getElementById('create-event-section').scrollIntoView({behavior: 'smooth'})">
+<span class="material-symbols-outlined mr-2">add_circle</span>
+                    Crear Nuevo
+                </button>
+</div>
+</header>
+<!-- Data Table Section: "Mis Eventos" -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Mis Eventos Recientes</h2>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-lowest border border-surface-dim rounded-lg focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue font-body-md text-body-md w-64 shadow-sm" placeholder="Buscar por nombre o ID..." type="text">
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-surface-container">
+<tr>
+<th class="p-6 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Nombre del Evento</th>
+<th class="p-6 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Estado</th>
+<th class="p-6 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Fecha / Hora</th>
+<th class="p-6 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Ubicación</th>
+<th class="p-6 text-label-sm font-label-sm text-secondary uppercase tracking-wider text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1: Published/Programmed -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-tertiary-fixed-dim flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">science</span>
+</div>
+<div>
+<p class="text-body-md font-body-md text-on-surface font-semibold">Simposio de Física Cuántica</p>
+<p class="text-label-sm font-label-sm text-secondary">Categoría: Académico</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="inline-flex items-center px-3 py-1 rounded-[4px] bg-tertiary-fixed text-tertiary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] mr-1">event_available</span> Programado
+                                </span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                15 Oct, 2024<br><span class="text-secondary text-sm">08:00 AM - 05:00 PM</span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                Auditorio León de Greiff
+                            </td>
+<td class="p-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-electric-blue hover:bg-surface-container rounded transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-secondary hover:text-institutional-red hover:bg-error-container rounded transition-colors" title="Cancelar">
+<span class="material-symbols-outlined text-[20px]">cancel</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Draft -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">music_note</span>
+</div>
+<div>
+<p class="text-body-md font-body-md text-on-surface font-semibold">Concierto Filarmónica UNAL</p>
+<p class="text-label-sm font-label-sm text-secondary">Categoría: Cultura</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="inline-flex items-center px-3 py-1 rounded-[4px] bg-surface-container text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] mr-1">draft</span> Borrador
+                                </span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                22 Nov, 2024<br><span class="text-secondary text-sm">Por definir</span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                Plaza Che
+                            </td>
+<td class="p-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-electric-blue hover:bg-surface-container rounded transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-secondary hover:text-success-green hover:bg-surface-container rounded transition-colors" title="Publicar">
+<span class="material-symbols-outlined text-[20px]">publish</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Ongoing -->
+<tr class="hover:bg-surface-container-low transition-colors group border-l-4 border-success-green bg-surface-bright">
+<td class="p-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-success-green/20 flex items-center justify-center text-success-green">
+<span class="material-symbols-outlined">sports_basketball</span>
+</div>
+<div>
+<p class="text-body-md font-body-md text-on-surface font-semibold">Torneo Interfacultades - Finales</p>
+<p class="text-label-sm font-label-sm text-secondary">Categoría: Deportes</p>
+</div>
+</div>
+</td>
+<td class="p-6">
+<span class="inline-flex items-center px-3 py-1 rounded-[4px] bg-success-green/10 text-success-green font-label-sm text-label-sm border border-success-green/20">
+<span class="material-symbols-outlined text-[14px] mr-1">play_circle</span> En Curso
+                                </span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                Hoy<br><span class="text-secondary text-sm">02:00 PM - 06:00 PM</span>
+</td>
+<td class="p-6 text-body-md font-body-md text-on-surface-variant">
+                                Coliseo Central
+                            </td>
+<td class="p-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-electric-blue hover:bg-surface-container rounded transition-colors" title="Ver Detalles">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 border-t border-surface-container flex justify-between items-center bg-surface-container-lowest">
+<p class="text-label-sm font-label-sm text-secondary">Mostrando 1-3 de 24 eventos</p>
+<div class="flex gap-2">
+<button class="p-2 border border-surface-dim rounded hover:bg-surface-container text-secondary disabled:opacity-50" disabled=""><span class="material-symbols-outlined text-[16px]">chevron_left</span></button>
+<button class="p-2 border border-surface-dim rounded hover:bg-surface-container text-secondary"><span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</section>
+<hr class="border-surface-dim">
+<!-- Bento Grid Form Section: "Crear Evento" -->
+<section class="flex flex-col gap-6 pb-24" id="create-event-section">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-display-lg text-institutional-red">edit_square</span>
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Creador de Eventos</h2>
+<p class="text-body-md font-body-md text-secondary">Configura los detalles, ubicación y multimedia de tu nueva actividad.</p>
+</div>
+</div>
+<!-- Bento Layout Container -->
+<form class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Block 1: Basic Info (Spans 2 columns) -->
+<div class="col-span-1 lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container flex flex-col gap-6 hover:shadow-md transition-shadow">
+<h3 class="text-headline-md font-headline-md text-on-surface border-b border-surface-dim pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-blue">info</span> Información General
+                    </h3>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Nombre del Evento *</label>
+<input class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all" placeholder="Ej. Taller de Fotografía Urbana" type="text">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Categoría *</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md appearance-none focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all">
+<option>Académico</option>
+<option>Cultura</option>
+<option>Deportes</option>
+<option>Bienestar</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Público Objetivo</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md appearance-none focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all">
+<option>Toda la comunidad (UNAL)</option>
+<option>Solo Estudiantes</option>
+<option>Docentes / Administrativos</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Descripción Completa</label>
+<textarea class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all resize-y" placeholder="Describe los objetivos, actividades y requisitos del evento..." rows="4"></textarea>
+</div>
+</div>
+<!-- Block 2: Schedule & Status (Spans 1 column) -->
+<div class="col-span-1 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container flex flex-col gap-6 hover:shadow-md transition-shadow">
+<h3 class="text-headline-md font-headline-md text-on-surface border-b border-surface-dim pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-caution-orange">schedule</span> Programación
+                    </h3>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Fecha de Inicio *</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all" type="date">
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Hora Inicio</label>
+<input class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all" type="time">
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Hora Fin</label>
+<input class="w-full bg-surface-container-low border border-surface-dim rounded p-3 font-body-md text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all" type="time">
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-surface-dim">
+<label class="block text-label-md font-label-md text-on-surface mb-3">Estado Inicial</label>
+<div class="flex gap-4">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-electric-blue bg-surface-container border-deep-grey focus:ring-electric-blue" name="status" type="radio" value="draft">
+<span class="text-body-md font-body-md text-on-surface group-hover:text-electric-blue transition-colors">Borrador</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 text-electric-blue bg-surface-container border-deep-grey focus:ring-electric-blue" name="status" type="radio" value="published">
+<span class="text-body-md font-body-md text-on-surface group-hover:text-electric-blue transition-colors">Publicado</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Block 3: Location Map (Spans 2 columns) -->
+<div class="col-span-1 lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container flex flex-col gap-6 hover:shadow-md transition-shadow">
+<div class="flex justify-between items-center border-b border-surface-dim pb-2">
+<h3 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-success-green">pin_drop</span> Ubicación
+                        </h3>
+<div class="relative w-1/2">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-surface-dim rounded text-body-md focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-all" placeholder="Buscar edificio o facultad..." type="text">
+</div>
+</div>
+<!-- Map Placeholder -->
+<div class="w-full h-64 bg-surface-container-high rounded-lg overflow-hidden relative border border-surface-dim group cursor-pointer">
+<div class="absolute inset-0 bg-secondary/10 flex items-center justify-center flex-col z-10 opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+<button class="bg-surface text-on-surface font-label-md px-4 py-2 rounded shadow-md border border-surface-dim flex items-center hover:bg-surface-container-lowest" type="button">
+<span class="material-symbols-outlined mr-2">my_location</span> Fijar Marcador
+                            </button>
+</div>
+<img alt="Map placeholder" class="w-full h-full object-cover object-center filter sepia-[.1] hue-rotate-[-10deg] saturate-50 contrast-125" data-alt="A stylized, overhead satellite map view of a large university campus with distinct brutalist architecture and sprawling green lawns. The aesthetic is clean, modern, and slightly brightened, adhering to a light-mode corporate UI style. Subtle institutional red map pins indicate key buildings and pathways, creating a precise and academic mood." data-location="Bogota, Colombia Campus Map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNSzjDKk4W0ks0o93czBQE88Rrn0avDa6ldrPOrjRAaGA8VVDL2FrZz36T40vCoWY1AXJssnViVvpo4SEUh_NcDeJ-vaNNHNa31agqyd6RDwYWkuiOHMnuiK7CU9MicsTMCX7puel4TVwCTEuQlW8KFUBIfsF4AXdcbrGtcl7qxegnUx0dMf9edyWhUf9yv-0LfnPG13RQ70BI5c05RWnvDxahWmwugY1_u90e3bZ0_fCnWscU93yARAxHBYJv0W4XwR9bTHbbVoE">
+<!-- Simulated Pin -->
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">
+<span class="material-symbols-outlined text-[40px] text-institutional-red drop-shadow-md" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+<!-- Block 4: Media Upload (Spans 1 column) -->
+<div class="col-span-1 bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-surface-container flex flex-col gap-6 hover:shadow-md transition-shadow">
+<h3 class="text-headline-md font-headline-md text-on-surface border-b border-surface-dim pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim">image</span> Imagen de Portada
+                    </h3>
+<div class="flex-1 border-2 border-dashed border-deep-grey rounded-lg flex flex-col items-center justify-center p-6 text-center hover:border-electric-blue hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-tertiary-fixed transition-colors">
+<span class="material-symbols-outlined text-[32px] text-secondary group-hover:text-electric-blue transition-colors">cloud_upload</span>
+</div>
+<p class="text-label-md font-label-md text-on-surface mb-1">Arrastra tu imagen aquí</p>
+<p class="text-label-sm font-label-sm text-secondary">o haz clic para explorar</p>
+<p class="text-label-sm font-label-sm text-secondary-fixed mt-4">Formatos: JPG, PNG. Max 5MB.</p>
+</div>
+</div>
+<!-- Block 5: Actions (Full width bottom bar) -->
+<div class="col-span-1 lg:col-span-3 bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container flex justify-end gap-4 items-center">
+<p class="text-label-sm font-label-sm text-secondary mr-auto"><span class="text-institutional-red">*</span> Campos obligatorios</p>
+<!-- Secondary Button: Guardar borrador -->
+<button class="bg-transparent text-electric-blue font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-container-low transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined mr-2 text-[18px]">save</span>
+                        Guardar borrador
+                    </button>
+<!-- Primary Button: Publicar ahora (Electric Blue) -->
+<button class="bg-electric-blue text-white font-label-md text-label-md px-8 py-3 rounded-lg hover:bg-tertiary-container transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center" type="button">
+<span class="material-symbols-outlined mr-2 text-[18px]">rocket_launch</span>
+                        Publicar ahora
+                    </button>
+</div>
+</form>
+</section>
+</main>
+</body></html>

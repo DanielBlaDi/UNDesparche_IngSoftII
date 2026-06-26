@@ -1,0 +1,405 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNDesparche - Reserva de Equipo</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Newsreader:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#ffb4ab",
+                    "background": "#f8f9fa",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-container": "#edeeef",
+                    "primary-container": "#941113",
+                    "tertiary-fixed": "#dde1ff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#e4e2e1",
+                    "primary": "#6e0006",
+                    "primary-fixed-dim": "#ffb4ab",
+                    "success-green": "#28A745",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "white": "#FFFFFF",
+                    "secondary-fixed": "#e4e2e1",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed-variant": "#900d10",
+                    "surface-container-high": "#e7e8e9",
+                    "institutional-red": "#941113",
+                    "warning-yellow": "#FFC107",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "on-tertiary-fixed": "#001356",
+                    "caution-orange": "#FD7E14",
+                    "secondary": "#5f5e5e",
+                    "deep-grey": "#333333",
+                    "on-primary-fixed": "#410002",
+                    "primary-fixed": "#ffdad6",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary": "#00258f",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#0037c5",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#8e706d",
+                    "outline-variant": "#e2beba",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#a7b5ff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary-fixed-dim": "#b8c3ff",
+                    "on-tertiary-fixed-variant": "#0035be",
+                    "on-primary-container": "#ffa095",
+                    "error-container": "#ffdad6",
+                    "electric-blue": "#2E5BFF",
+                    "on-secondary-container": "#656464",
+                    "surface-tint": "#b22a25",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1d",
+                    "surface-bright": "#f8f9fa",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f3f4f5",
+                    "on-background": "#191c1d",
+                    "inverse-surface": "#2e3132",
+                    "surface": "#f8f9fa",
+                    "on-surface-variant": "#5a413e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max-width": "1280px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Newsreader"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "headline-md": ["Newsreader"],
+                    "body-md": ["Hanken Grotesk"],
+                    "display-lg": ["Newsreader"],
+                    "headline-lg": ["Newsreader"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md min-h-screen overflow-hidden">
+<!-- TopNavBar Shared Component -->
+<header class="border-t-4 border-institutional-red bg-surface dark:bg-background shadow-sm docked full-width top-0 z-10 relative">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-6">
+<div class="text-headline-lg font-headline-lg font-bold text-institutional-red dark:text-primary-fixed-dim">
+                    UNDesparche
+                </div>
+<!-- Nav Links (Hidden on mobile for structure, but forcing flex for desktop view representation) -->
+<nav class="hidden md:flex gap-4">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-electric-blue transition-colors duration-200 text-label-md font-label-md" href="#">Events</a>
+<a class="text-tertiary font-bold border-b-2 border-tertiary pb-1 text-label-md font-label-md opacity-80 scale-95 transition-all" href="#">Equipment</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-electric-blue transition-colors duration-200 text-label-md font-label-md" href="#">Campus Map</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary hover:text-electric-blue transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="bg-surface-container border border-outline rounded-lg px-4 py-2 text-label-md font-label-md hover:bg-surface-container-high transition-colors">
+                    Sign In
+                </button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A clean, modern headshot of a young professional student on a neutral background, suitable for a corporate or university profile avatar. High key lighting, sharp focus, light mode aesthetic with soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiRpFF_pQv6CSAURDyHN4m3kFLO-lYfNLTz_mXb4joiCAUWTODew8rFfndVPrateiUlz685lTQzDg3bsGIDYtImhejZaVIHjFMlnlD_j83TFNRICvZMAtPCC_KBU_ykhf4JGOdg8SAkSq5PYoAmKQaQUovgtwxQ6EdnmQJCnUJdqJRo85s60M__U2t7ZOe3zPoX6urWRJvzd14NwMuXwhekeKPNkQHgMx5d5s8Fq0cr4gsUkFzN8S04w-IZca9qVKoQhpkU8YIkh4">
+</div>
+</div>
+</header>
+<!-- Blurred Background Content (Equipment List) -->
+<main class="w-full px-margin-desktop max-w-container-max-width mx-auto py-8 filter blur-md opacity-60 pointer-events-none transition-all duration-300 select-none h-[calc(100vh-64px)] overflow-hidden">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">Equipment Inventory</h1>
+<p class="text-body-md font-body-md text-secondary">Browse and reserve available resources.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-white border border-outline-variant rounded-lg px-4 py-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">filter_list</span>
+<span class="text-label-md font-label-md">Filter</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Dummy Card 1 -->
+<div class="bg-white rounded-xl shadow-sm border border-surface-container-highest p-4 flex flex-col gap-4">
+<div class="w-full h-48 bg-surface-container rounded-lg overflow-hidden relative">
+<img alt="Camera" class="w-full h-full object-cover" data-alt="A high-quality, professional DSLR camera resting on a clean, light surface. The lighting is studio-quality, bright and neutral, fitting a modern e-commerce or inventory catalog aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEnpYT76J-3agokuebFdmN9lzMmlHJwuD-8tM-gq5T-1gLjErCXB2wfWhymcLsilhOArsm8ohfFhNowv1jdvNMxbb7zaIQCiyvwgFFU51Y6FoHgRFijwvg36s4-eq2N43-J2tEdw1HleDR5sBvD4hPy_M4vLyTM8VdHL3sdWun1L4wuHHHq8fdvEX6K3i-FO9icoo4bQoljw15lxz8G5bxe1tFuMpLlspKIXoAWWmDmQiqC-_x96TEkLkt3smiX1_GRdALuYLZ_Oo">
+<div class="absolute top-2 right-2 bg-success-green/10 text-success-green px-2 py-1 rounded text-label-sm font-label-sm border border-success-green/20">Available</div>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-1">Canon EOS Rebel T7</h3>
+<p class="text-body-md font-body-md text-secondary line-clamp-2">Kit completo con lente 18-55mm, ideal para fotografía y video básico.</p>
+</div>
+</div>
+<!-- Dummy Card 2 -->
+<div class="bg-white rounded-xl shadow-sm border border-surface-container-highest p-4 flex flex-col gap-4">
+<div class="w-full h-48 bg-surface-container rounded-lg overflow-hidden relative">
+<img alt="Laptop" class="w-full h-full object-cover" data-alt="A sleek, modern silver laptop open on a stark white desk. The lighting is crisp and cool, casting soft shadows, creating a high-end corporate or academic technological vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiwZTNqY61UQ1oGtOEutSMFpzc78pQd1am20GDSE0-FbIDIdMHckBa6vCT6KWzpJCHtdZfv26VMEY43XeH02cNGfU6NR_zk0Da-wfhkLMxcXV8dvwVVAdYea3zsFT0_RHZcto4TTI4wF03dFfXnVLd2dKMM5pRBy0tVh3BqGKbNV9LgeLSZwG74aNNe3-CYaG6DoAjHfNqgyaAfLKHAfV6AD-4MTc9zCspXoh8Rd8vfDVjBZOsQlv7hAPxHr8IUA582LmNXGKXnGI">
+<div class="absolute top-2 right-2 bg-warning-yellow/10 text-warning-yellow px-2 py-1 rounded text-label-sm font-label-sm border border-warning-yellow/20">Reserved</div>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-1">MacBook Pro 14"</h3>
+<p class="text-body-md font-body-md text-secondary line-clamp-2">Chip M1 Pro, 16GB RAM. Equipo de alto rendimiento para edición.</p>
+</div>
+</div>
+<!-- Dummy Card 3 -->
+<div class="bg-white rounded-xl shadow-sm border border-surface-container-highest p-4 flex flex-col gap-4">
+<div class="w-full h-48 bg-surface-container rounded-lg overflow-hidden relative">
+<img alt="Projector" class="w-full h-full object-cover" data-alt="A modern digital video projector in white, positioned on a clean tabletop against a very light grey background. Studio lighting highlights its design details, fitting an institutional equipment catalog." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq-B5SW36GhOizu0-bSE7YujV-uTUWtQrVn0VXL6WQe8KJduqNCg_KHhdrgrdQd2QITHIPXZSNX4S6tHikpQIMG4LdBdRhfO6L0HBoLfkNIbH4k9iZzCwWniIZwOLSrnnkGIG7pq4SmOF3-ZkMRI5eK6O_g1VD068PX1wxPY5fbYAXc8A_uNc9f31xrjjaX9IY7AoFMMbjrjxtEezOVqoCfKvMDSAeYXpwLtdxBsW_bwmx4kdrgzsxcUvuScenjSP_AXign--Ry9w">
+<div class="absolute top-2 right-2 bg-success-green/10 text-success-green px-2 py-1 rounded text-label-sm font-label-sm border border-success-green/20">Available</div>
+</div>
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-1">Proyector Epson WXGA</h3>
+<p class="text-body-md font-body-md text-secondary line-clamp-2">Proyector portátil de 3300 lúmenes, conexiones HDMI y VGA.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-deep-grey/40 backdrop-blur-[2px] p-4 transition-opacity duration-300" id="modal-backdrop">
+<!-- Modal Container -->
+<div class="bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] w-full max-w-2xl overflow-hidden flex flex-col transform transition-all duration-300 scale-100 opacity-100" id="modal-container">
+<!-- Close Button (Absolute) -->
+<button aria-label="Close modal" class="absolute top-4 right-4 p-2 text-secondary hover:text-on-surface hover:bg-surface-container rounded-full transition-colors z-10" id="btn-close-modal">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- STATE 1: Reservation Details Form -->
+<div class="flex flex-col w-full" id="state-reservation">
+<!-- Header / Hero Image -->
+<div class="h-48 w-full bg-surface-container relative">
+<img alt="Canon Camera" class="w-full h-full object-cover object-center" data-alt="A detailed, close-up shot of a professional DSLR camera lens and body. High contrast lighting accentuates the mechanical details against a clean, light studio background, evoking a sense of premium university equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMZWciNc8nWE6HcZdnX5TSBnco8kB05v3BfLdGCisJDq23dA26qLSp-dG98zgEjzvdeWBNB4q5K5GqHkeo82AKCFtgoPJ_fIShNG9IjM061y05ZI52e8ehe3C1iWvkP_48QDR7edLSOtC-8Ym-8zZbKTk3wsYxV5EOCBb2bu4pDx5OXKmIblqhtOPwX_dNYJRuRfcB3YZZEZSKMdTil5BFoE740S8JxMekFxKnclhseHQwqqfzqaOZnorGCEBr1wNjmgKOLdDO6Os">
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-4 left-6 flex items-center gap-3">
+<div class="bg-success-green text-white px-2 py-1 rounded text-label-sm font-label-sm border border-success-green/20 shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Disponible
+                         </div>
+</div>
+</div>
+<!-- Content Body -->
+<div class="p-6 md:p-8 flex flex-col gap-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2">Canon EOS Rebel T7 Kit</h2>
+<p class="text-body-md font-body-md text-secondary">
+                            Kit de fotografía estándar para proyectos académicos. Incluye cuerpo de cámara, lente EF-S 18-55mm f/3.5-5.6, batería recargable, cargador y bolso protector.
+                        </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low rounded-lg p-4 border border-surface-container-highest">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider block mb-1">Duración Máxima</span>
+<span class="text-body-md font-body-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">timer</span> 4 Horas
+                            </span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 border border-surface-container-highest">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider block mb-1">Ubicación de Retiro</span>
+<span class="text-body-md font-body-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">location_on</span> Oficina de Deportes
+                            </span>
+</div>
+</div>
+<!-- Disclaimer Section -->
+<div class="bg-surface-container-low rounded-lg border-l-4 border-warning-yellow p-4 mt-2">
+<h3 class="text-label-md font-label-md text-on-surface flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-warning-yellow" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            Responsabilidad del Estudiante
+                        </h3>
+<p class="text-label-sm font-label-sm text-secondary leading-relaxed mb-4">
+                            Al confirmar esta reserva, te haces plenamente responsable por el cuidado, integridad y devolución puntual de los equipos detallados. Cualquier daño, pérdida o retraso en la entrega resultará en sanciones académicas y disciplinarias según el reglamento vigente de la Universidad Nacional de Colombia.
+                        </p>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-0.5">
+<input class="peer appearance-none w-5 h-5 border-2 border-secondary rounded checked:bg-electric-blue checked:border-electric-blue transition-colors focus:ring-2 focus:ring-electric-blue focus:ring-offset-2 focus:ring-offset-white" id="terms-checkbox" type="checkbox">
+<span class="material-symbols-outlined absolute text-white text-[16px] pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+<span class="text-body-md font-body-md text-on-surface group-hover:text-deep-grey transition-colors select-none">
+                                He leído y acepto los términos de responsabilidad.
+                            </span>
+</label>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="border-t border-surface-container-highest p-4 md:px-8 md:py-6 bg-surface-bright flex justify-end gap-4 rounded-b-xl">
+<button class="px-6 py-2.5 rounded-lg text-label-md font-label-md text-deep-grey border-2 border-transparent hover:bg-surface-container transition-colors" onclick="closeModal()">
+                        Cancelar
+                    </button>
+<!-- Disabled state initially, enabled by JS when checked -->
+<button class="px-6 py-2.5 rounded-lg text-label-md font-label-md bg-surface-container-highest text-secondary cursor-not-allowed transition-all duration-200 flex items-center gap-2" id="btn-confirm">
+                        Confirmar reserva
+                    </button>
+</div>
+</div>
+<!-- STATE 2: Post-Confirmation Success -->
+<div class="hidden flex-col items-center justify-center w-full p-12 text-center min-h-[500px]" id="state-success">
+<div class="w-24 h-24 bg-success-green/10 rounded-full flex items-center justify-center mb-6 border-8 border-success-green/5">
+<span class="material-symbols-outlined text-[48px] text-success-green" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-4">Reserva confirmada.</h2>
+<p class="text-body-lg font-body-lg text-secondary max-w-md mx-auto mb-8">
+                    Acércate a la <strong class="text-on-surface font-semibold">oficina de deportes</strong> para retirar tu equipo antes de que el tiempo expire.
+                </p>
+<!-- Countdown Timer -->
+<div class="bg-surface-container-low border border-surface-container-high rounded-xl p-6 mb-8 w-full max-w-xs relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-electric-blue/5 to-transparent pointer-events-none"></div>
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-widest block mb-2">Tiempo Restante</span>
+<div class="text-display-lg font-display-lg text-electric-blue font-bold tracking-tight tabular-nums" id="countdown-display">
+                        09:59
+                    </div>
+<!-- Decorative progress bar -->
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-electric-blue h-full w-full transition-all duration-1000 ease-linear rounded-full" id="progress-bar"></div>
+</div>
+</div>
+<button class="px-8 py-3 rounded-lg text-label-md font-label-md text-electric-blue border-2 border-electric-blue hover:bg-electric-blue/5 transition-colors" onclick="closeModal()">
+                    Volver al inventario
+                </button>
+</div>
+</div>
+</div>
+<script>
+        // Modal State Logic
+        const checkbox = document.getElementById('terms-checkbox');
+        const btnConfirm = document.getElementById('btn-confirm');
+        const stateReservation = document.getElementById('state-reservation');
+        const stateSuccess = document.getElementById('state-success');
+        const modalContainer = document.getElementById('modal-container');
+        let timerInterval;
+
+        // Checkbox interaction
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                btnConfirm.classList.remove('bg-surface-container-highest', 'text-secondary', 'cursor-not-allowed');
+                btnConfirm.classList.add('bg-electric-blue', 'text-white', 'hover:bg-tertiary-container', 'shadow-md', 'hover:shadow-lg', 'cursor-pointer');
+                btnConfirm.removeAttribute('disabled');
+            } else {
+                btnConfirm.classList.add('bg-surface-container-highest', 'text-secondary', 'cursor-not-allowed');
+                btnConfirm.classList.remove('bg-electric-blue', 'text-white', 'hover:bg-tertiary-container', 'shadow-md', 'hover:shadow-lg', 'cursor-pointer');
+                btnConfirm.setAttribute('disabled', 'true');
+            }
+        });
+
+        // Initial setup for button
+        btnConfirm.setAttribute('disabled', 'true');
+
+        // Confirm Action
+        btnConfirm.addEventListener('click', function() {
+            if (!checkbox.checked) return;
+
+            // Micro-interaction: button loading state (fake delay)
+            btnConfirm.innerHTML = '<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">progress_activity</span> Procesando...';
+            
+            setTimeout(() => {
+                // Transition to success state
+                stateReservation.classList.add('hidden');
+                stateSuccess.classList.remove('hidden');
+                stateSuccess.classList.add('flex'); // Ensure flex is applied when unhidden
+                
+                // Adjust modal container if needed for smooth height transition (optional refinement)
+                modalContainer.classList.add('scale-[1.02]');
+                setTimeout(() => modalContainer.classList.remove('scale-[1.02]'), 200);
+
+                startCountdown(9, 59);
+            }, 800);
+        });
+
+        function closeModal() {
+            // In a real app, this would route away or close the overlay.
+            // Here we just reload or hide to demonstrate.
+            const backdrop = document.getElementById('modal-backdrop');
+            backdrop.classList.add('opacity-0');
+            modalContainer.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                // Reset state for demo purposes
+                backdrop.classList.remove('opacity-0');
+                modalContainer.classList.remove('scale-95', 'opacity-0');
+                stateSuccess.classList.add('hidden');
+                stateSuccess.classList.remove('flex');
+                stateReservation.classList.remove('hidden');
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event('change'));
+                btnConfirm.innerHTML = 'Confirmar reserva';
+                clearInterval(timerInterval);
+            }, 300);
+        }
+
+        document.getElementById('btn-close-modal').addEventListener('click', closeModal);
+
+        // Timer Logic
+        function startCountdown(minutes, seconds) {
+            const display = document.getElementById('countdown-display');
+            const progressBar = document.getElementById('progress-bar');
+            let totalSeconds = (minutes * 60) + seconds;
+            const initialTotal = totalSeconds;
+
+            clearInterval(timerInterval);
+
+            function updateDisplay() {
+                const m = Math.floor(totalSeconds / 60);
+                const s = totalSeconds % 60;
+                display.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+                
+                // Update progress bar
+                const percentage = (totalSeconds / initialTotal) * 100;
+                progressBar.style.width = `${percentage}%`;
+
+                if (totalSeconds <= 60) {
+                    display.classList.remove('text-electric-blue');
+                    display.classList.add('text-institutional-red', 'animate-pulse');
+                    progressBar.classList.remove('bg-electric-blue');
+                    progressBar.classList.add('bg-institutional-red');
+                }
+
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    display.textContent = "00:00";
+                } else {
+                    totalSeconds--;
+                }
+            }
+
+            updateDisplay();
+            timerInterval = setInterval(updateDisplay, 1000);
+        }
+    </script>
+</body></html>

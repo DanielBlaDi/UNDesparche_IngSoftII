@@ -1,0 +1,297 @@
+<!DOCTYPE html><html class="light" lang="es" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title class="">Inventario de Implementos - UNDesparche</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-highest": "#e1e3e4", "on-tertiary-fixed": "#311300", "inverse-on-surface": "#f0f1f2", "on-error-container": "#93000a", primary: "#002241", "on-primary-fixed-variant": "#1b4876", "outline-variant": "#c2c6d0", "secondary-container": "#bcf46d", "secondary-fixed-dim": "#a1d754", "tertiary-fixed": "#ffdbc8", "on-surface-variant": "#42474f", "inverse-surface": "#2e3132", outline: "#737780", "primary-fixed-dim": "#a1c9ff", white: "#FFFFFF", "success-green": "#28A745", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#ffb689", "on-secondary-fixed-variant": "#324f00", error: "#ba1a1a", surface: "#f8f9fa", "on-error": "#ffffff", "caution-orange": "#FD7E14", "on-secondary": "#ffffff", "on-tertiary-fixed-variant": "#6f380f", "surface-dim": "#d9dadb", "primary-container": "#003865", "on-tertiary-container": "#d98f5f", "error-container": "#ffdad6", "electric-blue": "#2E5BFF", "secondary-fixed": "#bcf46d", "primary-fixed": "#d2e4ff", "on-secondary-fixed": "#111f00", "on-surface": "#191c1d", secondary: "#436900", "institutional-red": "#941113", "surface-container-low": "#f3f4f5", "on-primary": "#ffffff", "surface-container": "#edeeef", "surface-tint": "#376090", "tertiary-container": "#5b2901", "warning-yellow": "#FFC107", "on-background": "#191c1d", "deep-grey": "#333333", background: "#f8f9fa", "on-primary-container": "#7ba2d5", "surface-bright": "#f8f9fa", "surface-container-lowest": "#ffffff", "surface-variant": "#e1e3e4", "on-secondary-container": "#486f00", "inverse-primary": "#a1c9ff", tertiary: "#3b1800", "on-primary-fixed": "#001c37", "status-info": "#0277BD", "unal-blue-dark": "#00213B", "unal-green-muted": "#A5D165", "surface-container-high": "#e7e8e9", "status-warning": "#EF6C00", "status-error": "#C62828"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {"container-max-width": "1280px", "margin-mobile": "16px", base: "8px", "margin-desktop": "40px", gutter: "24px", "container-max": "1280px"}, fontFamily: {"headline-lg-mobile": ["Arimo"], "body-lg": ["Arimo"], "label-sm": ["Arimo"], "label-md": ["Arimo"], "headline-md": ["Arimo"], "body-md": ["Arimo"], "display-lg": ["Arimo"], "headline-lg": ["Arimo"], "label-lg": ["Arimo"]}, fontSize: {"headline-lg-mobile": ["28px", {lineHeight: "36px", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "label-md": ["12px", {lineHeight: "16px", letterSpacing: "0.04em", fontWeight: "500"}], "headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "700"}], "label-lg": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}]}, boxShadow: {card: "0 4px 12px rgba(0, 0, 0, 0.06)", "card-hover": "0 8px 20px rgba(0, 0, 0, 0.12)"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary selection:text-white">
+<!-- Shared Component: TopNavBar -->
+<header class="border-b border-surface-variant bg-surface shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-16">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<a class="text-headline-lg font-headline-lg font-bold text-primary hover:opacity-80 transition-opacity" href="#">
+                    UNDesparche
+                </a>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8 text-label-md font-label-md">
+<a class="text-secondary hover:text-primary transition-colors duration-200" href="#">
+                    Eventos
+                </a>
+<a aria-current="page" class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200" href="#">Implementos</a>
+<a class="text-secondary hover:text-primary transition-colors duration-200" href="#">Mapa del campus</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-4">
+<div class="hidden md:block relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-surface-variant rounded-full text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-48 transition-all" placeholder="Search..." type="text">
+</div>
+<button aria-label="Perfil de usuario" class="flex items-center gap-2 pl-2 pr-3 py-1.5 bg-surface-container border border-surface-variant rounded-full hover:bg-surface-container-high transition-colors duration-200 group" id="user-profile-menu">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-primary/20">
+<span class="material-symbols-outlined text-on-primary-container text-[20px]">person</span>
+</div>
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col gap-8">
+<!-- Sanction Warning Banner (Interactive Element) -->
+<div class="bg-error-container border border-error rounded-xl p-4 md:p-6 shadow-sm flex items-start gap-4 transition-all duration-300 transform origin-top" id="sanction-banner">
+<span class="material-symbols-outlined text-error text-[28px] mt-1" style="font-variation-settings: &quot;FILL&quot; 1;">warning</span>
+<div class="flex flex-col gap-1">
+<h2 class="text-headline-md font-headline-md text-error">Usuario Sancionado</h2>
+<p class="text-body-md font-body-md text-on-error-container opacity-90">
+                    Préstamos deshabilitados. Tienes penalizaciones activas por retrasos en devoluciones previas. Por favor, acércate a la oficina de administración para resolver tu estado.
+                </p>
+</div>
+<button class="ml-auto text-on-error-container hover:bg-error/10 p-2 rounded-full transition-colors" onclick="toggleSanction()" title="Cerrar advertencia (Demo)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Page Header & Role Indicator -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-surface-variant pb-8">
+<div class="flex flex-col gap-2">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full w-fit">
+<span class="material-symbols-outlined text-secondary text-[16px]">school</span>
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Miembro de la Comunidad</span>
+</div>
+<h1 class="text-display-lg font-display-lg text-on-surface">Inventario de Implementos</h1>
+<p class="text-body-lg font-body-lg text-secondary max-w-2xl">Explora y reserva implementos recreativos y deportivos disponibles para la comunidad universitaria. Recuerda traer tu carnet para el préstamo.</p>
+</div>
+<!-- Demo Toggle for Sanction State -->
+<button class="text-label-sm font-label-sm text-secondary hover:text-primary flex items-center gap-1 transition-colors group" onclick="toggleSanction()">
+<span class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform duration-300">sync</span>
+                Simular Estado Sancionado
+            </button>
+</div>
+<!-- Filters Section -->
+<div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+<!-- Faculty Tabs (Scrollable on mobile) -->
+<div class="w-full xl:w-auto overflow-x-auto no-scrollbar pb-2 xl:pb-0">
+<div class="flex gap-2 min-w-max">
+<button class="px-5 py-2.5 rounded-full bg-primary text-white text-label-md font-label-md shadow-sm transition-all">Todos</button>
+<button class="px-5 py-2.5 rounded-full bg-surface text-secondary border border-surface-variant hover:border-primary hover:text-primary text-label-md font-label-md transition-all">Artes</button>
+<button class="px-5 py-2.5 rounded-full bg-surface text-secondary border border-surface-variant hover:border-primary hover:text-primary text-label-md font-label-md transition-all">Ciencias</button>
+<button class="px-5 py-2.5 rounded-full bg-surface text-secondary border border-surface-variant hover:border-primary hover:text-primary text-label-md font-label-md transition-all">Ingeniería</button>
+<button class="px-5 py-2.5 rounded-full bg-surface text-secondary border border-surface-variant hover:border-primary hover:text-primary text-label-md font-label-md transition-all">Medicina</button>
+</div>
+</div>
+<!-- Category Dropdown & Search -->
+<div class="flex items-center gap-4 w-full xl:w-auto">
+<div class="relative w-full sm:w-64">
+<select class="w-full appearance-none bg-surface border border-surface-variant rounded-xl px-4 py-2.5 pr-10 text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer transition-colors shadow-sm">
+<option>Todas las Categorías</option>
+<option>Audiovisual</option>
+<option>Cómputo</option>
+<option>Laboratorio</option>
+<option>Deportes</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none">expand_more</span>
+</div>
+<button class="p-2.5 border border-surface-variant rounded-xl bg-surface hover:bg-surface-container transition-colors shadow-sm" title="Vista de Lista/Cuadrícula">
+<span class="material-symbols-outlined text-secondary">grid_view</span>
+</button>
+</div>
+</div>
+<!-- Equipment Grid (Bento/Card Style) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
+<!-- Card 1: Available (Green) -->
+<article class="bg-white rounded-xl border border-surface-variant shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden group">
+<div class="h-48 w-full bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A professional DSLR camera body with a large lens attached, resting on a clean, modern white desk surface. Soft, high-key natural lighting fills the scene, emphasizing the metallic and textured details of the camera equipment. The setting suggests a bright, organized studio or university equipment room, fitting a clean, high-contrast digital interface aesthetic." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuATFILdaW2Ilhk8qmh-ljvHOax9xtLQnxrHCLUOVUGm_s8j9ovWlA21mRdLBH0I84V-pd_sKEHOn6IDtooroALqJAEP38WMKMNL0rEPFmwr_KF-w--UNC7qKuB5EzR2CzwXP6889cM-SVrvfAum_h5_VKeNgeq0A36APQiNGpdBEIJA1iNI-inRoMvC8b0DJcOtByjUoPAYHe9nZtvfI-M9kAPQEjapBFZFaKG8zh3xTI92VNdsbiCV3wWcXTHPoBXOmd-7nE0VBRjjJw&quot;);">
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md border border-surface-variant px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<div class="w-2 h-2 rounded-full bg-success-green animate-pulse"></div>
+<span class="text-label-sm font-label-sm text-on-surface uppercase tracking-wide">Disponible</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow gap-4">
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1 uppercase tracking-wider">Facultad de Artes</p>
+<h3 class="text-headline-md font-headline-md text-on-surface leading-tight">Balón de baloncesto</h3>
+</div>
+<div class="flex items-center gap-4 text-label-md font-label-md text-secondary mt-auto pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-1.5" title="Tiempo máximo de préstamo">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                            48 Horas
+                        </div>
+<div class="flex items-center gap-1.5" title="Ubicación">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Ed. 314
+                        </div>
+</div>
+<button class="w-full py-2.5 bg-surface-container text-secondary border border-surface-variant text-label-md font-label-md rounded-xl hover:bg-surface-container-high transition-colors shadow-sm mt-2 flex items-center justify-center gap-2">Reservar
+</button>
+</div>
+</article>
+<!-- Card 2: Reserved (Yellow) -->
+<article class="bg-white rounded-xl border border-surface-variant shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden group">
+<div class="h-48 w-full bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A sleek, modern high-performance laptop slightly open on a pristine white table. The lighting is crisp and cool, highlighting the metallic finish of the device against a minimalist, bright background. The composition is structured and clean, evoking an academic or professional IT environment aligned with a modern, high-contrast UI design." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDeLZBXPydQU0s-CE6Qh-U2yXonFO_t1QOEKKdwYhrTiHpRE6AXnNvGUz5iN5d2zKSgtdAltEhUO4n8s4ePpxlhpRdblxPnFoP46YlI5j57U5NMAB1C9wjzq5oCGlB9bZmdy1feZQQnFJLwakQK3cfRO7sfWI7DlbdfzmLJNUavBvnb4d7N1Cxwp1mG_XBr9KuA2CB3zHZpyKs79J4bOJO1oh8ZwrhlirnP2a-hPs8_9PyD1rpaRtgTgHez30ix70w7tzfoA65kwoahYg&quot;);">
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md border border-surface-variant px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-warning-yellow text-[14px]">bookmark</span>
+<span class="text-label-sm font-label-sm text-on-surface uppercase tracking-wide">Reservado</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow gap-4">
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1 uppercase tracking-wider">Facultad de Ingeniería</p>
+<h3 class="text-headline-md font-headline-md text-on-surface leading-tight">Futbolito</h3>
+</div>
+<div class="flex items-center gap-4 text-label-md font-label-md text-secondary mt-auto pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-1.5" title="Tiempo máximo de préstamo">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                            Semestral
+                        </div>
+<div class="flex items-center gap-1.5" title="Ubicación">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                            Ed. 453
+                        </div>
+</div>
+<button class="reserve-btn w-full py-2.5 bg-surface-container text-secondary text-label-md font-label-md rounded-xl cursor-not-allowed mt-2 border border-surface-variant" disabled="">Reservado</button>
+</div>
+</article>
+<!-- Card 3: Borrowed (Orange) -->
+<article class="bg-white rounded-xl border border-surface-variant shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden group">
+<div class="h-48 w-full bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A modern, high-end digital projector positioned on an empty desk in a brightly lit, minimalist room. Soft, diffused lighting casts gentle shadows, emphasizing the sleek white and grey casing of the projector. The scene conveys a sense of readiness and professional academic utility within a clean, structured light-mode visual system." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDdTL7gMMa0eOXrNyxAIH5DdNRX3uZ0D6kgfpy9oRrC5FZvFM13DbnAcLFKFHLjwecdHkCpQjEuz3yjV-56KwC4ZUDd3Hl5Y5Ci9yJlKHIWxAZFc2zT58Z2kWR8ER--Rem8WcrOujmPe_20ZufDl9_hLarx19Tk-8HOhz-CSKueIzuSFLus4gwYE3NPT4wAi_8HxyQPA88uj1Fd-EOUB8GOOHkg8pK_rqJhW1zPKr5xjuprDqRpgtHbW622hGwHQCZdYoCXC91ecwygWg&quot;);">
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md border border-surface-variant px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-caution-orange text-[14px]">front_hand</span>
+<span class="text-label-sm font-label-sm text-on-surface uppercase tracking-wide">prestado</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow gap-4">
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1 uppercase tracking-wider">Dirección de Bienestar</p>
+<h3 class="text-headline-md font-headline-md text-on-surface leading-tight">Tablero de ajedrez</h3>
+</div>
+<div class="flex items-center gap-4 text-label-md font-label-md text-secondary mt-auto pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-1.5 text-caution-orange" title="Devolución esperada">
+<span class="material-symbols-outlined text-[18px]">calendar_clock</span>
+                            Hoy, 18:00
+                        </div>
+</div>
+<button class="w-full py-2.5 bg-surface-container text-secondary border border-surface-variant text-label-md font-label-md rounded-xl hover:bg-surface-container-high transition-colors mt-2 flex items-center justify-center gap-2">Prestado</button>
+</div>
+</article>
+<!-- Card 4: Unavailable (Red) -->
+<article class="bg-white rounded-xl border border-surface-variant shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden group opacity-70">
+<div class="h-48 w-full bg-surface-container-highest relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center grayscale opacity-60 transition-transform duration-700 group-hover:scale-105" data-alt="A sophisticated scientific microscope sitting on a sterile laboratory bench. The image is intentionally desaturated to convey an out-of-service state, yet retains a crisp, bright lighting setup typical of modern laboratory environments. The composition is highly structured, fitting a rigorous, clean user interface design focused on utility." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCYnT2_NZfVSBF_Z04GhgpoB085czGL1TnTeAV0ogsgiNlK2qaGfI9BjNF7Fsdk5CtNVfgEMfDVoo1t47f5Kd6IbW8F40_V3-mZ6rnS8joF5ueTIsRb8gtfTin5lFPENCq-eK9A9h6irfS52DsBuBqtQsJDunjvzMUbkojgcAEQ14NLeqParip2tANOfaDOhwqpbfAkBygzxJikjXMngujjThj7xwAyo4upNK0-dQmZoTEKbacxQMRMk6LUNykTUV_YtU1DnIq3cKdUgA&quot;);">
+</div>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md border border-surface-variant px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-error text-[14px]">build</span>
+<span class="text-label-sm font-label-sm text-on-surface uppercase tracking-wide">No disponible</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-grow gap-4">
+<div>
+<p class="text-label-sm font-label-sm text-secondary mb-1 uppercase tracking-wider">Facultad de Ciencias</p>
+<h3 class="text-headline-md font-headline-md text-secondary leading-tight">Balón de voleibol</h3>
+</div>
+<div class="flex items-center gap-4 text-label-md font-label-md text-secondary mt-auto pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+                            Fuera de servicio
+                        </div>
+</div>
+<button class="w-full py-2.5 bg-surface-container-highest text-secondary text-label-md font-label-md rounded-xl cursor-not-allowed mt-2 border border-surface-variant" disabled="">
+                        Indisponible
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<!-- Shared Component: Footer -->
+<footer class="bg-primary w-full mt-auto">
+<div class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max-width mx-auto gap-8 text-center md:text-left">
+<div class="flex flex-col gap-2">
+<span class="text-headline-md font-headline-md text-white">UNDesparche</span>
+<p class="text-body-md font-body-md text-primary-fixed-dim">
+                    © 2026 Universidad Nacional de Colombia - Sede Bogotá
+                </p>
+</div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-6 text-label-sm font-label-sm">
+<a class="text-primary-fixed-dim hover:text-white transition-colors opacity-90 hover:opacity-100" href="#">
+                    Términos de servicio</a>
+<a class="text-primary-fixed-dim hover:text-white transition-colors opacity-90 hover:opacity-100" href="#">Política de privacidad</a>
+</nav>
+</div>
+</footer>
+<!-- Interactive Logic Script -->
+<script>
+        let isSanctioned = true; // Default to true as per prompt focus, but allows toggling
+
+        function applySanctionState() {
+            const banner = document.getElementById('sanction-banner');
+            const reserveButtons = document.querySelectorAll('.reserve-btn');
+
+            if (isSanctioned) {
+                banner.classList.remove('hidden');
+                banner.classList.add('flex');
+                
+                // Disable primary reservation buttons
+                reserveButtons.forEach(btn => {
+                    if(btn.classList.contains('bg-primary')) {
+                        btn.disabled = true;
+                        btn.classList.remove('bg-primary', 'hover:bg-primary-container', 'text-white');
+                        btn.classList.add('bg-surface-container', 'text-secondary', 'cursor-not-allowed', 'border', 'border-surface-variant');
+                        btn.innerText = 'Préstamos Deshabilitados';
+                    }
+                });
+            } else {
+                banner.classList.add('hidden');
+                banner.classList.remove('flex');
+                
+                // Re-enable primary reservation buttons
+                reserveButtons.forEach(btn => {
+                    // Only re-enable the originally active one (the green card)
+                    if(btn.innerText.includes('Deshabilitados')) {
+                        btn.disabled = false;
+                        btn.classList.add('bg-primary', 'hover:bg-primary-container', 'text-white');
+                        btn.classList.remove('bg-surface-container', 'text-secondary', 'cursor-not-allowed', 'border', 'border-surface-variant');
+                        btn.innerText = 'Reservar Equipo';
+                    }
+                });
+            }
+        }
+
+        function toggleSanction() {
+            isSanctioned = !isSanctioned;
+            applySanctionState();
+        }
+
+        // Apply initial state on load
+        document.addEventListener('DOMContentLoaded', applySanctionState);
+    </script>
+
+
+</body></html>

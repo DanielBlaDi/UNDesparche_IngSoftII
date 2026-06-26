@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>UNDesparche - Detalles del Evento</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#ffb4ab",
+                      "background": "#f8f9fa",
+                      "on-error": "#ffffff",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container": "#edeeef",
+                      "primary-container": "#941113",
+                      "tertiary-fixed": "#dde1ff",
+                      "error": "#ba1a1a",
+                      "secondary-container": "#e4e2e1",
+                      "primary": "#6e0006",
+                      "primary-fixed-dim": "#ffb4ab",
+                      "success-green": "#28A745",
+                      "secondary-fixed-dim": "#c8c6c6",
+                      "white": "#FFFFFF",
+                      "secondary-fixed": "#e4e2e1",
+                      "surface-variant": "#e1e3e4",
+                      "on-primary-fixed-variant": "#900d10",
+                      "surface-container-high": "#e7e8e9",
+                      "institutional-red": "#941113",
+                      "warning-yellow": "#FFC107",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "on-tertiary-fixed": "#001356",
+                      "caution-orange": "#FD7E14",
+                      "secondary": "#5f5e5e",
+                      "deep-grey": "#333333",
+                      "on-primary-fixed": "#410002",
+                      "primary-fixed": "#ffdad6",
+                      "on-secondary-fixed-variant": "#474747",
+                      "tertiary": "#00258f",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-container": "#0037c5",
+                      "surface-container-lowest": "#ffffff",
+                      "outline": "#8e706d",
+                      "outline-variant": "#e2beba",
+                      "surface-dim": "#d9dadb",
+                      "on-tertiary-container": "#a7b5ff",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary-fixed-dim": "#b8c3ff",
+                      "on-tertiary-fixed-variant": "#0035be",
+                      "on-primary-container": "#ffa095",
+                      "error-container": "#ffdad6",
+                      "electric-blue": "#2E5BFF",
+                      "on-secondary-container": "#656464",
+                      "surface-tint": "#b22a25",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#191c1d",
+                      "surface-bright": "#f8f9fa",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f3f4f5",
+                      "on-background": "#191c1d",
+                      "inverse-surface": "#2e3132",
+                      "surface": "#f8f9fa",
+                      "on-surface-variant": "#5a413e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Newsreader"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "display-lg": [
+                              "Newsreader"
+                      ],
+                      "headline-lg": [
+                              "Newsreader"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-surface font-sans antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="border-t-4 border-institutional-red bg-surface dark:bg-background shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max-width mx-auto h-16">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<a class="text-headline-lg font-headline-lg font-bold text-institutional-red dark:text-primary-fixed-dim tracking-tight" href="#">
+                    UNDesparche
+                </a>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-tertiary font-bold border-b-2 border-tertiary pb-1 text-label-md font-label-md hover:text-electric-blue transition-colors duration-200 opacity-80 scale-95 transition-all" href="#">Events</a>
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-md font-label-md hover:text-electric-blue transition-colors duration-200" href="#">Equipment</a>
+<a class="text-secondary dark:text-secondary-fixed-dim text-label-md font-label-md hover:text-electric-blue transition-colors duration-200" href="#">Campus Map</a>
+</nav>
+<!-- Actions (Search + Profile) -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-secondary mr-2 text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-md font-body-md text-on-surface placeholder:text-secondary w-32 focus:w-48 transition-all duration-300" placeholder="Search..." type="text">
+</div>
+<button class="bg-electric-blue text-white px-6 py-2 rounded-lg text-label-md font-label-md hover:bg-tertiary transition-colors">
+                    Sign In
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+<!-- Hero Banner -->
+<div class="w-full h-64 md:h-96 rounded-xl overflow-hidden relative mb-8 shadow-sm">
+<img alt="Event Banner" class="w-full h-full object-cover" data-alt="A vibrant, high-quality photograph of a bustling university campus event. A large, modern auditorium or open-air plaza is filled with diverse groups of students engaging in discussions. The lighting is bright and natural, reflecting a high-energy, academic atmosphere. The scene captures the spirit of a modern, lively educational institution in crisp detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCxRa7HZ_f6wL3vY6FH02spf47VJij562LKzwXzoradcr6wudmS1gdrWGY-4gGEzEC_GRPt8gAptve5sA4EpuIewQURsY-JvKMpLuFMSmc8X7vQW-mQKuWlpq-aHWAXcaeK0e-NaV1-26CqYnvnlvUfxWieVZ9MZ2WfugHIInMO6sgP9A-1fwxgdctOf97PFkqfZfCMedRqe9YWpzBnzOq43Lw7k5hN3MHjfzvhhAu6S-YSv6ssuk_EcDwnMu4VOeo0UqRdy2x0n4">
+<!-- Subtle gradient overlay for better contrast if text were on top -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<!-- Two Column Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Main Event Details -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Admin Contextual Action Bar (Simulated) -->
+<div class="bg-surface-container-low border border-surface-dim rounded-lg p-4 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-deep-grey">
+<span class="material-symbols-outlined text-[20px]" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-label-md font-label-md">Vista de Administrador</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-transparent border-2 border-deep-grey text-deep-grey rounded text-label-md font-label-md hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+                            Editar
+                        </button>
+<button class="px-4 py-2 bg-transparent border-2 border-institutional-red text-institutional-red rounded text-label-md font-label-md hover:bg-error-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="cancel">cancel</span>
+                            Cancelar
+                        </button>
+<button class="px-4 py-2 bg-success-green text-white rounded text-label-md font-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="publish">publish</span>
+                            Publicar
+                        </button>
+</div>
+</div>
+<!-- Event Header Info -->
+<div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-3 py-1 bg-tertiary-fixed text-tertiary rounded text-label-sm font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="event_available">event_available</span>
+                            Programado
+                        </span>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded text-label-sm font-label-sm border border-surface-dim">
+                            Académico
+                        </span>
+</div>
+<h1 class="text-display-lg font-display-lg text-on-surface mb-2">Simposio Internacional de Diseño e Innovación</h1>
+<div class="flex items-center gap-3 text-secondary">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden flex items-center justify-center border border-surface-dim">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="domain">domain</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Organizado por: Facultad de Artes</p>
+<p class="text-body-md font-body-md text-secondary">Universidad Nacional de Colombia</p>
+</div>
+</div>
+</div>
+<!-- Long Description -->
+<div class="prose max-w-none text-body-lg font-body-lg text-on-surface-variant space-y-6 mt-4">
+<p>
+                        El Simposio Internacional de Diseño e Innovación reúne a expertos, académicos y estudiantes de todo el mundo para discutir las últimas tendencias y metodologías en el campo del diseño estratégico. Este año, el enfoque principal será la sostenibilidad y el diseño centrado en la comunidad, explorando cómo nuestras disciplinas pueden aportar soluciones tangibles a los desafíos globales actuales.
+                    </p>
+<p>
+                        Durante tres días intensivos, los asistentes podrán participar en conferencias magistrales impartidas por líderes de la industria, paneles de discusión interactivos y talleres prácticos. Es una oportunidad única para expandir su red profesional, aprender de casos de estudio reales y colaborar en proyectos interdisciplinarios.
+                    </p>
+<h3 class="text-headline-md font-headline-md text-on-surface mt-8 mb-4">Agenda Destacada</h3>
+<ul class="list-disc pl-6 space-y-2 text-body-md font-body-md">
+<li><strong>Día 1:</strong> Apertura y Keynote sobre Diseño Ecológico.</li>
+<li><strong>Día 2:</strong> Talleres de Co-creación y Diseño Participativo.</li>
+<li><strong>Día 3:</strong> Presentación de Proyectos Estudiantiles y Ceremonia de Clausura.</li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Sidebar / Info Block -->
+<div class="lg:col-span-4 relative">
+<!-- Sticky Container for Desktop -->
+<div class="sticky top-24 bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_12px_rgba(0,0,0,0.06)] border border-surface-dim flex flex-col gap-6">
+<!-- Time/Date -->
+<div class="flex items-start gap-4">
+<div class="p-3 bg-surface-container rounded-lg text-electric-blue">
+<span class="material-symbols-outlined text-[24px]" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface mb-1">Fecha y Hora</h4>
+<p class="text-body-md font-body-md text-secondary">15 - 17 de Noviembre, 2024</p>
+<p class="text-body-md font-body-md text-secondary">08:00 AM - 05:00 PM</p>
+</div>
+</div>
+<hr class="border-surface-dim">
+<!-- Location -->
+<div class="flex items-start gap-4">
+<div class="p-3 bg-surface-container rounded-lg text-electric-blue">
+<span class="material-symbols-outlined text-[24px]" data-icon="location_on">location_on</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface mb-1">Ubicación</h4>
+<p class="text-body-md font-body-md text-secondary">Auditorio León de Greiff</p>
+<p class="text-body-md font-body-md text-secondary">Sede Bogotá, UNAL</p>
+</div>
+</div>
+<!-- Mini Map Placeholder -->
+<div class="w-full h-40 bg-surface-variant rounded-lg overflow-hidden relative border border-surface-dim mt-2 group" data-location="Universidad Nacional de Colombia, Bogotá">
+<img alt="Map Location" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized, modern digital map interface centered on a university campus. The map features a clean, light-mode aesthetic with soft grey backgrounds and electric blue route markers indicating the specific location of a building. The design is geometric and minimal, clearly highlighting pathways and green areas without overwhelming detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhopcnQBCR3wuSSbchDzzdB-QtkRVJubWxJIp3cH2nCKGbj8n3oFbVCjeEb0es1sB37MJKHQVhf6yIlReNSndj2lMSqI-XsXG7wqbavAmOglCbignfKdJqemcsGnG8IqSPH0gBysu6__KzSsf_4JJtel0pkQSXa3yI1nDeAn7YGb5V2FiNah6TDQoZiiO3TnAX9mj9DiooOIx_M0d1ekNeVfszLzo_yQxy6M49FqVelPRedW2d1UQk4MxcCJfI5IsrnL8QO43jo70">
+<div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-2 right-2 px-2 py-1 bg-surface/90 text-on-surface rounded text-[10px] font-label-sm font-bold shadow-sm backdrop-blur-sm">
+                            Ver Mapa Completo
+                        </div>
+</div>
+<!-- Primary Action Button -->
+<button class="w-full mt-4 bg-electric-blue text-white rounded-lg py-4 px-6 text-label-md font-label-md font-bold hover:bg-tertiary shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 flex justify-center items-center gap-2">
+<span>Suscribirme a este evento</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center text-label-sm font-label-sm text-secondary mt-2">
+                        Quedan 45 cupos disponibles
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-deep-grey dark:bg-on-surface mt-auto">
+<div class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max-width mx-auto gap-8">
+<div class="text-center md:text-left">
+<h2 class="text-headline-md font-headline-md text-white mb-2">UNDesparche</h2>
+<p class="text-body-md font-body-md text-surface-variant dark:text-secondary-fixed opacity-90 hover:opacity-100 transition-opacity">
+                    © 2024 Universidad Nacional de Colombia - Sede Bogotá
+                </p>
+</div>
+<nav class="flex flex-wrap justify-center md:justify-end gap-6">
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-electric-blue transition-colors opacity-90 hover:opacity-100" href="#">Terms of Service</a>
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-electric-blue transition-colors opacity-90 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-electric-blue transition-colors opacity-90 hover:opacity-100" href="#">Campus Directory</a>
+<a class="text-surface-variant dark:text-secondary-fixed text-label-sm font-label-sm hover:text-electric-blue transition-colors opacity-90 hover:opacity-100" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+</body></html>
