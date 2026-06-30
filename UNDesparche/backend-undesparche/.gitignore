@@ -54,6 +54,11 @@ local_settings.py
 !.env.example
 
 # =========================
+# Credentials
+# =========================
+firebase_credentials.json
+
+# =========================
 # Logs
 # =========================
 *.log

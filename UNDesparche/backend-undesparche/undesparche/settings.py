@@ -123,3 +123,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+
+# Project Settings UNDesparche
+
+AUTH_USER_MODEL = "users.User"  # Indica que se utilizará el modelo de usuario personalizado definido en la aplicación "users".
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "users.authentication.FirebaseAuthentication",  # Indica que se utilizará la autenticación personalizada basada en Firebase definida en la aplicación "users".
+    ),
+}
+
+
+# Ruta al archivo de credenciales de Firebase, que se utilizará para inicializar la conexión con Firebase.
+FIREBASE_CREDENTIALS_PATH = BASE_DIR / "firebase_credentials.json"
