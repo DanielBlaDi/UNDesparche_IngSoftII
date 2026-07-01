@@ -12,5 +12,4 @@ def me(request):
         "faculty": request.user.faculty,
         "status": request.user.status,
         "roles": list(request.user.groups.values_list("name", flat=True)),
-        "is_new": not request.user.faculty,
     })

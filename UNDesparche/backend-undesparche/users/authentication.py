@@ -11,7 +11,12 @@ from .models import User
 
 if not firebase_admin._apps:
     cred = credentials.Certificate(settings.FIREBASE_CREDENTIALS_PATH)
-    firebase_admin.initialize_app(cred)
+    firebase_admin.initialize_app(
+        cred,
+        {
+            "storageBucket": settings.FIREBASE_STORAGE_BUCKET,
+        },
+    )
 
 
 class FirebaseAuthentication(BaseAuthentication):

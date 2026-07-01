@@ -139,3 +139,6 @@ REST_FRAMEWORK = {
 
 # Ruta al archivo de credenciales de Firebase, que se utilizará para inicializar la conexión con Firebase.
 FIREBASE_CREDENTIALS_PATH = BASE_DIR / "firebase_credentials.json"
+
+# URL del bucket de almacenamiento de Firebase
+FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET")

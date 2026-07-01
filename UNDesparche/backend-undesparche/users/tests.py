@@ -75,3 +75,23 @@ class FirebaseAuthenticationTestCase(TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    @patch("users.authentication.firebase_auth.verify_id_token")
+    def test_inactive_user_is_rejected(self, mock_verify):
+        User.objects.create_user(
+            email="inactivo@unal.edu.co",
+            firebase_uid="uid-inactivo",
+            is_active=False,
+        )
+
+        mock_verify.return_value = {
+            "email": "inactivo@unal.edu.co",
+            "uid": "uid-inactivo",
+        }
+
+        response = self.client.get(
+            self.protected_url,
+            HTTP_AUTHORIZATION="Bearer token-falso",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
