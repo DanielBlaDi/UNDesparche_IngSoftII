@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 
+
 class Implement(models.Model):
     CATEGORY_CHOICES = [
         ("BAL", "Balones"),
@@ -8,7 +9,7 @@ class Implement(models.Model):
         ("MES", "Mesas"),
         ("JUR", "Juegos recreativos"),
         ("JUM", "Juegos de mesa"),
-        ("OTS", "Otros")
+        ("OTS", "Otros"),
     ]
 
     FACULTIES = [
@@ -33,58 +34,30 @@ class Implement(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    category = models.CharField(
-        max_length=3, 
-        choices=CATEGORY_CHOICES, 
-        blank=True
-    )
-    faculty = models.CharField(
-        max_length=3, 
-        choices=FACULTIES, 
-        blank=True, 
-        null=True
-    )
-    state = models.CharField(
-        max_length=3, 
-        choices=STATE_CHOICES, 
-        default="NDS"
-    )
+    category = models.CharField(max_length=3, choices=CATEGORY_CHOICES, blank=True)
+    faculty = models.CharField(max_length=3, choices=FACULTIES, blank=True, null=True)
+    state = models.CharField(max_length=3, choices=STATE_CHOICES, default="NDS")
     description = models.TextField()
-    image = models.URLField(
-        max_length=500, 
-        blank=True,
-        null=True
-        )
+    image = models.URLField(max_length=500, blank=True, null=True)
+
     class Meta:
-        verbose_name = "Event"
-        verbose_name_plural = "Events"
+        verbose_name = "Implement"
+        verbose_name_plural = "Implements"
         ordering = ["name"]
 
     def __str__(self):
-        return f"{self.name} ({self.state}) ({self.category})"
-
+        return f"{self.name} ({self.state})"
 
 
 class Reserve(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="reserves",
-        null=True,
-        blank=True,
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reserves")
     implement = models.ForeignKey(
-        Implement, 
-        on_delete=models.CASCADE, 
-        related_name="reserves"
+        Implement, on_delete=models.CASCADE, related_name="reserves"
     )
     datetime_reserved = models.DateTimeField()
-    datetime_expiration = models.DateTimeField(
-        null=True,
-        blank=True,
-    )
+    datetime_expiration = models.DateTimeField(null=True, blank=True)
     active = models.BooleanField(default=False)
-    
+
     class Meta:
         verbose_name = "Reserve"
         verbose_name_plural = "Reserves"
@@ -96,32 +69,21 @@ class Reserve(models.Model):
                 name="one_active_reserve_per_user",
             )
         ]
+
     def __str__(self):
         who = self.user.email
-        return f"{who} has ({self.implement.name}) ({self.implement.state})"
-
-
+        return f"{who} has reserved {self.implement.name} ({self.implement.state})"
 
 
 class Borrowing(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="borrows",
-        null=True,
-        blank=True,
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="borrows")
     implement = models.ForeignKey(
-        Implement, 
-        on_delete=models.CASCADE, 
-        related_name="borrows"
+        Implement, on_delete=models.CASCADE, related_name="borrows"
     )
     datetime_borrowed = models.DateTimeField()
-    datetime_return = models.DateTimeField(
-        null=True,
-        blank=True,
-    )
+    datetime_return = models.DateTimeField(null=True, blank=True)
     active = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = "Borrowing"
         verbose_name_plural = "Borrowings"
@@ -133,6 +95,7 @@ class Borrowing(models.Model):
                 name="one_active_borrowing_per_user",
             )
         ]
+
     def __str__(self):
         who = self.user.email
         return f"{who} has ({self.implement.name}) ({self.implement.state})"

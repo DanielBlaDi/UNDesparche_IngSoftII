@@ -8,7 +8,7 @@ class Event(models.Model):
 
     STATUS_CHOICES = [
         ("PRO", "Programado"),
-        ("ENE", "En ejecución"),
+        ("ECU", "En Curso"),
         ("CAN", "Cancelado"),
         ("FIN", "Finalizado"),
     ]
@@ -25,6 +25,7 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     published = models.BooleanField(default=False)
+    place = models.CharField(max_length=200)
 
     # CAMPO PARA LAS COORDENADAS DE LUGAR POR INSERTAR
 

@@ -5,7 +5,7 @@ from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     roles = serializers.SlugRelatedField(
-        many=True, slug_field="name", queryset=Group.objects.all(), source="groups"
+        many=True, slug_field="name", queryset=Group.objects.all()
     )
 
     class Meta:
