@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
     "rest_framework",
     "users.apps.UsersConfig",
     "events.apps.EventsConfig",
@@ -131,9 +132,12 @@ AUTH_USER_MODEL = "users.User"  # Indica que se utilizará el modelo de usuario 
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "users.authentication.FirebaseAuthentication",  # Indica que se utilizará la autenticación personalizada basada en Firebase definida en la aplicación "users".
-    ),
+    ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ],
 }
 
 

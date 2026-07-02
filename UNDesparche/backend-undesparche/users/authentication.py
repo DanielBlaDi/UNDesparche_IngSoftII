@@ -56,9 +56,18 @@ class FirebaseAuthentication(BaseAuthentication):
             },
         )
 
-        if not created and user.firebase_uid != firebase_uid:
-            user.firebase_uid = firebase_uid
-            user.save()
+        if not created:
+            updated_fields = []
+            if user.firebase_uid != firebase_uid:
+                user.firebase_uid = firebase_uid
+                updated_fields.append("firebase_uid")
+
+            if user.name != name and name:
+                user.name = name
+                updated_fields.append("name")
+
+            if updated_fields:
+                user.save(update_fields=updated_fields)
 
         if not user.is_active:
             raise AuthenticationFailed("Usuario inactivo.")
