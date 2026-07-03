@@ -8,7 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import User
 from .serializers import UserSerializer
-from .permissions import IsImplementAdmin, IsSystemAdmin, IsSystemAdminOrImplementAdmin
+from .permissions import IsSystemAdmin, IsSystemAdminOrImplementAdmin
 
 
 @api_view(["GET"])
