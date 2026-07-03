@@ -6,17 +6,17 @@ from django.contrib.auth.models import Group
 
 class Command(BaseCommand):
     help = "Crea los grupos base del sistema"
-    
+
     def handle(self, *args: Any, **options: Any) -> str | None:
         roles = [
             "Administrador de Eventos",
             "Administrador de Implementos",
             "Administrador del Sistema",
         ]
-        
+
         for role_name in roles:
             group, created = Group.objects.get_or_create(name=role_name)
             status = "creado" if created else "ya existe"
             self.stdout.write(f"Group {role_name}: {status}")
-        
+
         self.stdout.write("Groups created successfully.")
