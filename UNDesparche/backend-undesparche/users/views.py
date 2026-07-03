@@ -1,25 +1,27 @@
 from rest_framework import filters, mixins, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import User
 from .serializers import UserSerializer
-from .permissions import IsImplementAdmin, IsSystemAdmin
+from .permissions import IsImplementAdmin, IsSystemAdmin, IsSystemAdminOrImplementAdmin
 
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def me(request):
+    groups = list(request.user.groups.values_list("name", flat=True))
     return Response(
         {
             "email": request.user.email,
             "name": request.user.name,
             "faculty": request.user.faculty,
             "status": request.user.status,
-            "roles": list(request.user.groups.values_list("name", flat=True)),
+            "roles": groups if groups else ["Miembro de la Comunidad"],
         }
     )
 
@@ -34,18 +36,26 @@ class UserViewSet(
     queryset = User.objects.prefetch_related("groups").order_by("date_joined")
     serializer_class = UserSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = {
-        "status": ["exact"],
-        "groups__name": ["exact"],
-    }
     search_fields = ["email", "name"]
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
             # Ambos roles pueden listar y ver detalle
-            return [IsAuthenticated(), IsSystemAdmin() | IsImplementAdmin()]
+            return [IsAuthenticated(), IsSystemAdminOrImplementAdmin()]
         # Solo el admin del sistema puede modificar roles, estado y eliminar
         return [IsAuthenticated(), IsSystemAdmin()]
+
+    def get_queryset(self):
+        queryset = User.objects.prefetch_related("groups").order_by("date_joined")
+        role_filter = self.request.query_params.get("groups__name")
+
+        if role_filter == "Miembro de la Comunidad":
+            # Usuarios sin ningún grupo asignado
+            return queryset.filter(groups__isnull=True)
+        elif role_filter:
+            return queryset.filter(groups__name=role_filter)
+
+        return queryset
 
     def partial_update(self, request, *args, **kwargs):
         # Un Administrador de Sistema no puede cambiarle el rol de atro Adnministrador del Sistema

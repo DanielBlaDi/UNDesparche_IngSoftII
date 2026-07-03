@@ -58,15 +58,7 @@ class FirebaseAuthentication(BaseAuthentication):
             },
         )
 
-        if created:
-            try:
-                community_group = Group.objects.get(name="Miembro de la Comunidad")
-                user.groups.add(community_group)
-            except Group.DoesNotExist:
-                raise Group.DoesNotExist(
-                    "ERROR: El grupo 'Miembro de la Comunidad' no existe"
-                )
-        else:
+        if not created:
             updated_fields = []
             if user.firebase_uid != firebase_uid:
                 user.firebase_uid = firebase_uid

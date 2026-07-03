@@ -9,7 +9,6 @@ class Command(BaseCommand):
     
     def handle(self, *args: Any, **options: Any) -> str | None:
         roles = [
-            "Miembro de la Comunidad",
             "Administrador de Eventos",
             "Administrador de Implementos",
             "Administrador del Sistema",

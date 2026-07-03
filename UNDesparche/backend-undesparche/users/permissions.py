@@ -14,6 +14,19 @@ class IsImplementAdmin(BasePermission):
         return (
             request.user.is_authenticated
             and request.user.groups.filter(
-                name="Administrador del Implementos"
+                name="Administrador de Implementos"
+            ).exists()
+        )
+
+
+class IsSystemAdminOrImplementAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated
+            and request.user.groups.filter(
+                name__in=[
+                    "Administrador del Sistema",
+                    "Administrador de Implementos",
+                ]
             ).exists()
         )
