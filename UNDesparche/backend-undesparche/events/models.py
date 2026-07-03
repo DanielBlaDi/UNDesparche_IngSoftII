@@ -26,9 +26,8 @@ class Event(models.Model):
     description = models.TextField()
     published = models.BooleanField(default=False)
     place = models.CharField(max_length=200)
-
-    # CAMPO PARA LAS COORDENADAS DE LUGAR POR INSERTAR
-
+    latitude = models.DecimalField(max_digits=10, decimal_places=7)
+    longitude = models.DecimalField(max_digits=10, decimal_places=7)
     datetime_start = models.DateTimeField()
     datetime_end = models.DateTimeField()
     organizer = models.ForeignKey(
