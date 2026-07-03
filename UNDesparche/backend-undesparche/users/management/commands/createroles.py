@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
         for role_name in roles:
             group, created = Group.objects.get_or_create(name=role_name)
-            status = "creado" if created else "ya existe"
+            status = "created" if created else "it already exists"
             self.stdout.write(f"Group {role_name}: {status}")
 
         self.stdout.write("Groups created successfully.")
