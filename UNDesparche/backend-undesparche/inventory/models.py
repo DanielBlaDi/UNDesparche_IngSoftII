@@ -30,7 +30,7 @@ class Implement(models.Model):
         ("DIS", "Disponible"),
         ("NDS", "No Disponible"),
         ("RES", "Reservado"),
-        ("PRS", "Prestado"),
+        ("PRE", "Prestado"),
     ]
 
     name = models.CharField(max_length=100)
