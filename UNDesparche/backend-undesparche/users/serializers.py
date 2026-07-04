@@ -39,6 +39,14 @@ class UserSerializer(serializers.ModelSerializer):
 
         if roles is not None:
             role_names = [g.name for g in roles]
+            
+            if len(role_names) > 1:
+                raise serializers.ValidationError(
+                    {
+                        "roles": "Un usuario solo puede tener un rol."
+                    }
+                )
+            
             if "Administrador de Implementos" in role_names and not faculty:
                 raise serializers.ValidationError(
                     {
