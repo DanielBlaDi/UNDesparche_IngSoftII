@@ -6,6 +6,7 @@ cffi==2.0.0
 charset-normalizer==3.4.7
 cryptography==49.0.0
 Django==6.0.6
+django-cors-headers==4.9.0
 django-extensions==4.1
 django-filter==25.2
 djangorestframework==3.17.1
