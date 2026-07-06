@@ -3,6 +3,8 @@ from .models import Borrowing, Implement, Reserve
 
 
 class ImplementSerializer(serializers.ModelSerializer):
+    # Campo de solo escritura para recibir el archivo
+    image_file = serializers.ImageField(write_only=True, required=False)
 
     class Meta:
         model = Implement
@@ -13,9 +15,10 @@ class ImplementSerializer(serializers.ModelSerializer):
             "faculty",
             "state",
             "description",
-            "image",
+            "image",  # URL - Solo lectura
+            "image_file",  # archivo - solo escritura, lo que mandará el front
         ]
-        read_only_fields = ["id", "faculty"]
+        read_only_fields = ["id", "image"]
 
     def validate_state(self, value):
         """
@@ -27,6 +30,14 @@ class ImplementSerializer(serializers.ModelSerializer):
                 "El estado Reservado y Prestado solo puede ser asignado por el sistema."
             )
         return value
+
+    def create(self, validated_data):
+        validated_data.pop("image_file", None)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data.pop("image_file", None)
+        return super().update(instance, validated_data)
 
 
 class ReserveSerializer(serializers.ModelSerializer):

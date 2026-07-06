@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
 from django_filters.rest_framework import DjangoFilterBackend
+from core.firebase_storage import upload_image, delete_image
 
 from .models import Borrowing, Implement, Reserve
 from .serializers import (
@@ -17,7 +18,7 @@ from .serializers import (
     ReserveSerializer,
     ReserveAdminSerializer,
 )
-from .permissions import IsImplementAdminOfSameFaculty
+from .permissions import IsSystemAdminOrImplementAdmin
 
 
 class ImplementViewSet(viewsets.ModelViewSet):
@@ -33,27 +34,57 @@ class ImplementViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
             return [IsAuthenticated()]
-        return [IsAuthenticated(), IsImplementAdminOfSameFaculty()]
+        return [IsAuthenticated(), IsSystemAdminOrImplementAdmin()]
 
     def perform_create(self, serializer):
-        # Se asigna la faculta del usuario al implemento
-        serializer.save(faculty=self.request.user.faculty)
+        image_file = self.request.FILES.get("image_file")
+        image_url = upload_image(image_file, folder="inventory") if image_file else None
+
+        user = self.request.user
+        if user.groups.filter(name="Administrador del Sistema").exists():
+            # El Admin del Sistema manda la facultad en el body
+            faculty = self.request.data.get("faculty")
+            if not faculty:
+                raise ValidationError(
+                    {
+                        "faculty": "El Administrador del Sistema debe especificar la facultad del implemento."
+                    }
+                )
+        else:
+            # El Admin de Implementos usa su propia facultad
+            faculty = user.faculty
+
+        serializer.save(faculty=faculty, image=image_url)
 
     def perform_update(self, serializer):
         # Se verifica que el implemento pertenece a la facultad a
         # que está adscrito el Administrador de Implementos
         self.check_object_permissions(self.request, self.get_object())
-        serializer.save()
+
+        instance = self.get_object()
+        image_file = self.request.FILES.get("image_file")
+
+        if image_file:
+            if instance.image:
+                delete_image(instance.image)
+            image_url = upload_image(image_file, folder="inventory")
+            serializer.save(image=image_url)
+        else:
+            serializer.save()
+
+    def perform_destroy(self, instance):
+        if instance.image:
+            delete_image(instance.image)  # Elimina la imágen del implemento
+        return super().perform_destroy(instance)
 
 
 class ReserveViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     mixins.CreateModelMixin,
-    mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
-    http_method_names = ["get", "post", "patch"]
+    http_method_names = ["get", "post"]
 
     def get_queryset(self):
         user = self.request.user
@@ -64,19 +95,23 @@ class ReserveViewSet(
                 active=True, implement__faculty=user.faculty
             ).select_related("user", "implement")
 
+        if user.groups.filter(name="Administrador del Sistema").exists():
+            return Reserve.objects.all().select_related("user", "implement")
+
         # Un Miembro de la Comunidad solo verá sus propias reservas
         return Reserve.objects.filter(user=user).select_related("implement")
 
     def get_permissions(self):
         if self.action in ["create", "list", "retrieve"]:
             return [IsAuthenticated()]
-
-        # partial_update solo será para Administradores de Implementos
-        return [IsAuthenticated(), IsImplementAdminOfSameFaculty()]
+        return [IsAuthenticated(), IsSystemAdminOrImplementAdmin()]
 
     def get_serializer_class(self):
         user = self.request.user
-        if user.groups.filter(name="Administrador de Implementos").exists():
+        if (
+            user.groups.filter(name="Administrador de Implementos").exists()
+            or user.groups.filter(name="Administrador del Sistema").exists()
+        ):
             return ReserveAdminSerializer
         return ReserveSerializer
 
@@ -172,18 +207,21 @@ class BorrowingViewSet(
                 implement__faculty=user.faculty,
             ).select_related("user", "implement")
 
+        if user.groups.filter(name="Administrador del Sistema").exists():
+            return Borrowing.objects.all().select_related("user", "implement")
+
         # El Miembro de la Comunidad ve sus propios préstamos
         return Borrowing.objects.filter(user=user).select_related("implement")
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
             return [IsAuthenticated()]
-        return [IsAuthenticated(), IsImplementAdminOfSameFaculty()]
+        return [IsAuthenticated(), IsSystemAdminOrImplementAdmin()]
 
     @action(detail=True, methods=["post"], url_path="return")
     def return_implement(self, request, pk=None):
         """
-        El Administrador del Sistema confirma la devolución física del implemento.
+        El Administrador de Implementos confirma la devolución física del implemento.
         Cierra el prestamo y libera el implemento.
         """
         borrowing = self.get_object()
