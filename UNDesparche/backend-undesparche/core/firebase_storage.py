@@ -16,7 +16,7 @@ def upload_image(file, folder):
     """ 
     bucket = storage.bucket(settings.FIREBASE_STORAGE_BUCKET)
     
-    extension = file.name.slipt(".")[-1]
+    extension = file.name.split(".")[-1]
     filename = f"{folder}/{uuid.uuid4()}.{extension}"
     
     blob = bucket.blob(filename)

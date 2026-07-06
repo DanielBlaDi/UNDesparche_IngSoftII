@@ -23,3 +23,5 @@ class IsImplementAdminOfSameFaculty(BasePermission):
         # de su relación con Implement
         if hasattr(obj, "implement"):
             return obj.implement.faculty == request.user.faculty
+
+        return False

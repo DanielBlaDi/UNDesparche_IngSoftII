@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from .models import Borrowing, Implement, Reserve
 
 
@@ -139,7 +138,7 @@ class BorrowingSerializer(serializers.ModelSerializer):
             "user",
             "user_email",
             "user_name",
-            "datetime_reserved",
+            "datetime_borrowed",
             "datetime_return",
             "active",
         ]
