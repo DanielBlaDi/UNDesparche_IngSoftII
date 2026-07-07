@@ -48,7 +48,13 @@ class Event(models.Model):
         return f"{self.name} ({self.status})"
 
     def is_editable(self):
-        return not self.published
+        if not self.published:
+            return True
+
+        return self.status not in [
+            "CAN",
+            "FIN",
+        ]
 
 
 class Subscription(models.Model):
@@ -73,7 +79,12 @@ class Subscription(models.Model):
                 fields=["event", "user"],
                 condition=models.Q(user__isnull=False),
                 name="unique_subscription_per_user",
-            )
+            ),
+            models.UniqueConstraint(
+                fields=["event", "notification_email"],
+                condition=models.Q(notification_email__gt=""),
+                name="unique_subscription_per_email",
+            ),
         ]
 
     def __str__(self):

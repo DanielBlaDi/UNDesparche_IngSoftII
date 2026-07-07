@@ -6,6 +6,10 @@ from users.models import User
 from .models import Event
 
 
+class EmailSubscriptionSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+
 class OrganizerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -34,7 +38,7 @@ class EventSerializer(serializers.ModelSerializer):
             "image",
             "is_subscribed",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "is_subscribed", "published"]
 
     def get_is_subscribed(self, obj):
         request = self.context.get("request")
