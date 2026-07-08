@@ -3,7 +3,8 @@ from rest_framework.permissions import BasePermission
 
 class IsEventOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.user.groups.filter(name="Administrador del Sistema").exists(): # RF 28, admin sistema modificar  eliminar cualquier evento
+        # RF 28, El Administrador del sistema puede modificar o eliminar cualquier evento
+        if request.user.groups.filter(name="Administrador del Sistema").exists():
             return True
         return obj.organizer == request.user
 

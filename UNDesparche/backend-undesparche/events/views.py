@@ -1,20 +1,21 @@
-from rest_framework import filters, mixins, viewsets
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.exceptions import PermissionDenied
 from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
+
+from rest_framework import filters, status, viewsets
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.exceptions import ValidationError
+
 from core.firebase_storage import upload_image, delete_image
+
 from .models import Event, Subscription
 from .serializers import EventSerializer, EmailSubscriptionSerializer
 from .permissions import IsSystemAdminOrEventAdmin, IsEventOwner
 
 
 class EventViewSet(viewsets.ModelViewSet):
-
     serializer_class = EventSerializer
     http_method_names = ["get", "post", "patch", "delete"]
     filter_backends = [
@@ -35,16 +36,9 @@ class EventViewSet(viewsets.ModelViewSet):
         if self.action in ["list", "retrieve", "subscribe", "unsubscribe"]:
             return [AllowAny()]
         if self.action in ["create"]:
-            return [
-                IsAuthenticated(),
-                IsSystemAdminOrEventAdmin(),
-            ]
+            return [IsAuthenticated(), IsSystemAdminOrEventAdmin()]
         if self.action in ["partial_update", "publish", "destroy"]:
-            return [
-                IsAuthenticated(),
-                IsSystemAdminOrEventAdmin(),
-                IsEventOwner(),
-            ]
+            return [IsAuthenticated(), IsSystemAdminOrEventAdmin(), IsEventOwner()]
         return [IsAuthenticated()]
 
     def get_queryset(self):
@@ -65,8 +59,8 @@ class EventViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(
                 "No es posible modificar un evento publicado que este cancelado o finalizado."
             )
-        image_file = self.request.FILES.get("image_file")
 
+        image_file = self.request.FILES.get("image_file")
         if image_file:
             if event.image:
                 delete_image(event.image)
@@ -145,7 +139,7 @@ class EventViewSet(viewsets.ModelViewSet):
             status=status.HTTP_201_CREATED,
         )
 
-    @action(detail=True, methods=["delete"], url_path="subscribe")
+    @action(detail=True, methods=["post"], url_path="unsubscribe")
     def unsubscribe(self, request, pk=None):
         event = self.get_object()
         user = request.user
