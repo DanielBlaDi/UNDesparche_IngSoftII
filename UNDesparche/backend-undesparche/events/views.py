@@ -7,20 +7,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-
+from core.firebase_storage import upload_image, delete_image
 from .models import Event, Subscription
 from .serializers import EventSerializer, EmailSubscriptionSerializer
 from .permissions import IsSystemAdminOrEventAdmin, IsEventOwner
 
 
-class EventViewSet(
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    viewsets.GenericViewSet,
-):
+class EventViewSet(viewsets.ModelViewSet):
 
     serializer_class = EventSerializer
     http_method_names = ["get", "post", "patch", "delete"]
@@ -62,7 +55,9 @@ class EventViewSet(
         return queryset.filter(Q(published=True) | Q(organizer=user))
 
     def perform_create(self, serializer):
-        serializer.save(organizer=self.request.user)
+        image_file = self.request.FILES.get("image_file")
+        image_url = upload_image(image_file, folder="events") if image_file else None
+        serializer.save(organizer=self.request.user, image=image_url)
 
     def perform_update(self, serializer):
         event = self.get_object()
@@ -70,7 +65,15 @@ class EventViewSet(
             raise PermissionDenied(
                 "No es posible modificar un evento publicado que este cancelado o finalizado."
             )
-        serializer.save()
+        image_file = self.request.FILES.get("image_file")
+
+        if image_file:
+            if event.image:
+                delete_image(event.image)
+            image_url = upload_image(image_file, folder="events")
+            serializer.save(image=image_url)
+        else:
+            serializer.save()
 
     def perform_destroy(self, instance):
         is_system_admin = self.request.user.groups.filter(
@@ -80,7 +83,9 @@ class EventViewSet(
             raise PermissionDenied(
                 "Solo el administrador del sistema puede eliminar eventos publicados."
             )
-        instance.delete()
+        if instance.image:
+            delete_image(instance.image)
+        super().perform_destroy(instance)
 
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):

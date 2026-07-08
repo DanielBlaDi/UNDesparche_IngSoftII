@@ -19,6 +19,7 @@ class OrganizerSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     organizer = OrganizerSerializer(read_only=True)
     is_subscribed = serializers.SerializerMethodField()
+    image_file = serializers.ImageField(write_only=True, required=False)
 
     class Meta:
         model = Event
@@ -36,9 +37,10 @@ class EventSerializer(serializers.ModelSerializer):
             "status",
             "category",
             "image",
+            "image_file",
             "is_subscribed",
         ]
-        read_only_fields = ["id", "is_subscribed", "published"]
+        read_only_fields = ["id", "is_subscribed", "published", "image"]
 
     def get_is_subscribed(self, obj):
         request = self.context.get("request")
@@ -81,3 +83,11 @@ class EventSerializer(serializers.ModelSerializer):
             )
 
         return data
+
+    def create(self, validated_data):
+        validated_data.pop("image_file", None)
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data.pop("image_file", None)
+        return super().update(instance, validated_data)
