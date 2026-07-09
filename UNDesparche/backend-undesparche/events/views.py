@@ -73,10 +73,12 @@ class EventViewSet(viewsets.ModelViewSet):
         is_system_admin = self.request.user.groups.filter(
             name="Administrador del Sistema"
         ).exists()
+
         if instance.published and not is_system_admin:
             raise PermissionDenied(
                 "Solo el administrador del sistema puede eliminar eventos publicados."
             )
+
         if instance.image:
             delete_image(instance.image)
         super().perform_destroy(instance)
@@ -84,56 +86,55 @@ class EventViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["post"])
     def publish(self, request, pk=None):
         event = self.get_object()
+
         if event.published:
             raise ValidationError({"detail": "El evento ya esta publicado."})
+
         if event.status in ["CAN", "FIN"]:
             raise ValidationError(
                 {"detail": ("No es posible publicar un evento cancelado o finalizado.")}
             )
+
         event.published = True
         event.save(update_fields=["published"])
         serializer = self.get_serializer(event)
+
         return Response(serializer.data)
 
     @action(detail=True, methods=["post"], url_path="subscribe")
     def subscribe(self, request, pk=None):
         event = self.get_object()
         user = request.user
+
         if not event.published:
             raise ValidationError(
                 {"detail": "Solo es posible suscribirse a eventos publicados."}
             )
+
         if event.status in ["CAN", "FIN"]:
             raise ValidationError(
                 {
                     "detail": "No es posible suscribirse a un evento cancelado o finalizado."
                 }
             )
+
         if user.is_authenticated:
-            if Subscription.objects.filter(
-                event=event,
-                user=user,
-            ).exists():
+            if Subscription.objects.filter(event=event, user=user).exists():
                 raise ValidationError({"detail": "Ya estás suscrito a este evento."})
-            Subscription.objects.create(
-                event=event,
-                user=user,
-            )
+            Subscription.objects.create(event=event, user=user)
         else:
             serializer = EmailSubscriptionSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             email = serializer.validated_data["email"]
+
             if Subscription.objects.filter(
-                event=event,
-                notification_email=email,
+                event=event, notification_email=email
             ).exists():
                 raise ValidationError(
                     {"detail": "Ese correo ya está suscrito a este evento."}
                 )
-            Subscription.objects.create(
-                event=event,
-                notification_email=email,
-            )
+            Subscription.objects.create(event=event, notification_email=email)
+
         return Response(
             {"detail": "Suscripción realizada correctamente."},
             status=status.HTTP_201_CREATED,
@@ -143,11 +144,9 @@ class EventViewSet(viewsets.ModelViewSet):
     def unsubscribe(self, request, pk=None):
         event = self.get_object()
         user = request.user
+
         if user.is_authenticated:
-            subscription = Subscription.objects.filter(
-                event=event,
-                user=user,
-            ).first()
+            subscription = Subscription.objects.filter(event=event, user=user).first()
             if subscription is None:
                 raise ValidationError({"detail": "No estás suscrito a este evento."})
         else:
@@ -155,12 +154,13 @@ class EventViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             email = serializer.validated_data["email"]
             subscription = Subscription.objects.filter(
-                event=event,
-                notification_email=email,
+                event=event, notification_email=email
             ).first()
+
             if subscription is None:
                 raise ValidationError(
                     {"detail": "Ese correo no está suscrito a este evento."}
                 )
+
         subscription.delete()
         return Response({"detail": "Suscripción cancelada correctamente."})
