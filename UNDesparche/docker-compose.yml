@@ -6,9 +6,9 @@ services:
     container_name: django_api
     restart: unless-stopped
     command: >
-      sh -c "python3 manage.py makemigrations users  &&
-             python3 manage.py makemigrations events &&
+      sh -c "python3 manage.py makemigrations users events inventory  &&
              python3 manage.py migrate &&
+             python3 manage.py createroles &&
              python3 manage.py runserver 0.0.0.0:8000"
     environment:
       DEBUG: ${DEBUG}
