@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser, Group, UserManager
 from django.core.validators import EmailValidator
 from django.core.exceptions import ValidationError
 
@@ -46,7 +46,9 @@ class MyUserManager(UserManager):
 
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
-        return self._create_user(email, password, **extra_fields)
+        user = self._create_user(email, password, **extra_fields)
+        user.groups.add(Group.objects.get(name="Administrador del Sistema"))
+        return user
 
 
 class User(AbstractUser):
