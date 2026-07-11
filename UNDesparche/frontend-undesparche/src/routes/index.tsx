@@ -11,19 +11,78 @@ import ReservationPage from '../modules/inventory/pages/ReservationPage'
 import CampusMapPage from '../modules/campus/pages/CampusMapPage'
 import LoginPage from '../modules/auth/pages/LoginPage'
 import SystemAdminPage from '../modules/system/pages/SystemAdminPage'
+import RoleGuard from './guards/RoleGuard'
+import UnauthorizedPage from '../modules/auth/pages/UnauthorizedPage'
+
+const ALL_ROLES = [
+  'Miembro de la Comunidad',
+  'Administrador de Eventos',
+  'Administrador de Implementos',
+  'Administrador del Sistema',
+] as const
 
 export const routes = (
   <Route element={<AppLayout />}>
     <Route index element={<LandingPage />} />
     <Route path="events" element={<EventsListPage />} />
     <Route path="events/:id" element={<EventDetailPage />} />
-    <Route path="admin/events" element={<EventsAdminPage />} />
-    <Route path="equipment" element={<EquipmentListPage />} />
-    <Route path="equipment/:id" element={<EquipmentDetailPage />} />
-    <Route path="equipment/:id/reserve" element={<ReservationPage />} />
-    <Route path="admin/equipment" element={<EquipmentAdminPage />} />
+    
+    <Route
+      path="admin/events"
+      element={
+        <RoleGuard requiredRoles="Administrador de Eventos">
+          <EventsAdminPage />
+        </RoleGuard>
+      }
+    />
+    
+    <Route
+      path="equipment"
+      element={
+        <RoleGuard requiredRoles={ALL_ROLES as never}>
+          <EquipmentListPage />
+        </RoleGuard>
+      }
+    />
+    <Route
+      path="equipment/:id"
+      element={
+        <RoleGuard requiredRoles={ALL_ROLES as never}>
+          <EquipmentDetailPage />
+        </RoleGuard>
+      }
+    />
+    <Route
+      path="equipment/:id/reserve"
+      element={
+        <RoleGuard requiredRoles={ALL_ROLES as never}>
+          <ReservationPage />
+        </RoleGuard>
+      }
+    />
+    
+    <Route
+      path="admin/equipment"
+      element={
+        <RoleGuard requiredRoles="Administrador de Implementos">
+          <EquipmentAdminPage />
+        </RoleGuard>
+      }
+    />
+    
     <Route path="map" element={<CampusMapPage />} />
     <Route path="login" element={<LoginPage />} />
-    <Route path="admin/system" element={<SystemAdminPage />} />
+    
+    <Route
+      path="admin/system"
+      element={
+        <RoleGuard requiredRoles="Administrador del Sistema">
+          <SystemAdminPage />
+        </RoleGuard>
+      }
+    />
+    
+    <Route path="unauthorized" element={<UnauthorizedPage />} />
   </Route>
 )
+

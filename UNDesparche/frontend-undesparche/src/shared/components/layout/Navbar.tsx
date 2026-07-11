@@ -4,9 +4,20 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Box from '@mui/material/Box'
 import Icon from '@mui/material/Icon'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { useAuth } from '../../../modules/auth/hooks/useAuth'
 
 function Navbar() {
+  const auth = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    if (auth?.logout) {
+      await auth.logout()
+      navigate('/login')
+    }
+  }
+
   return (
     <AppBar
       position="sticky"
@@ -55,17 +66,64 @@ function Navbar() {
           >
             Mapa del campus
           </Button>
+          {auth?.isAuthenticated && (
+            <Button
+              component={Link}
+              to="/equipment"
+              sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'none', '&:hover': { color: 'primary.main' } }}
+            >
+              Implementos
+            </Button>
+          )}
+          {auth?.isAuthenticated && auth.hasRole('Administrador del Sistema') && (
+            <Button
+              component={Link}
+              to="/admin/system"
+              sx={{ color: 'primary.main', fontWeight: 600, textTransform: 'none', '&:hover': { opacity: 0.8 } }}
+            >
+              Admin Sistema
+            </Button>
+          )}
+          {auth?.isAuthenticated && auth.hasRole('Administrador de Eventos') && (
+            <Button
+              component={Link}
+              to="/admin/events"
+              sx={{ color: 'primary.main', fontWeight: 600, textTransform: 'none', '&:hover': { opacity: 0.8 } }}
+            >
+              Admin Eventos
+            </Button>
+          )}
+          {auth?.isAuthenticated && auth.hasRole('Administrador de Implementos') && (
+            <Button
+              component={Link}
+              to="/admin/equipment"
+              sx={{ color: 'primary.main', fontWeight: 600, textTransform: 'none', '&:hover': { opacity: 0.8 } }}
+            >
+              Admin Inventario
+            </Button>
+          )}
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            sx={{ borderRadius: '0.75rem', px: 3, py: 1, textTransform: 'none' }}
-          >
-            Regístrate o inicia sesión
-          </Button>
+          {auth?.isAuthenticated ? (
+            <Button
+              onClick={handleLogout}
+              variant="outlined"
+              color="error"
+              sx={{ borderRadius: '0.75rem', px: 3, py: 1, textTransform: 'none' }}
+            >
+              Cerrar sesión
+            </Button>
+          ) : (
+            <Button
+              component={Link}
+              to="/login"
+              variant="contained"
+              sx={{ borderRadius: '0.75rem', px: 3, py: 1, textTransform: 'none' }}
+            >
+              Regístrate o inicia sesión
+            </Button>
+          )}
           <IconButton sx={{ display: { md: 'none' }, color: 'primary.main' }}>
             <Icon baseClassName="material-symbols-outlined">menu</Icon>
           </IconButton>
@@ -76,3 +134,4 @@ function Navbar() {
 }
 
 export default Navbar
+
