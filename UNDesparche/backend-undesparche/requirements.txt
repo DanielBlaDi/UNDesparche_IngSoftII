@@ -9,7 +9,10 @@ Django==6.0.6
 django-cors-headers==4.9.0
 django-extensions==4.1
 django-filter==25.2
+django-stubs==6.0.6
+django-stubs-ext==6.0.6
 djangorestframework==3.17.1
+djangorestframework-stubs==3.17.0
 firebase_admin==7.4.0
 google-api-core==2.31.0
 google-auth==2.55.1
@@ -32,6 +35,7 @@ msgpack==1.2.1
 pillow==12.3.0
 proto-plus==1.28.0
 protobuf==7.35.1
+psycopg==3.3.4
 pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==3.0
@@ -39,5 +43,6 @@ PyJWT==2.13.0
 python-dotenv==1.2.2
 requests==2.34.2
 sqlparse==0.5.5
+types-PyYAML==6.0.12.20260518
 typing_extensions==4.15.0
 urllib3==2.7.0
