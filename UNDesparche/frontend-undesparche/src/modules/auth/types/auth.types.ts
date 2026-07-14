@@ -7,6 +7,7 @@ export type RoleName =
   | 'Administrador del Sistema'
 
 export interface BackendProfile {
+  id: number
   email: string
   name: string
   faculty: string | null

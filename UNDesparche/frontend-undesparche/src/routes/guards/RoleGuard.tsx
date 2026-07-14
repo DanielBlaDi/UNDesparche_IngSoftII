@@ -1,30 +1,40 @@
 import type { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useAuth } from '../../modules/auth/hooks/useAuth';
 import type { RoleName } from '../../modules/auth/types/auth.types';
 
 interface RoleGuardProps {
-  /** Roles permitidos para acceder */
   requiredRoles: RoleName | RoleName[];
-  /** Componente a renderizar */
+  forbiddenRoles?: RoleName | RoleName[];
   children: ReactNode;
 }
 
-export const RoleGuard = ({ requiredRoles, children }: RoleGuardProps) => {
-  const { isAuthenticated, hasRole } = useAuth();
+export const RoleGuard = ({ requiredRoles, forbiddenRoles, children }: RoleGuardProps) => {
+  const { isAuthenticated, isLoading, hasRole } = useAuth();
   const location = useLocation();
 
-  // Si no esta autenticado, redirigir a login
+  if (isLoading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Si no tiene los roles requeridos, redirigir a pagina de no autorizado
+  if (forbiddenRoles && hasRole(forbiddenRoles)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
   if (!hasRole(requiredRoles)) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  // Si paso todos los checks, renderizar el componente
   return <>{children}</>;
 };
 

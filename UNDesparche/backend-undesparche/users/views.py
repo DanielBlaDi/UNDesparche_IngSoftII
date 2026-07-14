@@ -17,6 +17,7 @@ def me(request):
     groups = list(request.user.groups.values_list("name", flat=True))
     return Response(
         {
+            "id": request.user.id,
             "email": request.user.email,
             "name": request.user.name,
             "faculty": request.user.faculty,

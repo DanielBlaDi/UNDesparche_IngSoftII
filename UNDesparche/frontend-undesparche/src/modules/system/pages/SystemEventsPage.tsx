@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
@@ -10,13 +9,11 @@ import MenuItem from '@mui/material/MenuItem'
 import InputAdornment from '@mui/material/InputAdornment'
 import TablePagination from '@mui/material/TablePagination'
 import Icon from '@mui/material/Icon'
-import { useAuth } from '../../auth/hooks/useAuth'
-import { useAdminEvents } from '../hooks/useAdminEvents'
-import type { Event, EventCategory, EventStatus } from '../types/event.types'
-import EventTable from '../components/EventTable'
-import EventForm from '../components/EventForm'
-import AdminLayout from '../../../shared/components/layout/AdminLayout'
-import type { SidebarItem } from '../../../shared/components/layout/AdminSidebar'
+import Typography from '@mui/material/Typography'
+import { useAdminEvents } from '../../events/hooks/useAdminEvents'
+import type { Event, EventCategory, EventStatus } from '../../events/types/event.types'
+import EventTable from '../../events/components/EventTable'
+import EventForm from '../../events/components/EventForm'
 
 const CATEGORY_OPTIONS: { value: EventCategory | ''; label: string }[] = [
   { value: '', label: 'Todas las categorías' },
@@ -36,13 +33,8 @@ const STATUS_OPTIONS: { value: EventStatus | ''; label: string }[] = [
   { value: 'CAN', label: 'Cancelado' },
 ]
 
-const EVENT_SIDEBAR_ITEMS: SidebarItem[] = [
-  { label: 'Gestión de eventos', icon: 'event', path: '/admin/events' },
-]
-
-export default function EventsAdminPage() {
-  const { profile, firebaseUser, logout } = useAuth()
-  const { events, loading, saving, error, createEvent, updateEvent, deleteEvent, publishEvent, refresh, clearError } = useAdminEvents()
+export default function SystemEventsPage() {
+  const { events, loading, saving, error, createEvent, updateEvent, deleteEvent, publishEvent, clearError } = useAdminEvents()
   const [formOpen, setFormOpen] = useState(false)
   const [editingEvent, setEditingEvent] = useState<Event | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
@@ -53,21 +45,20 @@ export default function EventsAdminPage() {
   const filteredEvents = useMemo(() => {
     const q = search.toLowerCase()
     return events.filter(e => {
-      if (e.organizer.id !== profile?.id) return false
       if (q && !e.name.toLowerCase().includes(q) && !e.place.toLowerCase().includes(q)) return false
       if (categoryFilter && e.category !== categoryFilter) return false
       if (statusFilter && e.status !== statusFilter) return false
       return true
     })
-  }, [events, search, categoryFilter, statusFilter, profile?.id])
+  }, [events, search, categoryFilter, statusFilter])
 
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const paginatedEvents = filteredEvents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
-  const handleSearchChange = (v: string) => { setSearch(v); setPage(0) }
-  const handleCategoryChange = (v: EventCategory | '') => { setCategoryFilter(v); setPage(0) }
-  const handleStatusChange = (v: EventStatus | '') => { setStatusFilter(v); setPage(0) }
+  const handleSearch = (v: string) => { setSearch(v); setPage(0) }
+  const handleCategory = (v: EventCategory | '') => { setCategoryFilter(v); setPage(0) }
+  const handleStatus = (v: EventStatus | '') => { setStatusFilter(v); setPage(0) }
 
   const handleCreate = () => {
     setEditingEvent(null)
@@ -100,28 +91,15 @@ export default function EventsAdminPage() {
     await publishEvent(id)
   }
 
-  const content = (
-    <Box sx={{ maxWidth: 1280, mx: 'auto' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          pb: 4,
-          mb: 4,
-          borderBottom: '1px solid',
-          borderColor: 'grey.300',
-        }}
-      >
+  return (
+    <Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
           <Typography variant="h2" sx={{ color: 'primary.main', fontWeight: 700 }}>Gestión de Eventos</Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mt: 1, maxWidth: 600 }}>
-            Administra, programa y supervisa tus actividades del campus.
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+            Administra, programa y supervisa todas las actividades del campus.
           </Typography>
         </Box>
-        <Button variant="contained" onClick={handleCreate} startIcon={<Icon baseClassName="material-symbols-outlined">add_circle</Icon>}>
-          Crear Nuevo
-        </Button>
       </Box>
 
       {saving && (
@@ -162,7 +140,7 @@ export default function EventsAdminPage() {
             <TextField
               placeholder="Buscar por nombre o lugar..."
               value={search}
-              onChange={e => handleSearchChange(e.target.value)}
+              onChange={e => handleSearch(e.target.value)}
               slotProps={{
                 input: {
                   startAdornment: (
@@ -174,18 +152,18 @@ export default function EventsAdminPage() {
               }}
               sx={{ flex: 1, minWidth: 200 }}
             />
-            <Select value={categoryFilter} onChange={e => handleCategoryChange(e.target.value as EventCategory | '')} displayEmpty sx={{ minWidth: 160 }}>
+            <Select value={categoryFilter} onChange={e => handleCategory(e.target.value as EventCategory | '')} displayEmpty sx={{ minWidth: 160 }}>
               {CATEGORY_OPTIONS.map(o => (
                 <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>
               ))}
             </Select>
-            <Select value={statusFilter} onChange={e => handleStatusChange(e.target.value as EventStatus | '')} displayEmpty sx={{ minWidth: 160 }}>
+            <Select value={statusFilter} onChange={e => handleStatus(e.target.value as EventStatus | '')} displayEmpty sx={{ minWidth: 160 }}>
               {STATUS_OPTIONS.map(o => (
                 <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>
               ))}
             </Select>
           </Box>
-          <EventTable events={paginatedEvents} onEdit={handleEdit} onDelete={handleDelete} onPublish={handlePublish} />
+          <EventTable events={paginatedEvents} onEdit={handleEdit} onDelete={handleDelete} onPublish={handlePublish} showOrganizer />
           <TablePagination
             component="div"
             count={filteredEvents.length}
@@ -207,17 +185,5 @@ export default function EventsAdminPage() {
         onSave={handleSave}
       />
     </Box>
-  )
-
-  return (
-    <AdminLayout
-      sidebarItems={EVENT_SIDEBAR_ITEMS}
-      userName={profile?.name ?? 'Admin'}
-      userRole="Administrador de Eventos"
-      photoURL={firebaseUser?.photoURL}
-      onLogout={logout}
-    >
-      {content}
-    </AdminLayout>
   )
 }

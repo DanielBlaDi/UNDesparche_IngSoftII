@@ -1,15 +1,23 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { useAuth } from '../../auth/hooks/useAuth'
+import AdminLayout from '../../../shared/components/layout/AdminLayout'
+import type { SidebarItem } from '../../../shared/components/layout/AdminSidebar'
 
-function SystemAdminPage() {
+const SYSTEM_SIDEBAR_ITEMS: SidebarItem[] = [
+  { label: 'Gestión de eventos', icon: 'event', path: '/admin/system/events' },
+  { label: 'Usuarios', icon: 'group', path: '/admin/system/users' },
+  { label: 'Inventario', icon: 'inventory_2', path: '/admin/system/inventory' },
+]
+
+export default function SystemAdminPage() {
+  const { profile, firebaseUser, logout } = useAuth()
+
   return (
-    <Box sx={{ py: 8, px: { xs: 2, md: 5 }, maxWidth: 1280, mx: 'auto' }}>
-      <Typography variant="h2">Administración del Sistema</Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-        Panel de administración general del sistema.
-      </Typography>
-    </Box>
+    <AdminLayout
+      sidebarItems={SYSTEM_SIDEBAR_ITEMS}
+      userName={profile?.name ?? 'Admin'}
+      userRole="Administrador del Sistema"
+      photoURL={firebaseUser?.photoURL}
+      onLogout={logout}
+    />
   )
 }
-
-export default SystemAdminPage

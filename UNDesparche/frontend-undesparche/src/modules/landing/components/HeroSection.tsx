@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
 import { Link } from 'react-router'
-import heroBg from '../../../assets/hero.png'
+import heroBg from '../../../assets/landing.webp'
 
 function HeroSection() {
   return (

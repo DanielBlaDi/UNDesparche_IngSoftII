@@ -3,6 +3,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -36,6 +37,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<BackendProfile | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const authInitialized = useRef(false)
 
   const clearSession = useCallback(() => {
     setFirebaseUser(null)
@@ -126,26 +128,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const unsubscribe = subscribeToAuthChanges(async (user) => {
-      setIsLoading(true)
-      setError(null)
-
-      if (!user) {
+      if (user) {
+        try {
+          const session = await buildSession(user)
+          setSession(user, session)
+        } catch (err) {
+          clearSession()
+          setError(
+            err instanceof Error
+              ? err.message
+              : 'No se pudo restaurar la sesión.',
+          )
+        }
+      } else {
         clearSession()
-        setIsLoading(false)
-        return
       }
 
-      try {
-        const session = await buildSession(user)
-        setSession(user, session)
-      } catch (err) {
-        clearSession()
-        setError(
-          err instanceof Error
-            ? err.message
-            : 'No se pudo restaurar la sesión.',
-        )
-      } finally {
+      if (!authInitialized.current) {
+        authInitialized.current = true
         setIsLoading(false)
       }
     })

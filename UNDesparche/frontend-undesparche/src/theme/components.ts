@@ -124,7 +124,7 @@ export const components: Components = {
   MuiChip: {
     styleOverrides: {
       root: {
-        borderRadius: 16,
+        borderRadius: 4,
         fontWeight: 500,
         fontSize: '0.75rem',
         height: 28,

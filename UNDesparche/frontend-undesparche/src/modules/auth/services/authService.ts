@@ -43,6 +43,10 @@ export async function signInWithGoogle() {
   return result.user
 }
 
+export function getCurrentUser(): User | null {
+  return auth.currentUser
+}
+
 export async function signOutUser() {
   await signOut(auth)
 }

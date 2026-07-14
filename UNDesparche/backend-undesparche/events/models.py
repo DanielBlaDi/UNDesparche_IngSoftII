@@ -31,7 +31,7 @@ class Event(models.Model):
     datetime_start = models.DateTimeField()
     datetime_end = models.DateTimeField()
     organizer = models.ForeignKey(
-        "users.User", on_delete=models.PROTECT, related_name="organized_events"
+        "users.User", on_delete=models.CASCADE, related_name="organized_events"
     )
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default="PRO")
     category = models.CharField(
