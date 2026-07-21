@@ -80,7 +80,10 @@ export default function AdminSidebar({ items, userName, userRole, photoURL, onLo
               <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
                 <Icon baseClassName="material-symbols-outlined">{item.icon}</Icon>
               </ListItemIcon>
-              <ListItemText primary={item.label} primaryTypographyProps={{ variant: 'body2', fontWeight: active ? 600 : 400 }} />
+              <ListItemText
+                primary={item.label}
+                slotProps={{ primary: { variant: 'body2', sx: { fontWeight: active ? 600 : 400 } } }}
+              />
             </ListItemButton>
           )
         })}
@@ -101,7 +104,7 @@ export default function AdminSidebar({ items, userName, userRole, photoURL, onLo
           <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
             <Icon baseClassName="material-symbols-outlined">home</Icon>
           </ListItemIcon>
-          <ListItemText primary="Volver a UNDesparche" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText primary="Volver a UNDesparche" slotProps={{ primary: { variant: 'body2' } }} />
         </ListItemButton>
         <ListItemButton
           onClick={onLogout}
@@ -114,7 +117,7 @@ export default function AdminSidebar({ items, userName, userRole, photoURL, onLo
           <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
             <Icon baseClassName="material-symbols-outlined">logout</Icon>
           </ListItemIcon>
-          <ListItemText primary="Cerrar sesión" primaryTypographyProps={{ variant: 'body2' }} />
+          <ListItemText primary="Cerrar sesión" slotProps={{ primary: { variant: 'body2' } }} />
         </ListItemButton>
       </List>
     </Box>

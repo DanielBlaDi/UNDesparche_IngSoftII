@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db import IntegrityError
 from django.utils import timezone
 from datetime import timedelta
 
@@ -7,6 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
+
 
 from django_filters.rest_framework import DjangoFilterBackend
 from core.firebase_storage import upload_image, delete_image
@@ -116,29 +118,35 @@ class ReserveViewSet(
         return ReserveSerializer
 
     def perform_create(self, serializer):
-        with transaction.atomic():
-            implement = Implement.objects.select_for_update().get(
-                pk=self.request.data.get("implement")
-            )
-
-            if implement.state != "DIS":
-                raise ValidationError(
-                    {"implement": "Este implemento no está disponible para reservar."}
+        try:
+            with transaction.atomic():
+                implement = Implement.objects.select_for_update().get(
+                    pk=self.request.data.get("implement")
                 )
 
-            now = timezone.now()
-            reserve = serializer.save(
-                user=self.request.user,
-                implement=implement,
-                datetime_reserved=now,
-                datetime_expiration=now + timedelta(minutes=10),
-                active=True,
-            )
+                if implement.state != "DIS":
+                    raise ValidationError(
+                        {"implement": "Este implemento no está disponible para reservar."}
+                    )
+                if Reserve.objects.filter(user=self.request.user, active=True).exists():
+                    raise ValidationError({"detail": "Ya tienes una reserva activa."})
+                if Borrowing.objects.filter(user=self.request.user, active=True).exists():
+                    raise ValidationError({"detail": "Tienes un préstamo activo. No puedes reservar otro implemento."})
 
-            implement.state = "RES"
-            implement.save(update_fields=["state"])
+                now = timezone.now()
+                reserve = serializer.save(
+                    user=self.request.user,
+                    implement=implement,
+                    datetime_reserved=now,
+                    datetime_expiration=now + timedelta(minutes=10),
+                    active=True,
+                )
+                implement.state = "RES"
+                implement.save(update_fields=["state"])
+                return reserve
+        except IntegrityError:
+            raise ValidationError({"detail": "Ya tienes una reserva o préstamo activo."})
 
-            return reserve
 
     @action(detail=True, methods=["post"], url_path="confirm")
     def confirm(self, request, pk=None):
@@ -147,25 +155,22 @@ class ReserveViewSet(
         Cierra la reserva y crea el Borrowing correspondiente.
         """
         reserve = self.get_object()
-
         if not reserve.active:
             raise ValidationError({"detail": "Esta reserva ya no está activa."})
-
-        with transaction.atomic():
-            reserve.active = False
-            reserve.save(update_fields=["active"])
-
-            # Crea el préstamo
-            borrowing = Borrowing.objects.create(
-                user=reserve.user,
-                implement=reserve.implement,
-                datetime_borrowed=timezone.now(),
-                active=True,
-            )
-
-            reserve.implement.state = "PRE"
-            reserve.implement.save(update_fields=["state"])
-
+        try:
+            with transaction.atomic():
+                reserve.active = False
+                reserve.save(update_fields=["active"])
+                borrowing = Borrowing.objects.create(
+                    user=reserve.user,
+                    implement=reserve.implement,
+                    datetime_borrowed=timezone.now(),
+                    active=True,
+                )
+                reserve.implement.state = "PRE"
+                reserve.implement.save(update_fields=["state"])
+        except IntegrityError:
+            raise ValidationError({"detail": "El usuario ya tiene un préstamo activo."})
         return Response(BorrowingSerializer(borrowing).data)
 
     @action(detail=True, methods=["post"], url_path="cancel")

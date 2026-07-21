@@ -1,14 +1,106 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router'
+import { Alert, Box, CircularProgress, Container, Stack, Typography } from '@mui/material'
+import { useAuth } from '../../auth/hooks/useAuth'
+import { useImplements } from '../hooks/useEquipment'
+import { EquipmentCard } from '../components/EquipmentCard'
+import { EquipmentFilters } from '../components/EquipmentFilters'
+import type { Faculty, ImplementCategory } from '../types/inventory.types'
 
-function EquipmentListPage() {
+export function EquipmentListPage() {
+  const { profile } = useAuth()
+  const navigate = useNavigate()
+  const isSanctioned = profile?.status === 'SAN'
+
+  const [facultyFilter, setFacultyFilter] = useState<Faculty | ''>('')
+  const [categoryFilter, setCategoryFilter] = useState<ImplementCategory | ''>('')
+
+  const filterParams = useMemo(
+    () => ({
+      faculty: facultyFilter || undefined,
+      category: categoryFilter || undefined,
+    }),
+    [facultyFilter, categoryFilter],
+  )
+
+  const { data: items, loading, error } = useImplements(filterParams)
+
   return (
-    <Box sx={{ py: 8, px: { xs: 2, md: 5 }, maxWidth: 1280, mx: 'auto' }}>
-      <Typography variant="h2">Catálogo de Equipos</Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-        Explora los implementos deportivos y recreativos disponibles para reserva.
-      </Typography>
-    </Box>
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 6 } }}>
+      <Stack spacing={4}>
+        {isSanctioned && (
+          <Alert severity="error" variant="outlined">
+            <Typography variant="body2" gutterBottom sx={{ fontWeight: 700 }}>
+              Usuario sancionado
+            </Typography>
+            Préstamos deshabilitados. Tienes penalizaciones activas por retrasos en
+            devoluciones previas. Acércate a la oficina de administración para resolver tu
+            estado.
+          </Alert>
+        )}
+
+        <Box>
+          <Typography
+            variant="caption"
+            color="secondary"
+            sx={{ textTransform: 'uppercase', display: 'block' }}
+          >
+            {profile?.roles?.[0] ?? 'Miembro de la Comunidad'}
+          </Typography>
+          <Typography variant="h1" sx={{ mt: 1 }}>
+            Inventario de Implementos
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mt: 1, maxWidth: 640 }}>
+            Explora y reserva implementos recreativos y deportivos disponibles para la
+            comunidad universitaria.
+          </Typography>
+        </Box>
+
+        <EquipmentFilters
+          faculty={facultyFilter}
+          category={categoryFilter}
+          onFacultyChange={setFacultyFilter}
+          onCategoryChange={setCategoryFilter}
+        />
+
+        {loading && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+            <CircularProgress />
+          </Box>
+        )}
+
+        {!loading && error && <Alert severity="error">{error}</Alert>}
+
+        {!loading && !error && items && items.length === 0 && (
+          <Alert severity="info">No hay implementos registrados todavía.</Alert>
+        )}
+
+        {!loading && !error && items && items.length > 0 && (
+          <Box
+            sx={{
+              display: 'grid',
+              gap: 3,
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+                lg: 'repeat(4, 1fr)',
+              },
+            }}
+          >
+            {items.map((implement) => (
+              <EquipmentCard
+                key={implement.id}
+                implement={implement}
+                onView={(id) => navigate(`/equipment/${id}`)}
+                onReserve={(id) => navigate(`/equipment/${id}/reserve`)}
+                reserveDisabled={isSanctioned}
+              />
+            ))}
+          </Box>
+        )}
+      </Stack>
+    </Container>
   )
 }
 
