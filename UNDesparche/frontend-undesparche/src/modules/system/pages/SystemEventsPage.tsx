@@ -60,11 +60,6 @@ export default function SystemEventsPage() {
   const handleCategory = (v: EventCategory | '') => { setCategoryFilter(v); setPage(0) }
   const handleStatus = (v: EventStatus | '') => { setStatusFilter(v); setPage(0) }
 
-  const handleCreate = () => {
-    setEditingEvent(null)
-    setFormOpen(true)
-  }
-
   const handleEdit = (event: Event) => {
     setEditingEvent(event)
     setFormOpen(true)

@@ -42,7 +42,7 @@ const EVENT_SIDEBAR_ITEMS: SidebarItem[] = [
 
 export default function EventsAdminPage() {
   const { profile, firebaseUser, logout } = useAuth()
-  const { events, loading, saving, error, createEvent, updateEvent, deleteEvent, publishEvent, refresh, clearError } = useAdminEvents()
+  const { events, loading, saving, error, createEvent, updateEvent, deleteEvent, publishEvent, clearError } = useAdminEvents()
   const [formOpen, setFormOpen] = useState(false)
   const [editingEvent, setEditingEvent] = useState<Event | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
