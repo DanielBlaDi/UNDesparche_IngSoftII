@@ -45,9 +45,11 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "rest_framework",
+    "anymail",
     "users.apps.UsersConfig",
     "events.apps.EventsConfig",
     "inventory.apps.InventoryConfig",
+    "notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [
@@ -161,5 +163,17 @@ FIREBASE_CREDENTIALS_PATH = BASE_DIR / "firebase_credentials.json"
 # URL del bucket de almacenamiento de Firebase
 FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET")
 
+# Configura cuál es el servicio de email que usará Django
+EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
 
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")  # Lista de orígenes permitidos para solicitudes CORS, obtenida de la variable de entorno.
+
+ANYMAIL = {
+    "RESEND_API_KEY": os.getenv("RESEND_API_KEY"),
+}
+
+
+DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
+
+
+# Lista de orígenes permitidos para solicitudes CORS, obtenida de la variable de entorno.
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
