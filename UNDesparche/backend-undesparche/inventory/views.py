@@ -38,7 +38,7 @@ class ImplementViewSet(viewsets.ModelViewSet):
         # El Administrador de Implementos puede ver los implementos de su facultad
         if user.groups.filter(name="Administrador de Implementos").exists():
             return queryset.filter(
-                active=True, faculty=user.faculty
+                faculty=user.faculty
             )
 
         if user.groups.filter(name="Administrador del Sistema").exists():
