@@ -8,6 +8,11 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import Group
 
+# Imagenes
+from io import BytesIO
+from PIL import Image
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 from users.models import User
 from .models import Event, Subscription
 
@@ -71,8 +76,8 @@ class BaseEventTestCase(TestCase):
         self.user = self.create_user("user@unal.edu.co", "Usuario")
 
 
-class ShowEventTestCase(BaseEventTestCase):
-    
+class ListEventTestCase(BaseEventTestCase):
+
     def test_list_events(self):
 
         self.event_admin_one_draft = self.create_event(
@@ -251,6 +256,58 @@ class CreateEventTestCase(BaseEventTestCase):
                         event.name,
                         data["name"],
                     )
+
+    @patch("events.views.upload_image")
+    def test_create_event_with_image(self, mock_upload):
+        file = BytesIO()
+
+        image = Image.new("RGB", (10, 10), color="red")
+        image.save(file, "JPEG")
+        file.seek(0)
+
+        uploaded_image = SimpleUploadedFile(
+            "event.jpg",
+            file.read(),
+            content_type="image/jpeg",
+        )
+
+        mock_upload.return_value = (
+            "https://storage.googleapis.undesparche.test/image.jpg"
+        )
+
+        data = {
+            "name": "Deporte chevere",
+            "description": "Balon pie",
+            "place": "Cancha micro",
+            "latitude": "10.5",
+            "longitude": "9.65",
+            "category": "DEP",
+            "status": "PRO",
+            "datetime_start": timezone.now() + timedelta(days=1),
+            "datetime_end": timezone.now() + timedelta(days=1, hours=2),
+            "image_file": uploaded_image,
+        }
+
+        self.client.force_authenticate(
+            self.system_admin,
+        )
+
+        response = self.client.post(
+            self.event_url(),
+            data,
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
+
+        mock_upload.assert_called_once()
+
+        event = Event.objects.latest("id")
+
+        self.assertEqual(
+            event.image,
+            "https://storage.googleapis.undesparche.test/image.jpg",
+        )
+
 
 class UpdateEventTestcase(BaseEventTestCase):
 
@@ -494,6 +551,117 @@ class UpdateEventTestcase(BaseEventTestCase):
                 else:
                     self.assertEqual(event.name, original_name)
 
+    @patch("events.views.upload_image")
+    @patch("events.views.delete_image")
+    def test_update_event_with_image(
+        self,
+        mock_delete,
+        mock_upload,
+    ):
+
+        file = BytesIO()
+
+        image = Image.new("RGB", (10, 10), color="red")
+        image.save(file, "JPEG")
+        file.seek(0)
+
+        uploaded_image = SimpleUploadedFile(
+            "event.jpg",
+            file.read(),
+            content_type="image/jpeg",
+        )
+
+        mock_upload.return_value = (
+            "https://storage.googleapis.undesparche.test/new_image.jpg"
+        )
+
+        event = self.create_event(self.system_admin, False)
+
+        event.image = "https://storage.googleapis.undesparche.test/old_image.jpg"
+        event.save()
+
+        data = {
+            "image_file": uploaded_image,
+        }
+
+        self.client.force_authenticate(
+            self.system_admin,
+        )
+
+        response = self.client.patch(
+            self.event_detail_url(event.id),
+            data,
+            format="multipart",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            response.data,
+        )
+
+        mock_delete.assert_called_once_with(
+            "https://storage.googleapis.undesparche.test/old_image.jpg",
+        )
+
+        mock_upload.assert_called_once()
+
+        event.refresh_from_db()
+
+        self.assertEqual(
+            event.image,
+            "https://storage.googleapis.undesparche.test/new_image.jpg",
+        )
+
+    @patch("events.views.upload_image")
+    @patch("events.views.delete_image")
+    def test_update_event_without_new_image(
+        self,
+        mock_delete,
+        mock_upload,
+    ):
+
+        event = self.create_event(self.system_admin, False)
+
+        event.image = "https://storage.googleapis.undesparche.test/image.jpg"
+        event.save()
+
+        data = {
+            "name": "Partido Micro actualizado",
+        }
+
+        self.client.force_authenticate(
+            self.system_admin,
+        )
+
+        response = self.client.patch(
+            self.event_detail_url(event.id),
+            data,
+            format="json",
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            response.data,
+        )
+
+        mock_delete.assert_not_called()
+
+        mock_upload.assert_not_called()
+
+        event.refresh_from_db()
+
+        self.assertEqual(
+            event.name,
+            "Partido Micro actualizado",
+        )
+
+        self.assertEqual(
+            event.image,
+            "https://storage.googleapis.undesparche.test/image.jpg",
+        )
+
     def test_update_cancelled_or_finished_event(self):
 
         cases = [
@@ -558,7 +726,6 @@ class UpdateEventTestcase(BaseEventTestCase):
                     event.name,
                     original_name,
                 )
-
 
     def test_publish_event(self):
 
@@ -686,7 +853,8 @@ class UpdateEventTestcase(BaseEventTestCase):
                 else:
                     self.assertFalse(event.published)
 
-class DelteEventTestCase(BaseEventTestCase):
+
+class DeleteEventTestCase(BaseEventTestCase):
 
     def test_delete_event(self):
 
@@ -922,6 +1090,36 @@ class DelteEventTestCase(BaseEventTestCase):
                     self.assertFalse(exists)
                 else:
                     self.assertTrue(exists)
+
+    @patch("events.views.delete_image")
+    def test_delete_Event_with_image(self, mock_delete):
+
+        event = self.create_event(self.system_admin, False)
+
+        event.image = "https://storage.googleapis.undesparche.test/image.jpg"
+        event.save()
+
+        self.client.force_authenticate(self.system_admin, False)
+
+        response = self.client.delete(
+            self.event_detail_url(event.id),
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT,
+        )
+
+        mock_delete.assert_called_once_with(
+            "https://storage.googleapis.undesparche.test/image.jpg",
+        )
+
+        self.assertFalse(
+            Event.objects.filter(
+                id=event.id,
+            ).exists()
+        )
+
 
 class SuscribeEventTestcase(BaseEventTestCase):
 

@@ -6,7 +6,14 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'undesparche.settings')
+
+    if 'test' in sys.argv:
+        # Usar la config de pruebas
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'undesparche.settings_test')
+    else:
+        # Usar la config normal
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'undesparche.settings')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

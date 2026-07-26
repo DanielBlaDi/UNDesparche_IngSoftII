@@ -65,14 +65,21 @@ class ImplementViewSet(viewsets.ModelViewSet):
 
         instance = self.get_object()
         image_file = self.request.FILES.get("image_file")
+        user = self.request.user
+
+        if user.groups.filter(name="Administrador del Sistema").exists():
+            faculty = self.request.data.get("faculty", instance.faculty)
+        else:
+            faculty = instance.faculty
+
 
         if image_file:
             if instance.image:
                 delete_image(instance.image)
             image_url = upload_image(image_file, folder="inventory")
-            serializer.save(image=image_url)
+            serializer.save(image=image_url, faculty=faculty)
         else:
-            serializer.save()
+            serializer.save(faculty=faculty)
 
     def perform_destroy(self, instance):
         if instance.image:
@@ -126,12 +133,20 @@ class ReserveViewSet(
 
                 if implement.state != "DIS":
                     raise ValidationError(
-                        {"implement": "Este implemento no está disponible para reservar."}
+                        {
+                            "implement": "Este implemento no está disponible para reservar."
+                        }
                     )
                 if Reserve.objects.filter(user=self.request.user, active=True).exists():
                     raise ValidationError({"detail": "Ya tienes una reserva activa."})
-                if Borrowing.objects.filter(user=self.request.user, active=True).exists():
-                    raise ValidationError({"detail": "Tienes un préstamo activo. No puedes reservar otro implemento."})
+                if Borrowing.objects.filter(
+                    user=self.request.user, active=True
+                ).exists():
+                    raise ValidationError(
+                        {
+                            "detail": "Tienes un préstamo activo. No puedes reservar otro implemento."
+                        }
+                    )
 
                 now = timezone.now()
                 reserve = serializer.save(
@@ -145,8 +160,9 @@ class ReserveViewSet(
                 implement.save(update_fields=["state"])
                 return reserve
         except IntegrityError:
-            raise ValidationError({"detail": "Ya tienes una reserva o préstamo activo."})
-
+            raise ValidationError(
+                {"detail": "Ya tienes una reserva o préstamo activo."}
+            )
 
     @action(detail=True, methods=["post"], url_path="confirm")
     def confirm(self, request, pk=None):
