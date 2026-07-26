@@ -2,6 +2,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from .content.events import EVENT_EMAIL_BUILDERS
+from .content.events import (
+    build_subscription_confirmation,
+    build_unsubscription_confirmation,
+)
 
 
 def _recipient_of(subscription):
@@ -15,20 +19,38 @@ def _recipient_of(subscription):
     )
 
 
-def notify_event_subscribers(event, change_type: str):
-    builder = EVENT_EMAIL_BUILDERS.get(change_type)
+def _send_to(subscription, subject: str, html: str) -> None:
+    send_mail(
+        subject=subject,
+        message="",
+        html_message=html,
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[_recipient_of(subscription)],
+        fail_silently=True,
+    )
 
-    if not builder:
+
+def notify_event_subscribers(event, change_type: str) -> None:
+    """Broadcast: le llega a TODOS los suscritos al evento."""
+    builder = EVENT_EMAIL_BUILDERS.get(change_type)
+    if builder is None:
         return
 
     subject, html = builder(event)
 
     for subscription in event.subscriptions.select_related("user").all():
-        send_mail(
-            subject=subject,
-            message="",
-            html_message=html,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[_recipient_of(subscription)],
-            fail_silently=True,
-        )
+        _send_to(subscription, subject, html)
+
+
+def notify_subscription_confirmed(subscription) -> None:
+    """Individual: le llega solo a quien se acaba de suscribir."""
+    subject, html = build_subscription_confirmation(subscription.event)
+    _send_to(subscription, subject, html)
+
+
+def notify_unsubscription_confirmed(subscription) -> None:
+    """Individual: le llega solo a quien se acaba de desuscribir. Debe
+    llamarse ANTES de subscription.delete(), ya que _send_to necesita
+    leer el destinatario desde la instancia."""
+    subject, html = build_unsubscription_confirmation(subscription.event)
+    _send_to(subscription, subject, html)

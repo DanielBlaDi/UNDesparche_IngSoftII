@@ -10,6 +10,12 @@ from rest_framework.exceptions import ValidationError
 
 from core.firebase_storage import upload_image, delete_image
 
+from notifications.services import (
+    notify_event_subscribers,
+    notify_subscription_confirmed,
+    notify_unsubscription_confirmed,
+)
+
 from .models import Event, Subscription
 from .serializers import EventSerializer, EmailSubscriptionSerializer
 from .permissions import IsSystemAdminOrEventAdmin, IsEventOwner
@@ -60,14 +66,22 @@ class EventViewSet(viewsets.ModelViewSet):
                 "No es posible modificar un evento publicado que este cancelado o finalizado."
             )
 
+        previous_state = event.status
+        previous_datetime_start = event.datetime_start
+
         image_file = self.request.FILES.get("image_file")
         if image_file:
             if event.image:
                 delete_image(event.image)
             image_url = upload_image(image_file, folder="events")
-            serializer.save(image=image_url)
+            updated_event = serializer.save(image=image_url)
         else:
-            serializer.save()
+            updated_event = serializer.save()
+
+        if updated_event.status == "CAN" and previous_state != "CAN":
+            notify_event_subscribers(event=updated_event, change_type="cancelled")
+        elif updated_event.datetime_start != previous_datetime_start:
+            notify_event_subscribers(event=updated_event, change_type="rescheduled")
 
     def perform_destroy(self, instance):
         is_system_admin = self.request.user.groups.filter(
@@ -121,7 +135,7 @@ class EventViewSet(viewsets.ModelViewSet):
         if user.is_authenticated:
             if Subscription.objects.filter(event=event, user=user).exists():
                 raise ValidationError({"detail": "Ya estás suscrito a este evento."})
-            Subscription.objects.create(event=event, user=user)
+            subscription = Subscription.objects.create(event=event, user=user)
         else:
             serializer = EmailSubscriptionSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
@@ -133,7 +147,11 @@ class EventViewSet(viewsets.ModelViewSet):
                 raise ValidationError(
                     {"detail": "Ese correo ya está suscrito a este evento."}
                 )
-            Subscription.objects.create(event=event, notification_email=email)
+            subscription = Subscription.objects.create(
+                event=event, notification_email=email
+            )
+
+        notify_subscription_confirmed(subscription)
 
         return Response(
             {"detail": "Suscripción realizada correctamente."},
@@ -161,6 +179,8 @@ class EventViewSet(viewsets.ModelViewSet):
                 raise ValidationError(
                     {"detail": "Ese correo no está suscrito a este evento."}
                 )
+
+        notify_unsubscription_confirmed(subscription)
 
         subscription.delete()
         return Response({"detail": "Suscripción cancelada correctamente."})
