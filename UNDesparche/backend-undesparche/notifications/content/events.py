@@ -9,7 +9,7 @@ def _cancelled(event):
 
 def _rescheduled(event):
     subject = f"Cambio de horario: {event.name}"
-    html = render_to_string("notifications/events/rescheduled.html")
+    html = render_to_string("notifications/events/rescheduled.html", {"event": event})
     return subject, html
 
 

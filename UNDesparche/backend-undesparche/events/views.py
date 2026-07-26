@@ -10,6 +10,8 @@ from rest_framework.exceptions import ValidationError
 
 from core.firebase_storage import upload_image, delete_image
 
+from notifications.services import notify_event_subscribers
+
 from .models import Event, Subscription
 from .serializers import EventSerializer, EmailSubscriptionSerializer
 from .permissions import IsSystemAdminOrEventAdmin, IsEventOwner
@@ -59,15 +61,23 @@ class EventViewSet(viewsets.ModelViewSet):
             raise PermissionDenied(
                 "No es posible modificar un evento publicado que este cancelado o finalizado."
             )
+        
+        previous_state = event.status
+        previous_datetime_start = event.datetime_start
 
         image_file = self.request.FILES.get("image_file")
         if image_file:
             if event.image:
                 delete_image(event.image)
             image_url = upload_image(image_file, folder="events")
-            serializer.save(image=image_url)
+            updated_event = serializer.save(image=image_url)
         else:
-            serializer.save()
+            updated_event = serializer.save()
+        
+        if updated_event.status == "CAN" and previous_state != "CAN":
+            notify_event_subscribers(event=updated_event, change_type="cancelled")
+        elif updated_event.datetime_start != previous_datetime_start:
+            notify_event_subscribers(event=updated_event, change_type="rescheduled")
 
     def perform_destroy(self, instance):
         is_system_admin = self.request.user.groups.filter(
