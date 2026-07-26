@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNDesparche - Admin Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "primary": "#002241",
+                "surface-container-low": "#f3f4f5",
+                "on-tertiary-fixed-variant": "#6f380f",
+                "inverse-surface": "#2e3132",
+                "on-primary": "#ffffff",
+                "secondary-container": "#bcf46d",
+                "error": "#ba1a1a",
+                "secondary": "#436900",
+                "on-secondary-fixed": "#111f00",
+                "on-background": "#191c1d",
+                "inverse-primary": "#a1c9ff",
+                "primary-fixed-dim": "#a1c9ff",
+                "surface-container-highest": "#e1e3e4",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "surface-variant": "#e1e3e4",
+                "on-secondary-fixed-variant": "#324f00",
+                "inverse-on-surface": "#f0f1f2",
+                "secondary-fixed": "#bcf46d",
+                "status-info": "#0277BD",
+                "on-tertiary-fixed": "#311300",
+                "unal-blue-dark": "#00213B",
+                "tertiary-fixed": "#ffdbc8",
+                "tertiary-fixed-dim": "#ffb689",
+                "surface-bright": "#f8f9fa",
+                "status-error": "#C62828",
+                "surface-container": "#edeeef",
+                "status-warning": "#EF6C00",
+                "unal-green-muted": "#A5D165",
+                "on-error-container": "#93000a",
+                "surface-dim": "#d9dadb",
+                "on-surface": "#191c1d",
+                "on-tertiary-container": "#d98f5f",
+                "secondary-fixed-dim": "#a1d754",
+                "on-surface-variant": "#42474f",
+                "tertiary": "#3b1800",
+                "on-error": "#ffffff",
+                "outline-variant": "#c2c6d0",
+                "primary-fixed": "#d2e4ff",
+                "outline": "#737780",
+                "on-secondary-container": "#486f00",
+                "surface": "#f8f9fa",
+                "primary-container": "#003865",
+                "tertiary-container": "#5b2901",
+                "on-primary-fixed": "#001c37",
+                "on-primary-container": "#7ba2d5",
+                "on-primary-fixed-variant": "#1b4876",
+                "surface-tint": "#376090",
+                "background": "#f8f9fa",
+                "surface-container-high": "#e7e8e9",
+                "error-container": "#ffdad6"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "container-max": "1280px",
+                "margin-desktop": "40px",
+                "gutter": "24px",
+                "base": "8px",
+                "margin-mobile": "16px"
+        },
+        "fontFamily": {
+                "headline-lg-mobile": [
+                        "Arimo"
+                ],
+                "body-lg": [
+                        "Arimo"
+                ],
+                "label-sm": [
+                        "Arimo"
+                ],
+                "body-md": [
+                        "Arimo"
+                ],
+                "headline-md": [
+                        "Arimo"
+                ],
+                "headline-lg": [
+                        "Arimo"
+                ],
+                "label-lg": [
+                        "Arimo"
+                ],
+                "display-lg": [
+                        "Arimo"
+                ]
+        },
+        "fontSize": {
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-lg": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ]
+        },
+        "boxShadow": {
+            "sm": "0px 4px 12px rgba(0, 0, 0, 0.06)"
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex h-screen overflow-hidden font-body-md">
+<!-- SideNavBar (Shared Component) -->
+<aside class="bg-surface-container-lowest dark:bg-inverse-surface h-screen w-64 fixed left-0 top-0 flex flex-col h-full py-base z-40 border-r border-[#E0E0E0]">
+<div class="px-gutter mb-8 mt-4">
+<h1 class="text-headline-md font-headline-md text-on-surface dark:text-inverse-on-surface mb-1">Admin Console</h1>
+<p class="text-label-sm font-label-sm text-outline">National University of Colombia</p>
+</div>
+<nav class="flex-1 overflow-y-auto px-4">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface hover:text-on-surface transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface hover:text-on-surface transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+                        Event Management
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface hover:text-on-surface transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                        Equipment Inventory
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface hover:text-on-surface transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                        Reservation Logs
+                    </a>
+</li>
+<li>
+<!-- Active State for User Roles -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary-container font-bold border-l-4 border-primary-container bg-[#F0F4F8] dark:bg-secondary transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group" data-weight="fill" style="font-variation-settings: 'FILL' 1;">group</span>
+                        User Roles
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-secondary-fixed-dim hover:bg-surface hover:text-on-surface transition-all duration-200 ease-in-out text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        System Settings
+                    </a>
+</li>
+</ul>
+<div class="mt-8 px-2">
+<button class="w-full bg-primary-container text-white py-3 px-4 rounded-lg text-label-lg font-label-lg flex items-center justify-center gap-2 hover:bg-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Report
+                </button>
+</div>
+</nav>
+<div class="mt-auto px-4 border-t border-[#E0E0E0] pt-4">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface hover:text-on-surface transition-colors text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                        Help Center
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors text-label-lg font-label-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col overflow-hidden bg-background">
+<!-- Header -->
+<header class="h-20 flex-shrink-0 flex items-center justify-between px-margin-desktop bg-surface-container-lowest border-b border-[#E0E0E0] z-10">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">User Management</h2>
+<p class="text-body-md font-body-md text-outline">Global overview of system users and roles.</p>
+</div>
+<!-- Admin Profile Quick View -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-outline hover:text-primary-container transition-colors rounded-full hover:bg-surface">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface-container-lowest"></span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-[#E0E0E0]">
+<div class="text-right hidden md:block">
+<p class="text-label-lg font-label-lg text-on-surface">Admin User</p>
+<p class="text-label-sm font-label-sm text-outline">Super Admin</p>
+</div>
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full border border-[#E0E0E0] shadow-sm" data-alt="A small, circular avatar portrait of a professional looking individual against a clean, modern white background. The image is brightly lit, adhering to a corporate, high-quality aesthetic suitable for a dashboard header. The subject has a neutral, approachable expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEcOp_efCsaCeauooqqLTvVUZqbMplXKhr0MvkmYwmNUFUWhGDBmfY4qr9UiaoNxo76qT6lI0R-y5TdFKmL6lTGZg2152LBpDheSEQ7ouaAwSCoY1EauU4QL39tbzeDnz_j9g7Pgal9hZ_bEVIsrbb644VYV3jDgZdDSYUSCTRkFns4mQc7vfY5C_07wQ_FFl_3lumU90mXqqDTvrmofzyMxx_QT-UvUvDA3KTXvqjsN9NBT4w7TyySP4sknvWvUeslDe4iydqk3w"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-margin-desktop space-y-8">
+<!-- Controls Toolbar -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-[#E0E0E0]">
+<!-- Search -->
+<div class="relative w-full lg:w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface border border-[#E0E0E0] rounded-lg text-body-md font-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all placeholder:text-outline" placeholder="Search by name or email..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+<div class="relative">
+<select class="appearance-none bg-surface border border-[#E0E0E0] rounded-lg pl-4 pr-10 py-2.5 text-label-lg font-label-lg text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none cursor-pointer">
+<option value="">All Roles</option>
+<option value="student">Student</option>
+<option value="faculty">Faculty</option>
+<option value="admin">Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface border border-[#E0E0E0] rounded-lg pl-4 pr-10 py-2.5 text-label-lg font-label-lg text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none cursor-pointer">
+<option value="">All Statuses</option>
+<option value="active">Active</option>
+<option value="sanctioned">Sanctioned</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<button class="flex items-center gap-2 px-4 py-2.5 border border-[#E0E0E0] text-on-surface rounded-lg text-label-lg font-label-lg hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        More Filters
+                    </button>
+</div>
+</div>
+<!-- User Data Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-[#E0E0E0] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-[#E0E0E0]">
+<th class="py-4 px-6 text-label-lg font-label-lg text-outline uppercase tracking-wider">User</th>
+<th class="py-4 px-6 text-label-lg font-label-lg text-outline uppercase tracking-wider">Faculty</th>
+<th class="py-4 px-6 text-label-lg font-label-lg text-outline uppercase tracking-wider">Role</th>
+<th class="py-4 px-6 text-label-lg font-label-lg text-outline uppercase tracking-wider">Status</th>
+<th class="py-4 px-6 text-label-lg font-label-lg text-outline uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#E0E0E0]">
+<!-- Row 1 -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-label-lg font-label-lg text-outline">
+                                            AM
+                                        </div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">Ana Martinez</p>
+<p class="text-label-sm font-label-sm text-outline">amartinez@unal.edu.co</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-body-md font-body-md text-on-surface">Engineering</td>
+<td class="py-4 px-6">
+<div class="relative w-32">
+<select class="appearance-none w-full bg-transparent border-b border-[#E0E0E0] py-1 pr-6 text-body-md font-body-md text-on-surface focus:border-primary-container focus:outline-none cursor-pointer">
+<option selected="">Student</option>
+<option>Admin</option>
+<option>Faculty</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-sm">edit</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded bg-[#E8F5E9] text-[#1B5E20] text-label-sm font-label-sm">
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary-container transition-colors rounded-lg hover:bg-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-label-lg font-label-lg text-outline">
+                                            CR
+                                        </div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">Carlos Ramirez</p>
+<p class="text-label-sm font-label-sm text-outline">cramirez@unal.edu.co</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-body-md font-body-md text-on-surface">Arts</td>
+<td class="py-4 px-6">
+<div class="relative w-32">
+<select class="appearance-none w-full bg-transparent border-b border-[#E0E0E0] py-1 pr-6 text-body-md font-body-md text-on-surface focus:border-primary-container focus:outline-none cursor-pointer">
+<option>Student</option>
+<option selected="">Faculty</option>
+<option>Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-sm">edit</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded bg-[#FFEBEE] text-[#B71C1C] text-label-sm font-label-sm">
+                                        Sanctioned
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary-container transition-colors rounded-lg hover:bg-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-label-lg font-label-lg text-outline">
+                                            JG
+                                        </div>
+<div>
+<p class="text-label-lg font-label-lg text-on-surface">Juliana Gomez</p>
+<p class="text-label-sm font-label-sm text-outline">jgomez@unal.edu.co</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-body-md font-body-md text-on-surface">Science</td>
+<td class="py-4 px-6">
+<div class="relative w-32">
+<select class="appearance-none w-full bg-transparent border-b border-[#E0E0E0] py-1 pr-6 text-body-md font-body-md text-on-surface focus:border-primary-container focus:outline-none cursor-pointer">
+<option>Student</option>
+<option>Faculty</option>
+<option selected="">Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-outline text-sm">edit</span>
+</div>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-1 rounded bg-[#E8F5E9] text-[#1B5E20] text-label-sm font-label-sm">
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-outline hover:text-primary-container transition-colors rounded-lg hover:bg-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between px-6 py-4 border-t border-[#E0E0E0] bg-surface-container-lowest">
+<span class="text-label-sm font-label-sm text-outline">Showing 1 to 3 of 1,240 users</span>
+<div class="flex gap-2">
+<button class="p-1 rounded border border-[#E0E0E0] text-outline hover:bg-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-1 rounded border border-[#E0E0E0] text-outline hover:bg-surface">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-12"></div> <!-- Bottom padding -->
+</div>
+</main>
+</body></html>

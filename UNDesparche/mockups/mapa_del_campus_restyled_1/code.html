@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNDesparche - Campus Map</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-lowest": "#ffffff", "outline-variant": "#c2c6d0", "secondary-fixed-dim": "#a1d754", "secondary-fixed": "#bcf46d", "on-tertiary-fixed": "#311300", "institutional-red": "#941113", "on-secondary-fixed": "#111f00", "on-error": "#ffffff", "inverse-primary": "#a1c9ff", "tertiary-container": "#5b2901", "surface-container-high": "#e7e8e9", "surface-container": "#edeeef", "success-green": "#28A745", "secondary-container": "#bcf46d", "on-surface-variant": "#42474f", "inverse-surface": "#2e3132", "surface-container-highest": "#e1e3e4", white: "#FFFFFF", "primary-fixed": "#d2e4ff", tertiary: "#3b1800", "on-background": "#191c1d", "on-primary-container": "#7ba2d5", "electric-blue": "#2E5BFF", "surface-container-low": "#f3f4f5", surface: "#f8f9fa", "primary-fixed-dim": "#a1c9ff", "surface-variant": "#e1e3e4", "on-tertiary-fixed-variant": "#6f380f", "on-tertiary-container": "#d98f5f", "surface-tint": "#376090", primary: "#002241", "inverse-on-surface": "#f0f1f2", "on-secondary-fixed-variant": "#324f00", "surface-bright": "#f8f9fa", "warning-yellow": "#FFC107", "primary-container": "#003865", "on-primary": "#ffffff", "tertiary-fixed": "#ffdbc8", "on-secondary": "#ffffff", "error-container": "#ffdad6", secondary: "#436900", "on-primary-fixed": "#001c37", background: "#f8f9fa", "deep-grey": "#333333", "tertiary-fixed-dim": "#ffb689", "surface-dim": "#d9dadb", "on-primary-fixed-variant": "#1b4876", error: "#ba1a1a", "on-surface": "#191c1d", "on-secondary-container": "#486f00", "on-tertiary": "#ffffff", outline: "#737780", "caution-orange": "#FD7E14", "on-error-container": "#93000a", "status-info": "#0277BD", "unal-blue-dark": "#00213B", "status-warning": "#EF6C00", "unal-green-muted": "#A5D165", "status-error": "#C62828"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {"container-max-width": "1280px", base: "8px", "margin-desktop": "40px", "margin-mobile": "16px", gutter: "24px", "container-max": "1280px"}, fontFamily: {"headline-md": ["Arimo"], "headline-lg": ["Arimo"], "label-sm": ["Arimo"], "label-md": ["Arimo"], "display-lg": ["Arimo"], "body-md": ["Arimo"], "headline-lg-mobile": ["Arimo"], "body-lg": ["Arimo"], "label-lg": ["Arimo"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "700"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}], "display-lg": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-lg-mobile": ["28px", {lineHeight: "36px", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "label-lg": ["14px", {lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600"}]}}}};</script>
+<style>
+        /* Custom scrollbar for panel */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d9dadb;
+            border-radius: 4px;
+        }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background-color: #c8c6c6;
+        }
+        
+        /* Map pin pulse effect */
+        @keyframes pin-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 91, 255, 0.4); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(46, 91, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 91, 255, 0); }
+        }
+        .map-pin:hover {
+            animation: pin-pulse 1.5s infinite;
+            z-index: 50;
+        }
+        
+        /* Map zoom container setup */
+        .map-container {
+            transform-origin: center center;
+            transition: transform 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar Component -->
+<header class="border-t-4 border-institutional-red bg-surface shadow-sm w-full z-40 flex-shrink-0">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-16">
+<!-- Brand -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-institutional-red text-3xl" data-weight="fill" style='font-variation-settings: "FILL" 1;'>account_balance</span>
+<span class="text-headline-lg font-headline-lg font-bold text-institutional-red tracking-tight">UNDesparche</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="h-full flex items-center px-2 text-secondary hover:text-tertiary transition-colors duration-200 text-label-md font-label-md" href="#">Eventos</a>
+<a class="h-full flex items-center px-2 text-tertiary font-bold border-b-2 border-tertiary text-label-md font-label-md opacity-80 scale-95 transition-all" href="#">Mapa del campus</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="hidden md:flex relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-surface-container-low border border-surface-variant rounded-xl text-label-sm font-label-sm focus:outline-none focus:border-tertiary focus:ring-1 focus:ring-tertiary transition-all w-48" placeholder="Search map..." type="text"/>
+</div>
+<button class="bg-tertiary text-white px-4 py-2 rounded-xl text-label-md font-label-md hover:bg-tertiary-container transition-colors shadow-sm">Regístrate o inicia sesión</button>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<main class="flex-1 flex overflow-hidden relative">
+<!-- Left Panel: Event List -->
+<aside class="w-full md:w-80 lg:w-96 bg-surface border-r border-surface-variant flex flex-col z-30 shadow-[4px_0_12px_rgba(0,0,0,0.03)] absolute md:relative h-full transition-transform duration-300" id="events-sidebar">
+<!-- Panel Header -->
+<div class="p-6 border-b border-surface-variant bg-surface shrink-0">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-2">Actividades</h2>
+<p class="text-label-md font-label-md text-secondary mb-4">Descúbre actividades en el campus!</p>
+<!-- Filters -->
+<div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+<button class="px-3 py-1.5 bg-tertiary text-white rounded-xl text-label-sm font-label-sm whitespace-nowrap shadow-sm">Todos</button>
+<button class="px-3 py-1.5 bg-surface-container border border-surface-variant text-on-surface rounded-xl text-label-sm font-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">Académico </button>
+<button class="px-3 py-1.5 bg-surface-container border border-surface-variant text-on-surface rounded-xl text-label-sm font-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">Cultura</button>
+<button class="px-3 py-1.5 bg-surface-container border border-surface-variant text-on-surface rounded-xl text-label-sm font-label-sm whitespace-nowrap hover:bg-surface-variant transition-colors">Deportes</button>
+</div>
+</div>
+<!-- Event Cards List -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4 bg-surface-container-low">
+<!-- Event Card 1 -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-surface-variant hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-tertiary-fixed text-tertiary text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">menu_book</span> Academico</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-success-green/10 text-success-green text-[10px] font-bold uppercase tracking-wider">En curso</span>
+</div>
+<h3 class="text-headline-sm font-headline-md mb-1 group-hover:text-tertiary transition-colors">Simposio de robótica 2026</h3>
+<div class="text-label-sm font-label-sm text-secondary space-y-1 mb-3">
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">calendar_today</span>Hoy, 10:00 AM - 4:00 PM</p>
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">location_on</span> León de Greiff</p>
+</div>
+<div class="pt-3 border-t border-surface-variant flex justify-between items-center">
+<div class="flex -space-x-2">
+</div>
+<button class="text-tertiary text-label-sm font-label-sm hover:underline">Detalles →</button>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-surface-variant hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-warning-yellow/10 text-caution-orange text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">palette</span> Cultura</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-tertiary-fixed text-tertiary text-[10px] font-bold uppercase tracking-wider">
+                            Programado</span>
+</div>
+<h3 class="text-headline-sm font-headline-md mb-1 group-hover:text-tertiary transition-colors">Exhibición de arte moderno</h3>
+<div class="text-label-sm font-label-sm text-secondary space-y-1 mb-3">
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">calendar_today</span>Mañana, 2:00 PM</p>
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Jardín de Froyd</p>
+</div>
+<div class="pt-3 border-t border-surface-variant flex justify-end">
+<button class="text-tertiary text-label-sm font-label-sm hover:underline">Detalles →</button>
+</div>
+</div>
+<!-- Event Card 3 -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-surface-variant hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">sports_soccer</span>deporte</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-tertiary-fixed text-tertiary text-[10px] font-bold uppercase tracking-wider">
+                            Programado</span>
+</div>
+<h3 class="text-headline-sm font-headline-md mb-1 group-hover:text-tertiary transition-colors">Finales torneo interfacultad</h3>
+<div class="text-label-sm font-label-sm text-secondary space-y-1 mb-3">
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">calendar_today</span>Jueves, 4:00 PM</p>
+<p class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">location_on</span>Estadio</p>
+</div>
+<div class="pt-3 border-t border-surface-variant flex justify-end">
+<button class="text-tertiary text-label-sm font-label-sm hover:underline">Detalles →</button>
+</div>
+</div>
+</div>
+<!-- Mobile Close Button -->
+<button class="md:hidden absolute top-4 right-4 bg-surface-container rounded-xl p-2 text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</aside>
+<!-- Right Canvas: Interactive Map -->
+<div class="flex-1 bg-surface-container-low relative overflow-hidden flex flex-col">
+<!-- Map Controls (Floating Top Right) -->
+<div class="absolute top-6 right-6 z-20 flex flex-col gap-2">
+<div class="bg-white rounded-xl shadow-md border border-surface-variant overflow-hidden flex flex-col">
+<button class="p-2 hover:bg-surface-container transition-colors border-b border-surface-variant text-on-surface" title="Zoom In">
+<span class="material-symbols-outlined text-lg">add</span>
+</button>
+<button class="p-2 hover:bg-surface-container transition-colors text-on-surface" title="Zoom Out">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<button class="bg-white rounded-xl shadow-md border border-surface-variant p-2 hover:bg-surface-container transition-colors text-on-surface mt-2" title="Reset View">
+<span class="material-symbols-outlined text-lg">my_location</span>
+</button>
+</div>
+<!-- Map Legend (Floating Bottom Right) -->
+<div class="absolute bottom-6 right-6 z-20 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-surface-variant w-64 hidden sm:block">
+<h4 class="text-label-md font-label-md mb-3 border-b border-surface-variant pb-2">Zonas</h4>
+<ul class="space-y-2 text-label-sm font-label-sm text-secondary">
+<li class="flex items-center gap-2">
+<span class="w-4 h-4 rounded-xl bg-tertiary border border-tertiary-container"></span>
+                        Ingeniería y Ciencias
+                    </li>
+<li class="flex items-center gap-2">
+<span class="w-4 h-4 rounded-xl bg-warning-yellow border border-caution-orange"></span>
+                        Artes y Humanidades
+                    </li>
+<li class="flex items-center gap-2">
+<span class="w-4 h-4 rounded-xl bg-institutional-red border border-primary"></span>
+                        Admin &amp; Biblioteca
+                    </li>
+</ul>
+</div>
+<!-- Map Viewport -->
+<div class="flex-1 w-full h-full relative overflow-auto cursor-grab active:cursor-grabbing bg-[#F8F9FA] flex items-center justify-center p-4">
+<!-- Map Content Container (Scaleable) -->
+<div class="relative max-w-full max-h-full map-container" style="width: 1200px; aspect-ratio: 16/9;">
+<!-- Base Map Image -->
+<img alt="Campus Map Base" class="w-full h-full object-contain rounded-xl shadow-sm border border-surface-variant select-none" draggable="false" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsCr7wudjNuc3AhtPwUz5Szef8QRYw-KJNQgz964ek0tbTCjyjJxH778OAXyppBgZzPgxs9vq3uAkHonBgKjhDf9E1SgOaj3linsdjghsV1P5Loi5Kp6mmhovwRyVNLyX17CvBonyTcDWmcJnuPp37VExFDsh58wg2LyLDwZ2nXqawpl96zAWv01NTBpBmOA1oOhRFA_Ew9AH64kpr_7iar9sag1-uXGoAZmtsUaBRowBLopbLxOLICCtp6tnBn5IgqU3fET7iNEhwGw"/>
+<!-- Interactive Pins Overlay -->
+<!-- Pin 1: Academic (León de Greiff) -->
+<div class="absolute top-[35%] left-[42%] transform -translate-x-1/2 -translate-y-1/2 group z-10 map-pin">
+<div class="relative">
+<div class="w-10 h-10 bg-tertiary rounded-xl border-4 border-white shadow-lg flex items-center justify-center text-white cursor-pointer transition-transform group-hover:scale-110 group-hover:bg-tertiary-container">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<div class="absolute w-2 h-2 bg-white rounded-xl bottom-[-4px] left-1/2 transform -translate-x-1/2 shadow-sm"></div>
+<!-- Tooltip -->
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-48 bg-white rounded-xl shadow-xl border border-surface-variant p-3 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-50">
+<div class="text-[10px] font-bold text-tertiary uppercase mb-1">Academic Event</div>
+<h5 class="text-label-md font-label-md text-on-surface leading-tight mb-1">Robotics Symposium</h5>
+<p class="text-[11px] text-secondary mb-2">Today, 10:00 AM</p>
+<a class="inline-block text-[11px] font-bold text-white bg-tertiary px-2 py-1 rounded-xl w-full text-center hover:bg-tertiary-container" href="#">View Details</a>
+<!-- Arrow -->
+<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-white"></div>
+</div>
+</div>
+</div>
+<!-- Pin 2: Culture (Arts Zone) -->
+<div class="absolute top-[40%] left-[65%] transform -translate-x-1/2 -translate-y-1/2 group z-10 map-pin">
+<div class="relative">
+<div class="w-10 h-10 bg-warning-yellow rounded-xl border-4 border-white shadow-lg flex items-center justify-center text-white cursor-pointer transition-transform group-hover:scale-110 group-hover:bg-caution-orange">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+</div>
+<div class="absolute w-2 h-2 bg-white rounded-xl bottom-[-4px] left-1/2 transform -translate-x-1/2 shadow-sm"></div>
+<!-- Tooltip -->
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-48 bg-white rounded-xl shadow-xl border border-surface-variant p-3 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-50">
+<div class="text-[10px] font-bold text-warning-yellow uppercase mb-1">Cultural Event</div>
+<h5 class="text-label-md font-label-md text-on-surface leading-tight mb-1">Modern Art Exhibition</h5>
+<p class="text-[11px] text-secondary mb-2">Tomorrow, 2:00 PM</p>
+<a class="inline-block text-[11px] font-bold text-white bg-warning-yellow px-2 py-1 rounded-xl w-full text-center hover:bg-caution-orange" href="#">View Details</a>
+<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-white"></div>
+</div>
+</div>
+</div>
+<!-- Pin 3: Sports (Fields) -->
+<div class="absolute top-[80%] left-[32%] transform -translate-x-1/2 -translate-y-1/2 group z-10 map-pin">
+<div class="relative">
+<div class="w-10 h-10 bg-institutional-red rounded-xl border-4 border-white shadow-lg flex items-center justify-center text-white cursor-pointer transition-transform group-hover:scale-110 group-hover:bg-primary-container">
+<span class="material-symbols-outlined text-[18px]">sports_soccer</span>
+</div>
+<div class="absolute w-2 h-2 bg-white rounded-xl bottom-[-4px] left-1/2 transform -translate-x-1/2 shadow-sm"></div>
+<!-- Tooltip -->
+<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 w-48 bg-white rounded-xl shadow-xl border border-surface-variant p-3 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-50">
+<div class="text-[10px] font-bold text-institutional-red uppercase mb-1">Sports Event</div>
+<h5 class="text-label-md font-label-md text-on-surface leading-tight mb-1">Inter-faculty Finals</h5>
+<p class="text-[11px] text-secondary mb-2">Friday, 4:00 PM</p>
+<a class="inline-block text-[11px] font-bold text-white bg-institutional-red px-2 py-1 rounded-xl w-full text-center hover:bg-primary-container" href="#">View Details</a>
+<div class="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-l-transparent border-r-transparent border-t-white"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

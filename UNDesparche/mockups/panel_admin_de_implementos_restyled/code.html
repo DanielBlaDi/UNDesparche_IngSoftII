@@ -1,0 +1,507 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Equipment Administrator Panel - UNDesparche</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#e2beba",
+                "secondary-fixed-dim": "#c8c6c6",
+                "secondary-fixed": "#e4e2e1",
+                "on-tertiary-fixed": "#001356",
+                "institutional-red": "#941113",
+                "on-secondary-fixed": "#1b1c1c",
+                "on-error": "#ffffff",
+                "inverse-primary": "#ffb4ab",
+                "tertiary-container": "#0037c5",
+                "surface-container-high": "#e7e8e9",
+                "surface-container": "#edeeef",
+                "success-green": "#28A745",
+                "secondary-container": "#e4e2e1",
+                "on-surface-variant": "#5a413e",
+                "inverse-surface": "#2e3132",
+                "surface-container-highest": "#e1e3e4",
+                "white": "#FFFFFF",
+                "primary-fixed": "#ffdad6",
+                "tertiary": "#00258f",
+                "on-background": "#191c1d",
+                "on-primary-container": "#ffa095",
+                "electric-blue": "#2E5BFF",
+                "surface-container-low": "#f3f4f5",
+                "surface": "#f8f9fa",
+                "primary-fixed-dim": "#ffb4ab",
+                "surface-variant": "#e1e3e4",
+                "on-tertiary-fixed-variant": "#0035be",
+                "on-tertiary-container": "#a7b5ff",
+                "surface-tint": "#b22a25",
+                "primary": "#6e0006",
+                "inverse-on-surface": "#f0f1f2",
+                "on-secondary-fixed-variant": "#474747",
+                "surface-bright": "#f8f9fa",
+                "warning-yellow": "#FFC107",
+                "primary-container": "#941113",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#dde1ff",
+                "on-secondary": "#ffffff",
+                "error-container": "#ffdad6",
+                "secondary": "#5f5e5e",
+                "on-primary-fixed": "#410002",
+                "background": "#f8f9fa",
+                "deep-grey": "#333333",
+                "tertiary-fixed-dim": "#b8c3ff",
+                "surface-dim": "#d9dadb",
+                "on-primary-fixed-variant": "#900d10",
+                "error": "#ba1a1a",
+                "on-surface": "#191c1d",
+                "on-secondary-container": "#656464",
+                "on-tertiary": "#ffffff",
+                "outline": "#8e706d",
+                "caution-orange": "#FD7E14",
+                "on-error-container": "#93000a",
+                "institutional-blue": "#003865"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "container-max-width": "1280px",
+                "base": "8px",
+                "margin-desktop": "40px",
+                "margin-mobile": "16px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "headline-md": ["Arimo", "sans-serif"],
+                "headline-lg": ["Arimo", "sans-serif"],
+                "label-sm": ["Arimo", "sans-serif"],
+                "label-md": ["Arimo", "sans-serif"],
+                "display-lg": ["Arimo", "sans-serif"],
+                "body-md": ["Arimo", "sans-serif"],
+                "headline-lg-mobile": ["Arimo", "sans-serif"],
+                "body-lg": ["Arimo", "sans-serif"]
+        },
+        "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Scrollbar for inner tables to keep UI clean */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d9dadb;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md m-0 p-0 overflow-hidden flex">
+<!-- JSON Component: SideNavBar -->
+<nav class="bg-institutional-blue text-white h-screen w-64 fixed left-0 top-0 flex flex-col py-base z-50 border-r border-institutional-blue transition-all duration-200 ease-in-out">
+<!-- Header -->
+<div class="px-6 py-4 flex flex-col gap-2 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white/10 overflow-hidden shrink-0 border border-white/20">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of an administrative staff member in a bright, modern academic office setting. Natural light highlights the clean, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAWCvQiFWyS1JQEEGaE0dv1kaP4ejIw--E1oIKAZ-goH2KP6Hz5gLSQXWNa0hffTLafaaqDo8eMkLjEG93MUCjpEmP2vvr17kyaayyKpXxJiBIYWefGEB2xKB5KkuZpW3Rpl_t3375GTJJrYJo0ylW-9jKHmgbHd_veuvBWD_wOmyucDAIMP7oSJNluu-3e8VWUpTkT0PHszAonRhpN96RbJH5FufStIVB9OQ1sARHpI9QV3RgjSCEnMC0xiquMcB8NgZRPtrFbX4">
+</div>
+<div>
+<h2 class="text-headline-md font-headline-md text-white truncate text-[20px]">Consola<br>Admin<br>Implementos</h2>
+<p class="text-label-sm font-label-sm text-white/70 truncate">Universidad Nacional</p>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-4 mb-6">
+<button class="w-full bg-white text-institutional-blue rounded py-2 px-4 flex items-center justify-center gap-2 hover:bg-surface transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-label-md font-label-md">Nuevo reporte</span>
+</button>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-1 px-2">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Inactive -->
+
+<!-- Active -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-white font-bold border-l-4 border-white bg-white/20 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined icon-fill">inventory_2</span>
+<span class="text-label-md font-label-md">Inventario</span>
+</a>
+<!-- Inactive -->
+
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out" href="#">
+
+
+</a>
+<!-- Inactive -->
+
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto px-2 flex flex-col gap-1 border-t border-white/20 pt-4 pb-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Ayuda</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 h-screen overflow-y-auto bg-surface-bright">
+<!-- Header / Context Area -->
+<div class="bg-surface-container-lowest border-b border-surface-variant px-margin-desktop py-8 sticky top-0 z-40">
+<div class="max-w-container-max-width mx-auto flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 text-label-md font-label-md text-secondary mb-2">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+<span class="">Administración - Facultad de Artes</span>
+</div>
+<h1 class="text-display-lg font-display-lg text-on-surface">Inventario</h1>
+</div>
+<!-- Quick Stats -->
+<div class="flex gap-6">
+<div class="bg-surface p-4 rounded-lg border border-surface-variant min-w-[120px]">
+<p class="text-label-sm font-label-sm text-secondary uppercase tracking-wider mb-1">Total Items</p>
+<p class="text-headline-lg font-headline-lg text-on-surface">342</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-surface-variant min-w-[120px]">
+<p class="text-label-sm font-label-sm text-secondary uppercase tracking-wider mb-1">Active Res.</p>
+<p class="text-headline-lg font-headline-lg text-institutional-blue">18</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Canvas -->
+<div class="p-margin-desktop max-w-container-max-width mx-auto grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: Main Inventory (Spans 8 cols on XL) -->
+<div class="xl:col-span-8 flex flex-col gap-gutter">
+<!-- Inventory Table Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+<div class="p-6 border-b border-surface-variant flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest">
+<h2 class="text-headline-md font-headline-md text-on-surface">Inventario General</h2>
+<!-- Search & Filter Controls -->
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+<input class="w-full pl-10 pr-3 py-2 bg-surface-container-low border border-surface-variant rounded focus:border-institutional-blue focus:ring-1 focus:ring-institutional-blue outline-none text-body-md font-body-md transition-all" placeholder="Buscar equipo..." type="text">
+</div>
+<button class="p-2 border border-surface-variant rounded bg-surface-container-lowest hover:bg-surface-container transition-colors text-secondary">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-label-md font-label-md text-secondary border-b border-surface-variant">
+<th class="py-3 px-6 font-semibold">Nombre</th>
+<th class="py-3 px-6 font-semibold">Categoria</th>
+<th class="py-3 px-6 font-semibold">Estado</th>
+<th class="py-3 px-6 font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-on-surface divide-y divide-surface-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</div>
+<span class="font-medium text-on-surface">Jenga</span>
+</div>
+</td>
+<td class="py-4 px-6 text-secondary">Juego de mesa</td>
+<td class="py-4 px-6">
+<div class="relative inline-block w-32">
+<select class="appearance-none w-full bg-success-green/10 text-success-green border border-success-green/20 text-label-sm font-label-sm rounded px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-success-green/50 cursor-pointer">
+<option selected="" value="available">Available</option>
+<option value="reserved">Reserved</option>
+<option value="borrowed">Borrowed</option>
+<option value="unavailable">Unavailable</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-success-green">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-secondary hover:text-institutional-blue transition-colors p-1" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-secondary hover:text-institutional-red transition-colors p-1 ml-1" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</div>
+<span class="font-medium text-on-surface">Pelota de fútbol</span>
+</div>
+</td>
+<td class="py-4 px-6 text-secondary">Video</td>
+<td class="py-4 px-6">
+<div class="relative inline-block w-32">
+<select class="appearance-none w-full bg-caution-orange/10 text-caution-orange border border-caution-orange/20 text-label-sm font-label-sm rounded px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-caution-orange/50 cursor-pointer">
+<option value="available">Available</option>
+<option value="reserved">Reserved</option>
+<option selected="" value="borrowed">Borrowed</option>
+<option value="unavailable">Unavailable</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-caution-orange">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-secondary hover:text-institutional-blue transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-secondary hover:text-institutional-red transition-colors p-1 ml-1">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">brush</span>
+</div>
+<span class="font-medium text-on-surface">Maraca</span>
+</div>
+</td>
+<td class="py-4 px-6 text-secondary">Artes Plásticas</td>
+<td class="py-4 px-6">
+<div class="relative inline-block w-32">
+<select class="appearance-none w-full bg-warning-yellow/10 text-warning-yellow border border-warning-yellow/20 text-label-sm font-label-sm rounded px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-warning-yellow/50 cursor-pointer">
+<option value="available">Available</option>
+<option selected="" value="reserved">Reserved</option>
+<option value="borrowed">Borrowed</option>
+<option value="unavailable">Unavailable</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-warning-yellow">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-secondary hover:text-institutional-blue transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-secondary hover:text-institutional-red transition-colors p-1 ml-1">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">build</span>
+</div>
+<span class="font-medium text-on-surface">Pirinola</span>
+</div>
+</td>
+<td class="py-4 px-6 text-secondary">Cerámica</td>
+<td class="py-4 px-6">
+<div class="relative inline-block w-32">
+<select class="appearance-none w-full bg-institutional-red/10 text-institutional-red border border-institutional-red/20 text-label-sm font-label-sm rounded px-3 py-1.5 pr-8 focus:outline-none focus:ring-2 focus:ring-institutional-red/50 cursor-pointer">
+<option value="available">Available</option>
+<option value="reserved">Reserved</option>
+<option value="borrowed">Borrowed</option>
+<option selected="" value="unavailable">Unavailable</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-institutional-red">
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-secondary hover:text-institutional-blue transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="text-secondary hover:text-institutional-red transition-colors p-1 ml-1">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-surface-variant flex justify-between items-center text-label-md text-secondary bg-surface-container-lowest">
+<span class="">Mostrando 1 - 4 de 20</span>
+<div class="flex gap-1">
+<button class="p-1 rounded hover:bg-surface-container disabled:opacity-50" disabled=""><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-1 rounded hover:bg-surface-container"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Reservations & Sanctions (Spans 4 cols on XL) -->
+<div class="xl:col-span-4 flex flex-col gap-gutter">
+<!-- Active Reservations Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.06)] flex flex-col h-[400px]">
+<div class="p-5 border-b border-surface-variant flex justify-between items-center bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-institutional-blue">pending_actions</span>
+<h2 class="text-headline-md font-headline-md text-on-surface text-[20px]">Reservas Activas</h2>
+</div>
+<span class="bg-surface-container-low text-on-surface text-label-sm px-2 py-0.5 rounded-full">18</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-5 flex flex-col gap-4">
+<!-- Reservation Item 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-lg p-4 hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-label-md font-label-md text-on-surface font-bold">Futbolito</h3>
+<div class="bg-caution-orange/10 text-caution-orange border border-caution-orange/20 text-label-sm px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="">Vence en 5m 21s</span>
+</div>
+</div>
+<div class="text-body-md text-secondary text-[14px] mb-3 flex flex-col gap-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">person</span> Juan Pérez (Estudiante)</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">event</span> Hoy, 08:00 - 14:00</span>
+</div>
+<button class="w-full bg-institutional-blue hover:bg-institutional-blue/90 text-white text-label-md font-label-md py-2 rounded transition-colors">
+                                Confirmar entrega
+                            </button>
+</div>
+<!-- Reservation Item 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-lg p-4 hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-label-md font-label-md text-on-surface font-bold">Tenis de mesa</h3>
+<div class="bg-success-green/10 text-success-green border border-success-green/20 text-label-sm px-2 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="">Vence en 2m 01s</span>
+</div>
+</div>
+<div class="text-body-md text-secondary text-[14px] mb-3 flex flex-col gap-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">person</span> María Gómez (Docente)</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">event</span> 24 Oct, 10:00 - 25 Oct, 10:00</span>
+</div>
+<button class="w-full bg-transparent border-2 border-surface-variant text-institutional-blue hover:bg-surface-container-low text-label-md font-label-md py-1.5 rounded transition-colors">
+                                Ver Detalles
+                            </button>
+</div>
+</div>
+</section>
+<!-- Sanctions Card -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.06)] flex flex-col flex-1">
+<div class="p-5 border-b border-surface-variant flex justify-between items-center bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-institutional-red">gavel</span>
+<h2 class="text-headline-md font-headline-md text-on-surface text-[20px]">Sanciones</h2>
+</div>
+<button class="text-institutional-blue text-label-sm font-label-sm hover:underline">Ver todas</button>
+</div>
+<div class="p-0">
+<ul class="divide-y divide-surface-variant">
+<!-- Sanction Item -->
+<li class="p-4 hover:bg-surface-container-low transition-colors flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-institutional-red/10 flex items-center justify-center text-institutional-red border border-institutional-red/20">
+<span class="material-symbols-outlined">block</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-label-md text-on-surface">Carlos Ramírez</p>
+<p class="text-body-md text-secondary text-[12px]">Entrega tardía (Pelota voleibol)</p>
+</div>
+<span class="text-label-sm text-institutional-red bg-institutional-red/10 px-2 py-1 rounded">Activa</span>
+</div>
+<button class="self-end text-institutional-blue text-label-md font-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+                                    Levantar sanción
+                                </button>
+</li>
+<!-- Sanction Item -->
+<li class="p-4 hover:bg-surface-container-low transition-colors flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-institutional-red/10 flex items-center justify-center text-institutional-red border border-institutional-red/20">
+<span class="material-symbols-outlined">block</span>
+</div>
+<div class="flex-1">
+<p class="text-label-md font-label-md text-on-surface">Ana Silva</p>
+<p class="text-body-md text-secondary text-[12px]">Daño equipo (Tablero de ajedrez)</p>
+</div>
+<span class="text-label-sm text-institutional-red bg-institutional-red/10 px-2 py-1 rounded">Activa</span>
+</div>
+<button class="self-end text-institutional-blue text-label-md font-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">how_to_reg</span>
+                                    Levantar sanción
+                                </button>
+</li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
