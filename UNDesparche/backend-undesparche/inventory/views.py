@@ -1,6 +1,5 @@
 from django.db import transaction
 from django.db import IntegrityError
-from django.db.models import Q
 from django.utils import timezone
 from datetime import timedelta
 
@@ -32,20 +31,7 @@ class ImplementViewSet(viewsets.ModelViewSet):
     http_method_names = ["get", "post", "patch", "delete"]
 
     def get_queryset(self):
-        user = self.request.user
-        queryset = Implement.objects
-        
-        # El Administrador de Implementos puede ver los implementos de su facultad
-        if user.groups.filter(name="Administrador de Implementos").exists():
-            return queryset.filter(
-                active=True, faculty=user.faculty
-            )
-
-        if user.groups.filter(name="Administrador del Sistema").exists():
-            return queryset.all()
-
-        # Un Miembro de la Comunidad verá todos los implementos excepto los no disponibles
-        return queryset.filter(Q(state="DIS") | Q(state="RES") | Q(state="PRE"))
+        return Implement.objects.all().order_by("name")
 
     def get_permissions(self):
         if self.action in ["list", "retrieve"]:
