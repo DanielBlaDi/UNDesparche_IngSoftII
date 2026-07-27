@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desuscripción · UNDesparche</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f5;
+      font-family: Arial, Helvetica, sans-serif;
+    "
+  >
+    <table
+      role="presentation"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      style="background-color: #f4f4f5; padding: 48px 16px"
+    >
+      <tr>
+        <td align="center">
+          <table
+            role="presentation"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+              max-width: 480px;
+              background-color: #ffffff;
+              border-radius: 8px;
+              overflow: hidden;
+            "
+          >
+            {% if status == "ok" or status == "already" %}
+            <tr>
+              <td style="background-color: #16a34a; padding: 20px 24px">
+                <p
+                  style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 13px;
+                    font-weight: bold;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                >
+                  Desuscripción realizada
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 24px">
+                {% if status == "ok" %}
+                <h1 style="margin: 0 0 12px 0; font-size: 20px; color: #18181b">
+                  Listo, te desuscribiste
+                </h1>
+                <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3f3f46">
+                  Ya no recibirás notificaciones sobre
+                  <strong>{{ event_name }}</strong>. Si cambias de opinión,
+                  puedes volver a suscribirte desde la página del evento.
+                </p>
+                {% else %}
+                <h1 style="margin: 0 0 12px 0; font-size: 20px; color: #18181b">
+                  Ya no estabas suscrito
+                </h1>
+                <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3f3f46">
+                  Esta suscripción ya había sido cancelada. No necesitas hacer
+                  nada más.
+                </p>
+                {% endif %}
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td style="background-color: #dc2626; padding: 20px 24px">
+                <p
+                  style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 13px;
+                    font-weight: bold;
+                    letter-spacing: 0.5px;
+                    text-transform: uppercase;
+                  "
+                >
+                  Enlace inválido
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 24px">
+                <h1 style="margin: 0 0 12px 0; font-size: 20px; color: #18181b">
+                  No pudimos procesar tu solicitud
+                </h1>
+                <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3f3f46">
+                  El enlace de desuscripción no es válido o está incompleto.
+                  Asegúrate de abrir el enlace completo desde el correo que
+                  recibiste.
+                </p>
+              </td>
+            </tr>
+            {% endif %}
+
+            <tr>
+              <td
+                style="
+                  padding: 16px 24px;
+                  background-color: #fafafa;
+                  border-top: 1px solid #e4e4e7;
+                "
+              >
+                <p style="margin: 0; font-size: 11px; color: #a1a1aa">
+                  UNDesparche
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -16,6 +16,7 @@ function buildImplementFormData(payload: ImplementPayload): FormData {
   formData.append('name', payload.name)
   if (payload.category) formData.append('category', payload.category)
   if (payload.faculty) formData.append('faculty', payload.faculty)
+  if (payload.state) formData.append('state', payload.state)
   formData.append('description', payload.description)
   if (payload.image_file) formData.append('image_file', payload.image_file)
   return formData
@@ -61,6 +62,7 @@ export function updateImplement(
   if (payload.name !== undefined) formData.append('name', payload.name)
   if (payload.category !== undefined) formData.append('category', payload.category)
   if (payload.faculty !== undefined) formData.append('faculty', payload.faculty)
+  if (payload.state !== undefined) formData.append('state', payload.state)
   if (payload.description !== undefined) formData.append('description', payload.description)
   if (payload.image_file) formData.append('image_file', payload.image_file)
 

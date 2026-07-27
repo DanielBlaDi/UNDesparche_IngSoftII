@@ -21,6 +21,13 @@ const categories: { value: EventCategory; label: string }[] = [
   { value: 'OTR', label: 'Otro' },
 ]
 
+const statuses: { value: EventStatus; label: string }[] = [
+  { value: 'PRO', label: 'Programado' },
+  { value: 'ECU', label: 'En Curso' },
+  { value: 'FIN', label: 'Finalizado' },
+  { value: 'CAN', label: 'Cancelado' },
+]
+
 function formFromEvent(event: Event): EventFormData {
   return {
     name: event.name,
@@ -77,13 +84,14 @@ export default function EventForm({ open, event, onClose, onSave }: EventFormPro
       const now = new Date()
       const start = new Date(form.datetime_start)
       const end = new Date(form.datetime_end)
-      let status: EventStatus
-      if (now >= start && now < end) {
-        status = 'ECU'
-      } else if (now >= end) {
-        status = 'FIN'
-      } else {
-        status = 'PRO'
+      let statusToSave = form.status
+
+      if (isCreating && form.status === 'PRO') {
+        if (now >= start && now < end) {
+          statusToSave = 'ECU'
+        } else if (now >= end) {
+          statusToSave = 'FIN'
+        }
       }
 
       const formData = new FormData()
@@ -94,7 +102,7 @@ export default function EventForm({ open, event, onClose, onSave }: EventFormPro
       formData.append('longitude', Number(form.longitude).toFixed(7))
       formData.append('datetime_start', start.toISOString())
       formData.append('datetime_end', end.toISOString())
-      formData.append('status', status)
+      formData.append('status', statusToSave)
       if (form.category) formData.append('category', form.category)
       if (form.image_file) formData.append('image_file', form.image_file)
       await onSave(formData)
@@ -119,18 +127,32 @@ export default function EventForm({ open, event, onClose, onSave }: EventFormPro
             required
             fullWidth
           />
-          <TextField
-            select
-            label="Categoría"
-            value={form.category ?? ''}
-            onChange={e => update('category', e.target.value || null)}
-            fullWidth
-          >
-            <MenuItem value="">Sin categoría</MenuItem>
-            {categories.map(c => (
-              <MenuItem key={c.value} value={c.value}>{c.label}</MenuItem>
-            ))}
-          </TextField>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <TextField
+              select
+              label="Categoría"
+              value={form.category ?? ''}
+              onChange={e => update('category', e.target.value || null)}
+              sx={{ flex: 1, minWidth: 200 }}
+            >
+              <MenuItem value="">Sin categoría</MenuItem>
+              {categories.map(c => (
+                <MenuItem key={c.value} value={c.value}>{c.label}</MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              select
+              label="Estado del Evento *"
+              value={form.status}
+              onChange={e => update('status', e.target.value as EventStatus)}
+              required
+              sx={{ flex: 1, minWidth: 200 }}
+            >
+              {statuses.map(s => (
+                <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>
+              ))}
+            </TextField>
+          </Box>
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <TextField
               label="Fecha y Hora Inicio *"

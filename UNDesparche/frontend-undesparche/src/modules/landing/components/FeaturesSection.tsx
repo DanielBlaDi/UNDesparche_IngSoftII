@@ -10,6 +10,10 @@ function FeaturesSection() {
   const { isAuthenticated, signInWithGoogle, isLoading } = useAuth()
   const navigate = useNavigate()
 
+  if (isAuthenticated) {
+    return null
+  }
+
   const handleLogin = async () => {
     if (isAuthenticated) {
       navigate('/events')

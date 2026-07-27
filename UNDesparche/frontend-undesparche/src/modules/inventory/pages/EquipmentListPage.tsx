@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { Alert, Box, CircularProgress, Container, Stack, Typography } from '@mui/material'
+import { Alert, Box, CircularProgress, Container, Icon, Stack, Typography } from '@mui/material'
 import { useAuth } from '../../auth/hooks/useAuth'
 import { useImplements } from '../hooks/useEquipment'
 import { EquipmentCard } from '../components/EquipmentCard'
@@ -12,15 +12,25 @@ export function EquipmentListPage() {
   const navigate = useNavigate()
   const isSanctioned = profile?.status === 'SAN'
 
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [facultyFilter, setFacultyFilter] = useState<Faculty | ''>('')
   const [categoryFilter, setCategoryFilter] = useState<ImplementCategory | ''>('')
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [search])
+
   const filterParams = useMemo(
     () => ({
+      search: debouncedSearch || undefined,
       faculty: facultyFilter || undefined,
       category: categoryFilter || undefined,
     }),
-    [facultyFilter, categoryFilter],
+    [debouncedSearch, facultyFilter, categoryFilter],
   )
 
   const { data: items, loading, error } = useImplements(filterParams)
@@ -57,10 +67,12 @@ export function EquipmentListPage() {
         </Box>
 
         <EquipmentFilters
-          faculty={facultyFilter}
+          search={search}
           category={categoryFilter}
-          onFacultyChange={setFacultyFilter}
+          faculty={facultyFilter}
+          onSearchChange={setSearch}
           onCategoryChange={setCategoryFilter}
+          onFacultyChange={setFacultyFilter}
         />
 
         {loading && (
@@ -72,7 +84,17 @@ export function EquipmentListPage() {
         {!loading && error && <Alert severity="error">{error}</Alert>}
 
         {!loading && !error && items && items.length === 0 && (
-          <Alert severity="info">No hay implementos registrados todavía.</Alert>
+          <Box sx={{ textAlign: 'center', py: 10 }}>
+            <Icon baseClassName="material-symbols-outlined" sx={{ fontSize: 64, color: 'text.disabled', mb: 2 }}>
+              inventory_2
+            </Icon>
+            <Typography variant="h3" color="text.secondary">
+              No se encontraron implementos
+            </Typography>
+            <Typography color="text.secondary" sx={{ mt: 1 }}>
+              Intenta ajustar los filtros de búsqueda.
+            </Typography>
+          </Box>
         )}
 
         {!loading && !error && items && items.length > 0 && (

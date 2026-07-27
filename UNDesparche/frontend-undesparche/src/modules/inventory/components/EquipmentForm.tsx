@@ -15,11 +15,15 @@ import { useAuth } from '../../auth/hooks/useAuth'
 import {
   FACULTY_LABELS,
   IMPLEMENT_CATEGORY_LABELS,
+  IMPLEMENT_STATE_LABELS,
   type Faculty,
   type Implement,
   type ImplementCategory,
   type ImplementPayload,
+  type ImplementState,
 } from '../types/inventory.types'
+
+const EDITABLE_STATES: Extract<ImplementState, 'DIS' | 'NDS'>[] = ['DIS', 'NDS']
 
 const FACULTY_ENTRIES = Object.entries(FACULTY_LABELS) as [Faculty, string][]
 const CATEGORY_ENTRIES = Object.entries(IMPLEMENT_CATEGORY_LABELS) as [ImplementCategory, string][]
@@ -45,12 +49,15 @@ export function EquipmentForm({ open, implement, onClose, onSave }: EquipmentFor
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [state, setState] = useState<Extract<ImplementState, 'DIS' | 'NDS'>>('NDS')
+  const isLockedByLifecycle = implement != null && (implement.state === 'RES' || implement.state === 'PRE')
 
   useEffect(() => {
     if (open) {
       setName(implement?.name ?? '')
       setCategory(implement?.category ?? '')
       setFaculty(implement?.faculty ?? '')
+      setState(implement?.state === 'DIS' ? 'DIS' : 'NDS') // si es RES/PRE, se trata como no editable → NDS visual, ver nota abajo
       setDescription(implement?.description ?? '')
       setImageFile(undefined)
       setError(null)
@@ -75,6 +82,7 @@ export function EquipmentForm({ open, implement, onClose, onSave }: EquipmentFor
         name,
         category: category || undefined,
         faculty: isSystemAdmin ? (faculty as Faculty) : undefined,
+        state,
         description,
         image_file: imageFile,
       })
@@ -105,6 +113,26 @@ export function EquipmentForm({ open, implement, onClose, onSave }: EquipmentFor
             </MenuItem>
           ))}
         </Select>
+
+        <Select
+          value={state}
+          onChange={e => setState(e.target.value as typeof state)}
+          fullWidth
+          disabled={isLockedByLifecycle}
+        >
+          {EDITABLE_STATES.map(code => (
+            <MenuItem key={code} value={code}>
+              {IMPLEMENT_STATE_LABELS[code]}
+            </MenuItem>
+          ))}
+        </Select>
+
+        {isLockedByLifecycle && (
+          <Typography variant="caption" color="text.secondary">
+            Este implemento está {IMPLEMENT_STATE_LABELS[implement!.state].toLowerCase()}; el sistema
+            liberará el estado automáticamente al confirmar la devolución o cancelar la reserva.
+          </Typography>
+        )}
 
         {isSystemAdmin && (
           <Select

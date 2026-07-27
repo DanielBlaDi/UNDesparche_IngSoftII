@@ -3,6 +3,7 @@ import AppLayout from '../shared/components/layout/AppLayout'
 import LandingPage from '../modules/landing/pages/LandingPage'
 import EventsListPage from '../modules/events/pages/EventsListPage'
 import EventDetailPage from '../modules/events/pages/EventDetailPage'
+import EventUnsubscribePage from '../modules/events/pages/EventUnsubscribePage'
 import EventsAdminPage from '../modules/events/pages/EventsAdminPage'
 import EquipmentListPage from '../modules/inventory/pages/EquipmentListPage'
 import EquipmentDetailPage from '../modules/inventory/pages/EquipmentDetailPage'
@@ -29,6 +30,7 @@ export const routes = (
     <Route element={<AppLayout />}>
       <Route index element={<LandingPage />} />
       <Route path="events" element={<EventsListPage />} />
+      <Route path="events/unsubscribe" element={<EventUnsubscribePage />} />
       <Route path="events/:id" element={<EventDetailPage />} />
 
       <Route

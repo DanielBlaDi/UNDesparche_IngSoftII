@@ -164,16 +164,41 @@ FIREBASE_CREDENTIALS_PATH = BASE_DIR / "firebase_credentials.json"
 FIREBASE_STORAGE_BUCKET = os.getenv("FIREBASE_STORAGE_BUCKET")
 
 # Configura cuál es el servicio de email que usará Django
-EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://localhost:5173")
+UNSUBSCRIBE_TOKEN_SALT = os.getenv("UNSUBSCRIBE_TOKEN_SALT", "event-unsubscribe")
 
 
-ANYMAIL = {
-    "RESEND_API_KEY": os.getenv("RESEND_API_KEY"),
-}
-
-
-DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
+# EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+# ANYMAIL = {
+#     "RESEND_API_KEY": os.getenv("RESEND_API_KEY"),
+# }
+# DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
 
 
 # Lista de orígenes permitidos para solicitudes CORS, obtenida de la variable de entorno.
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+
+
+# Broker y backend de resultados 
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = TIME_ZONE
+
+# Tareas periódicas (Celery Beat)
+CELERY_BEAT_SCHEDULE = {
+    "release-expired-reserves": {
+        "task": "inventory.tasks.release_expired_reserves",
+        "schedule": 60.0,
+    },
+}

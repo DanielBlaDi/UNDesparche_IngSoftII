@@ -1,11 +1,22 @@
 from django.template.loader import render_to_string
+from django.conf import settings
+
+from events.tokens import make_unsubscribe_token
 
 
-def build_subscription_confirmation(event):
+def build_subscription_confirmation(subscription):
+    event = subscription.event
     subject = f"Suscripción confirmada: {event.name}"
+
+
+    unsubscribe_url = None
+    if not subscription.user:
+        token = make_unsubscribe_token(subscription)
+        unsubscribe_url = f"{settings.FRONTEND_BASE_URL}/events/unsubscribe?token={token}"
+
     html = render_to_string(
         "notifications/events/subscribed.html",
-        {"event": event},
+        {"event": event, "unsubscribe_url": unsubscribe_url},
     )
     return subject, html
 
