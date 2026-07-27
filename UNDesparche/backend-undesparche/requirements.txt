@@ -3,6 +3,7 @@ anyio==4.14.1
 asgiref==3.11.1
 attrs==26.1.0
 CacheControl==0.14.4
+celery==5.5.3
 certifi==2026.6.17
 cffi==2.0.0
 charset-normalizer==3.4.7
@@ -42,6 +43,7 @@ protobuf==7.35.1
 psycopg==3.3.4
 pyasn1==0.6.3
 pyasn1_modules==0.4.2
+redis==5.2.1
 pycparser==3.0
 pydantic==2.13.4
 pydantic_core==2.46.4

@@ -185,3 +185,20 @@ UNSUBSCRIBE_TOKEN_SALT = os.getenv("UNSUBSCRIBE_TOKEN_SALT", "event-unsubscribe"
 
 # Lista de orígenes permitidos para solicitudes CORS, obtenida de la variable de entorno.
 CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+
+
+# Broker y backend de resultados 
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = TIME_ZONE
+
+# Tareas periódicas (Celery Beat)
+CELERY_BEAT_SCHEDULE = {
+    "release-expired-reserves": {
+        "task": "inventory.tasks.release_expired_reserves",
+        "schedule": 60.0,
+    },
+}

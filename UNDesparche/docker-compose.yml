@@ -1,4 +1,40 @@
+x-backend-env: &backend-env
+  DEBUG: ${DEBUG}
+  SECRET_KEY: ${SECRET_KEY}
+  ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+  DB_NAME: ${DB_NAME}
+  DB_USER: ${DB_USER}
+  DB_PASSWORD: ${DB_PASSWORD}
+  DB_HOST: ${DB_HOST}
+  DB_PORT: ${DB_PORT}
+  CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+  FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
+  RESEND_API_KEY: ${RESEND_API_KEY}
+  EMAIL_HOST: ${EMAIL_HOST}
+  EMAIL_PORT: ${EMAIL_PORT}
+  EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+  EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+  EMAIL_USE_TLS: ${EMAIL_USE_TLS}
+  DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
+  FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
+  UNSUBSCRIBE_TOKEN_SALT: ${UNSUBSCRIBE_TOKEN_SALT}
+  CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+  CELERY_RESULT_BACKEND: ${CELERY_RESULT_BACKEND}
+
+x-backend-volumes: &backend-volumes
+  - ./backend-undesparche:/app
+  - static_files:/app/staticfiles
+  - media_files:/app/mediafiles
+  - ./backend-undesparche/firebase_credentials.json:/app/firebase_credentials.json:ro
+
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: undesparche_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
   backend:
     build:
       context: ./backend-undesparche
@@ -10,34 +46,26 @@ services:
              python3 manage.py migrate &&
              python3 manage.py createroles &&
              python3 manage.py runserver 0.0.0.0:8000"
-    environment:
-      DEBUG: ${DEBUG}
-      SECRET_KEY: ${SECRET_KEY}
-      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
-      FIREBASE_STORAGE_BUCKET: ${FIREBASE_STORAGE_BUCKET}
-      RESEND_API_KEY: ${RESEND_API_KEY}
-      EMAIL_HOST: ${EMAIL_HOST}
-      EMAIL_PORT: ${EMAIL_PORT}
-      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
-      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
-      EMAIL_USE_TLS: ${EMAIL_USE_TLS}
-      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
-      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
-      UNSUBSCRIBE_TOKEN_SALT: ${UNSUBSCRIBE_TOKEN_SALT}
-    volumes:
-      - ./backend-undesparche:/app
-      - static_files:/app/staticfiles
-      - media_files:/app/mediafiles
-      - ./backend-undesparche/firebase_credentials.json:/app/firebase_credentials.json:ro
+    environment: *backend-env
+    volumes: *backend-volumes
+    depends_on:
+      - redis
     ports:
       - "8000:8000"
       - "587:587"
+
+  celery:
+    build:
+      context: ./backend-undesparche
+      dockerfile: Dockerfile
+    container_name: celery_worker
+    restart: unless-stopped
+    command: celery -A undesparche worker --beat -s /tmp/celerybeat-schedule --loglevel=info
+    environment: *backend-env
+    volumes: *backend-volumes
+    depends_on:
+      - redis
+      - backend
 
   frontend:
     build:
