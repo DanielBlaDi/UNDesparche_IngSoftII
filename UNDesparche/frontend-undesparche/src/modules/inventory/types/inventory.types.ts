@@ -60,6 +60,7 @@ export interface ImplementPayload {
   name: string
   category?: ImplementCategory
   faculty?: Faculty
+  state?: Extract<ImplementState, 'DIS' | 'NDS'> // el admin solo puede alternar estos dos
   description: string
   image_file?: File
 }

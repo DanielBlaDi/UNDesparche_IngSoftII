@@ -14,6 +14,7 @@ interface EquipmentFiltersProps {
   category: ImplementCategory | ''
   onFacultyChange: (faculty: Faculty | '') => void
   onCategoryChange: (category: ImplementCategory | '') => void
+  hideFacultyFilter?: boolean
 }
 
 export function EquipmentFilters({
@@ -21,6 +22,7 @@ export function EquipmentFilters({
   category,
   onFacultyChange,
   onCategoryChange,
+  hideFacultyFilter = false,
 }: EquipmentFiltersProps) {
   const handleCategoryChange = (event: SelectChangeEvent) => {
     onCategoryChange(event.target.value as ImplementCategory | '')
@@ -31,39 +33,41 @@ export function EquipmentFilters({
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', xl: 'row' },
-        justifyContent: 'space-between',
+        justifyContent: hideFacultyFilter ? 'flex-end' : 'space-between',
         alignItems: { xs: 'stretch', xl: 'center' },
         gap: 3,
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 1,
-          overflowX: 'auto',
-          pb: 1,
-          '::-webkit-scrollbar': { display: 'none' },
-          scrollbarWidth: 'none',
-        }}
-      >
-        <Chip
-          label="Todos"
-          color="primary"
-          variant={faculty === '' ? 'filled' : 'outlined'}
-          onClick={() => onFacultyChange('')}
-          sx={{ flexShrink: 0 }}
-        />
-        {FACULTY_ENTRIES.map(([code, label]) => (
+      {!hideFacultyFilter && (
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 1,
+            overflowX: 'auto',
+            pb: 1,
+            '::-webkit-scrollbar': { display: 'none' },
+            scrollbarWidth: 'none',
+          }}
+        >
           <Chip
-            key={code}
-            label={label}
+            label="Todos"
             color="primary"
-            variant={faculty === code ? 'filled' : 'outlined'}
-            onClick={() => onFacultyChange(code)}
+            variant={faculty === '' ? 'filled' : 'outlined'}
+            onClick={() => onFacultyChange('')}
             sx={{ flexShrink: 0 }}
           />
-        ))}
-      </Box>
+          {FACULTY_ENTRIES.map(([code, label]) => (
+            <Chip
+              key={code}
+              label={label}
+              color="primary"
+              variant={faculty === code ? 'filled' : 'outlined'}
+              onClick={() => onFacultyChange(code)}
+              sx={{ flexShrink: 0 }}
+            />
+          ))}
+        </Box>
+      )}
 
       <Select
         value={category}

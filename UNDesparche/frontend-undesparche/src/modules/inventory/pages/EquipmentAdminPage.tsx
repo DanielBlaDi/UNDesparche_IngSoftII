@@ -33,22 +33,29 @@ type AdminTab = 'implementos' | 'reservas' | 'prestamos'
 export default function EquipmentAdminPage() {
   const { profile, firebaseUser, logout, hasRole } = useAuth()
   const [tab, setTab] = useState<AdminTab>('implementos')
+  const isSystemAdmin = hasRole('Administrador del Sistema')
 
   // --- Implementos ---
   const [facultyFilter, setFacultyFilter] = useState<Faculty | ''>('')
   const [categoryFilter, setCategoryFilter] = useState<ImplementCategory | ''>('')
-  const {
-    data: implementsList,
-    loading: implementsLoading,
-    error: implementsError,
-    refetch: refetchImplements,
-    create,
-    update,
-    remove,
-  } = useAdminImplements({
-    faculty: facultyFilter || undefined,
-    category: categoryFilter || undefined,
-  })
+  // Un Admin de Implementos siempre queda anclado a su propia facultad,
+  // sin importar lo que haya en el estado local del filtro.
+  const effectiveFacultyFilter: Faculty | '' = isSystemAdmin
+    ? facultyFilter
+    : (profile?.faculty as Faculty | undefined) ?? ''
+
+    const {
+      data: implementsList,
+      loading: implementsLoading,
+      error: implementsError,
+      refetch: refetchImplements,
+      create,
+      update,
+      remove,
+    } = useAdminImplements({
+      faculty: effectiveFacultyFilter || undefined,
+      category: categoryFilter || undefined,
+    })
 
   const [formOpen, setFormOpen] = useState(false)
   const [editingImplement, setEditingImplement] = useState<Implement | null>(null)
@@ -156,10 +163,11 @@ export default function EquipmentAdminPage() {
             }}
           >
             <EquipmentFilters
-              faculty={facultyFilter}
+              faculty={effectiveFacultyFilter}
               category={categoryFilter}
               onFacultyChange={setFacultyFilter}
               onCategoryChange={setCategoryFilter}
+              hideFacultyFilter={!isSystemAdmin}
             />
             <Button variant="contained" onClick={handleCreate} sx={{ flexShrink: 0 }}>
               Nuevo implemento
