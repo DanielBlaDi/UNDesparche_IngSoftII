@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Alert,
   Box,
@@ -22,6 +22,7 @@ import type {
   Faculty,
   Implement,
   ImplementCategory,
+  ImplementState,
   ImplementPayload,
 } from '../../inventory/types/inventory.types'
 
@@ -36,8 +37,18 @@ export default function SystemInventoryPage() {
   const [tab, setTab] = useState<AdminTab>('implementos')
 
   // --- Implementos ---
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [facultyFilter, setFacultyFilter] = useState<Faculty | ''>('')
   const [categoryFilter, setCategoryFilter] = useState<ImplementCategory | ''>('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [search])
+
   const {
     data: implementsList,
     loading: implementsLoading,
@@ -47,6 +58,7 @@ export default function SystemInventoryPage() {
     update,
     remove,
   } = useAdminImplements({
+    search: debouncedSearch || undefined,
     faculty: facultyFilter || undefined,
     category: categoryFilter || undefined,
   })
@@ -150,10 +162,12 @@ export default function SystemInventoryPage() {
             }}
           >
             <EquipmentFilters
-              faculty={facultyFilter}
+              search={search}
               category={categoryFilter}
-              onFacultyChange={setFacultyFilter}
+              faculty={facultyFilter}
+              onSearchChange={setSearch}
               onCategoryChange={setCategoryFilter}
+              onFacultyChange={setFacultyFilter}
             />
             <Button variant="contained" onClick={handleCreate} sx={{ flexShrink: 0 }}>
               Nuevo implemento

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Alert,
   Box,
@@ -19,7 +19,7 @@ import { useAdminBorrowings, useAdminImplements, useAdminReserves } from '../hoo
 import { EquipmentTable } from '../components/EquipmentTable'
 import { EquipmentForm } from '../components/EquipmentForm'
 import { EquipmentFilters } from '../components/EquipmentFilters'
-import { FACULTY_LABELS, type Faculty, type Implement, type ImplementCategory, type ImplementPayload } from '../types/inventory.types'
+import { FACULTY_LABELS, type Faculty, type Implement, type ImplementCategory, type ImplementState, type ImplementPayload } from '../types/inventory.types'
 import AdminLayout from '../../../shared/components/layout/AdminLayout'
 import type { SidebarItem } from '../../../shared/components/layout/AdminSidebar'
 
@@ -36,26 +36,37 @@ export default function EquipmentAdminPage() {
   const isSystemAdmin = hasRole('Administrador del Sistema')
 
   // --- Implementos ---
+  const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [facultyFilter, setFacultyFilter] = useState<Faculty | ''>('')
   const [categoryFilter, setCategoryFilter] = useState<ImplementCategory | ''>('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [search])
+
   // Un Admin de Implementos siempre queda anclado a su propia facultad,
   // sin importar lo que haya en el estado local del filtro.
   const effectiveFacultyFilter: Faculty | '' = isSystemAdmin
     ? facultyFilter
     : (profile?.faculty as Faculty | undefined) ?? ''
 
-    const {
-      data: implementsList,
-      loading: implementsLoading,
-      error: implementsError,
-      refetch: refetchImplements,
-      create,
-      update,
-      remove,
-    } = useAdminImplements({
-      faculty: effectiveFacultyFilter || undefined,
-      category: categoryFilter || undefined,
-    })
+  const {
+    data: implementsList,
+    loading: implementsLoading,
+    error: implementsError,
+    refetch: refetchImplements,
+    create,
+    update,
+    remove,
+  } = useAdminImplements({
+    search: debouncedSearch || undefined,
+    faculty: effectiveFacultyFilter || undefined,
+    category: categoryFilter || undefined,
+  })
 
   const [formOpen, setFormOpen] = useState(false)
   const [editingImplement, setEditingImplement] = useState<Implement | null>(null)
@@ -163,10 +174,12 @@ export default function EquipmentAdminPage() {
             }}
           >
             <EquipmentFilters
-              faculty={effectiveFacultyFilter}
+              search={search}
               category={categoryFilter}
-              onFacultyChange={setFacultyFilter}
+              faculty={effectiveFacultyFilter}
+              onSearchChange={setSearch}
               onCategoryChange={setCategoryFilter}
+              onFacultyChange={setFacultyFilter}
               hideFacultyFilter={!isSystemAdmin}
             />
             <Button variant="contained" onClick={handleCreate} sx={{ flexShrink: 0 }}>

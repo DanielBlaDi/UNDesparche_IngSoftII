@@ -1,4 +1,9 @@
-import { Box, Chip, MenuItem, Select, type SelectChangeEvent } from '@mui/material'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
+import Icon from '@mui/material/Icon'
 import {
   FACULTY_LABELS,
   IMPLEMENT_CATEGORY_LABELS,
@@ -6,83 +11,89 @@ import {
   type ImplementCategory,
 } from '../types/inventory.types'
 
-const FACULTY_ENTRIES = Object.entries(FACULTY_LABELS) as [Faculty, string][]
-const CATEGORY_ENTRIES = Object.entries(IMPLEMENT_CATEGORY_LABELS) as [ImplementCategory, string][]
+const categoryOptions: { value: ImplementCategory | ''; label: string }[] = [
+  { value: '', label: 'Todas las categorías' },
+  ...(Object.entries(IMPLEMENT_CATEGORY_LABELS) as [Exclude<ImplementCategory, ''>, string][]).map(
+    ([value, label]) => ({ value, label }),
+  ),
+]
 
-interface EquipmentFiltersProps {
-  faculty: Faculty | ''
+const facultyOptions: { value: Faculty | ''; label: string }[] = [
+  { value: '', label: 'Todas las facultades' },
+  ...(Object.entries(FACULTY_LABELS) as [Faculty, string][]).map(([value, label]) => ({
+    value,
+    label,
+  })),
+]
+
+export interface EquipmentFiltersProps {
+  search: string
   category: ImplementCategory | ''
-  onFacultyChange: (faculty: Faculty | '') => void
-  onCategoryChange: (category: ImplementCategory | '') => void
+  faculty?: Faculty | ''
+  onSearchChange: (value: string) => void
+  onCategoryChange: (value: ImplementCategory | '') => void
+  onFacultyChange?: (value: Faculty | '') => void
   hideFacultyFilter?: boolean
 }
 
 export function EquipmentFilters({
-  faculty,
+  search,
   category,
-  onFacultyChange,
+  faculty = '',
+  onSearchChange,
   onCategoryChange,
+  onFacultyChange,
   hideFacultyFilter = false,
 }: EquipmentFiltersProps) {
-  const handleCategoryChange = (event: SelectChangeEvent) => {
-    onCategoryChange(event.target.value as ImplementCategory | '')
-  }
-
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', xl: 'row' },
-        justifyContent: hideFacultyFilter ? 'flex-end' : 'space-between',
-        alignItems: { xs: 'stretch', xl: 'center' },
-        gap: 3,
-      }}
-    >
-      {!hideFacultyFilter && (
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 1,
-            overflowX: 'auto',
-            pb: 1,
-            '::-webkit-scrollbar': { display: 'none' },
-            scrollbarWidth: 'none',
-          }}
-        >
-          <Chip
-            label="Todos"
-            color="primary"
-            variant={faculty === '' ? 'filled' : 'outlined'}
-            onClick={() => onFacultyChange('')}
-            sx={{ flexShrink: 0 }}
-          />
-          {FACULTY_ENTRIES.map(([code, label]) => (
-            <Chip
-              key={code}
-              label={label}
-              color="primary"
-              variant={faculty === code ? 'filled' : 'outlined'}
-              onClick={() => onFacultyChange(code)}
-              sx={{ flexShrink: 0 }}
-            />
-          ))}
-        </Box>
-      )}
+    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2, width: '100%', flexWrap: 'wrap' }}>
+      <TextField
+        placeholder="Buscar implementos..."
+        value={search}
+        onChange={e => onSearchChange(e.target.value)}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon baseClassName="material-symbols-outlined" sx={{ fontSize: 20, color: 'text.secondary' }}>
+                  search
+                </Icon>
+              </InputAdornment>
+            ),
+          },
+        }}
+        sx={{ flex: { sm: 1 }, minWidth: 200 }}
+      />
 
       <Select
         value={category}
-        onChange={handleCategoryChange}
+        onChange={e => onCategoryChange(e.target.value as ImplementCategory | '')}
         displayEmpty
-        size="small"
-        sx={{ minWidth: 220, bgcolor: 'background.paper' }}
+        sx={{ minWidth: 160 }}
       >
-        <MenuItem value="">Todas las categorías</MenuItem>
-        {CATEGORY_ENTRIES.map(([code, label]) => (
-          <MenuItem key={code} value={code}>
-            {label}
+        {categoryOptions.map(c => (
+          <MenuItem key={c.value} value={c.value}>
+            {c.label}
           </MenuItem>
         ))}
       </Select>
+
+      {!hideFacultyFilter && onFacultyChange && (
+        <Select
+          value={faculty}
+          onChange={e => onFacultyChange(e.target.value as Faculty | '')}
+          displayEmpty
+          sx={{ minWidth: 180 }}
+        >
+          {facultyOptions.map(f => (
+            <MenuItem key={f.value} value={f.value}>
+              {f.label}
+            </MenuItem>
+          ))}
+        </Select>
+      )}
     </Box>
   )
 }
+
+export default EquipmentFilters

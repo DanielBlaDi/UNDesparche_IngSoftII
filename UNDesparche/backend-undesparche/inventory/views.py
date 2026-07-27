@@ -26,7 +26,7 @@ from .permissions import IsSystemAdminOrImplementAdmin
 class ImplementViewSet(viewsets.ModelViewSet):
     serializer_class = ImplementSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = {"category": ["exact"], "faculty": ["exact"]}
+    filterset_fields = {"category": ["exact"], "faculty": ["exact"], "state": ["exact"]}
     search_fields = ["name", "description"]
     http_method_names = ["get", "post", "patch", "delete"]
 

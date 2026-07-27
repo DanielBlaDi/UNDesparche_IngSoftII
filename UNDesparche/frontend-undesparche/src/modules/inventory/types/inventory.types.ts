@@ -111,5 +111,6 @@ export interface Borrowing {
 export interface ImplementListParams {
   category?: ImplementCategory
   faculty?: Faculty
+  state?: ImplementState
   search?: string
 }
