@@ -22,7 +22,6 @@ import type {
   Faculty,
   Implement,
   ImplementCategory,
-  ImplementState,
   ImplementPayload,
 } from '../../inventory/types/inventory.types'
 

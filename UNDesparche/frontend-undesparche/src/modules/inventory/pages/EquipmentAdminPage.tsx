@@ -19,7 +19,7 @@ import { useAdminBorrowings, useAdminImplements, useAdminReserves } from '../hoo
 import { EquipmentTable } from '../components/EquipmentTable'
 import { EquipmentForm } from '../components/EquipmentForm'
 import { EquipmentFilters } from '../components/EquipmentFilters'
-import { FACULTY_LABELS, type Faculty, type Implement, type ImplementCategory, type ImplementState, type ImplementPayload } from '../types/inventory.types'
+import { FACULTY_LABELS, type Faculty, type Implement, type ImplementCategory, type ImplementPayload } from '../types/inventory.types'
 import AdminLayout from '../../../shared/components/layout/AdminLayout'
 import type { SidebarItem } from '../../../shared/components/layout/AdminSidebar'
 
