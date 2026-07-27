@@ -3,8 +3,8 @@ import { useAuth } from '../../auth/hooks/useAuth'
 import { subscribeToEvent, unsubscribeFromEvent } from '../services/eventService'
 
 interface UseSubscriptionsReturn {
-  subscribe: (eventId: number) => Promise<void>
-  unsubscribe: (eventId: number) => Promise<void>
+  subscribe: (eventId: number, email?: string) => Promise<void>
+  unsubscribe: (eventId: number, email?: string) => Promise<void>
   toggleSubscription: (eventId: number, isSubscribed: boolean) => Promise<void>
   loading: boolean
   error: string | null
@@ -15,11 +15,11 @@ export function useSubscriptions(): UseSubscriptionsReturn {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const subscribe = useCallback(async (eventId: number) => {
+  const subscribe = useCallback(async (eventId: number, email?: string) => {
     setLoading(true)
     setError(null)
     try {
-      await subscribeToEvent(eventId, token)
+      await subscribeToEvent(eventId, token, email)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Error al suscribirse'
       setError(message)
@@ -29,11 +29,11 @@ export function useSubscriptions(): UseSubscriptionsReturn {
     }
   }, [token])
 
-  const unsubscribe = useCallback(async (eventId: number) => {
+  const unsubscribe = useCallback(async (eventId: number, email?: string) => {
     setLoading(true)
     setError(null)
     try {
-      await unsubscribeFromEvent(eventId, token)
+      await unsubscribeFromEvent(eventId, token, email)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Error al cancelar suscripción'
       setError(message)
