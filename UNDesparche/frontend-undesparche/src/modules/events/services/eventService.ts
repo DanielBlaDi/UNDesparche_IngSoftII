@@ -59,16 +59,18 @@ export async function publishEvent(id: number, token: string): Promise<Event> {
   }).then(parseEvent)
 }
 
-export async function subscribeToEvent(id: number, token: string | null): Promise<{ detail: string }> {
+export async function subscribeToEvent(id: number, token: string | null, email?: string): Promise<{ detail: string }> {
   return apiRequest<{ detail: string }>(`/events/${id}/subscribe/`, {
     method: 'POST',
     token,
+    body: !token && email ? JSON.stringify({ email }) : undefined,
   })
 }
 
-export async function unsubscribeFromEvent(id: number, token: string | null): Promise<{ detail: string }> {
+export async function unsubscribeFromEvent(id: number, token: string | null, email?: string): Promise<{ detail: string }> {
   return apiRequest<{ detail: string }>(`/events/${id}/unsubscribe/`, {
     method: 'POST',
     token,
+    body: !token && email ? JSON.stringify({ email }) : undefined,
   })
 }
