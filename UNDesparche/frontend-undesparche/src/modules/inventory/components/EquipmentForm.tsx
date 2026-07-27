@@ -14,7 +14,7 @@ import {
 import { useAuth } from '../../auth/hooks/useAuth'
 import {
   FACULTY_LABELS,
-  //IMPLEMENT_CATEGORY_LABELS,
+  IMPLEMENT_CATEGORY_LABELS,
   IMPLEMENT_STATE_LABELS,
   type Faculty,
   type Implement,
@@ -26,7 +26,7 @@ import {
 const EDITABLE_STATES: Extract<ImplementState, 'DIS' | 'NDS'>[] = ['DIS', 'NDS']
 
 const FACULTY_ENTRIES = Object.entries(FACULTY_LABELS) as [Faculty, string][]
-//const CATEGORY_ENTRIES = Object.entries(IMPLEMENT_CATEGORY_LABELS) as [ImplementCategory, string][]
+const CATEGORY_ENTRIES = Object.entries(IMPLEMENT_CATEGORY_LABELS) as [ImplementCategory, string][]
 
 interface EquipmentFormProps {
   open: boolean
@@ -99,6 +99,20 @@ export function EquipmentForm({ open, implement, onClose, onSave }: EquipmentFor
       <DialogTitle>{implement ? 'Editar implemento' : 'Nuevo implemento'}</DialogTitle>
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
         <TextField label="Nombre" value={name} onChange={e => setName(e.target.value)} fullWidth required />
+
+        <Select
+          value={category}
+          onChange={e => setCategory(e.target.value as ImplementCategory | '')}
+          displayEmpty
+          fullWidth
+        >
+          <MenuItem value="">Sin categoría</MenuItem>
+          {CATEGORY_ENTRIES.map(([code, label]) => (
+            <MenuItem key={code} value={code}>
+              {label}
+            </MenuItem>
+          ))}
+        </Select>
 
         <Select
           value={state}
