@@ -1,6 +1,6 @@
 from django.core.mail import send_mail
 from django.conf import settings
-
+import traceback
 from .content.events import EVENT_EMAIL_BUILDERS
 from .content.events import (
     build_subscription_confirmation,
@@ -58,6 +58,7 @@ def notify_subscription_confirmed(subscription) -> None:
         print("OK, despues de enviar")
     except Exception as e:
         print(e)
+        traceback.print_exc()
     
 
 

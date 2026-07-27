@@ -150,7 +150,7 @@ class EventViewSet(viewsets.ModelViewSet):
             subscription = Subscription.objects.create(
                 event=event, notification_email=email
             )
-
+        print("Entró a subscribe", flush=True)
         notify_subscription_confirmed(subscription)
 
         return Response(
