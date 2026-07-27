@@ -28,6 +28,8 @@ services:
       EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
       EMAIL_USE_TLS: ${EMAIL_USE_TLS}
       DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
+      FRONTEND_BASE_URL: ${FRONTEND_BASE_URL}
+      UNSUBSCRIBE_TOKEN_SALT: ${UNSUBSCRIBE_TOKEN_SALT}
     volumes:
       - ./backend-undesparche:/app
       - static_files:/app/staticfiles

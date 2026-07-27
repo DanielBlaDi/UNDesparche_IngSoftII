@@ -172,6 +172,8 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://localhost:5173")
+UNSUBSCRIBE_TOKEN_SALT = os.getenv("UNSUBSCRIBE_TOKEN_SALT", "event-unsubscribe")
 
 
 # EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"

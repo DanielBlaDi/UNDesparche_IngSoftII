@@ -50,7 +50,7 @@ def notify_event_subscribers(event, change_type: str) -> None:
 
 def notify_subscription_confirmed(subscription) -> None:
     """Individual: le llega solo a quien se acaba de suscribir."""
-    subject, html = build_subscription_confirmation(subscription.event)
+    subject, html = build_subscription_confirmation(subscription)
     print("antes de try")
     try:
         print("OK, antes de enviar")

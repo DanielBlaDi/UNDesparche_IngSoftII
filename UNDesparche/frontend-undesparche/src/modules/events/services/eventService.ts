@@ -74,3 +74,16 @@ export async function unsubscribeFromEvent(id: number, token: string | null, ema
     body: !token && email ? JSON.stringify({ email }) : undefined,
   })
 }
+
+export interface UnsubscribeByTokenResult {
+  detail: string
+  event_name: string | null
+  already: boolean
+}
+
+export async function unsubscribeByToken(unsubscribeToken: string): Promise<UnsubscribeByTokenResult> {
+  return apiRequest<UnsubscribeByTokenResult>('/events/unsubscribe/', {
+    method: 'POST',
+    body: JSON.stringify({ token: unsubscribeToken }),
+  })
+}
