@@ -39,9 +39,11 @@ def notify_event_subscribers(event, change_type: str) -> None:
     subject, html = builder(event)
 
     for subscription in event.subscriptions.select_related("user").all():
+        print("antes de try")
         try:
+            print("OK, antes de enviar")
             _send_to(subscription, subject, html)
-            print("OK")
+            print("OK, despues de enviar")
         except Exception as e:
             print(e)
 
@@ -49,9 +51,11 @@ def notify_event_subscribers(event, change_type: str) -> None:
 def notify_subscription_confirmed(subscription) -> None:
     """Individual: le llega solo a quien se acaba de suscribir."""
     subject, html = build_subscription_confirmation(subscription.event)
+    print("antes de try")
     try:
+        print("OK, antes de enviar")
         _send_to(subscription, subject, html)
-        print("OK")
+        print("OK, despues de enviar")
     except Exception as e:
         print(e)
     
@@ -62,8 +66,10 @@ def notify_unsubscription_confirmed(subscription) -> None:
     llamarse ANTES de subscription.delete(), ya que _send_to necesita
     leer el destinatario desde la instancia."""
     subject, html = build_unsubscription_confirmation(subscription.event)
+    print("antes de try")
     try:
+        print("OK, antes de enviar")
         _send_to(subscription, subject, html)
-        print("OK")
+        print("OK, despues de enviar")
     except Exception as e:
         print(e)
